@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:07:04.514601+02:00"
+						"dateAndTimeString" : "2024-04-05T10:52:16.560156+02:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:17:06.509053+02:00"
+						"dateAndTimeString" : "2024-04-05T10:56:09.443592+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "RDShrbbRDQCwJuNoCw+N0g=="
+					"uidString" : "QrxHT7fRDQCMzjtZDomdjg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This is the [repo](https://github.com/feenkcom/papers-moldable-exceptions) for a paper on Moldable Exceptions to be submitted to [Onward! 2024](https://2024.splashcon.org/track/splash-2024-Onward-papers) (Deadline April 25). The repo contains both LaTeX sources and the supporting code examples."
+				"string" : "Andrei Chiş"
 			},
 			{
 				"__type" : "textSnippet",
@@ -55,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:52:09.801707+02:00"
+						"dateAndTimeString" : "2024-04-05T10:56:03.515717+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,49 +66,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:52:11.173371+02:00"
+						"dateAndTimeString" : "2024-04-05T10:56:03.515717+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "V8rQsLbRDQCySSD/Cw+N0g=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "[[ME Notes]] "
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:06:51.077081+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-05T10:06:51.077081+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "7CnUrLbRDQCwJXy7Cw+N0g=="
+					"uidString" : "hJSDXLfRDQCQJ3TtDomdjg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -125,7 +88,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2024-04-05T10:06:51.042316+02:00"
+			"dateAndTimeString" : "2024-04-05T10:52:16.518137+02:00"
 		}
 	},
 	"editEmail" : {
@@ -136,15 +99,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2024-04-05T10:07:04.507092+02:00"
+			"dateAndTimeString" : "2024-04-05T10:52:16.518137+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Moldable Exceptions Paper"
+		"title" : "AC"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "1ea1d3ac-b6d1-0d00-b024-46dd0b0f8dd2"
+		"uuid" : "1f17474f-b7d1-0d00-8ccd-f7da0e899d8e"
 	}
 }
