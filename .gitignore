@@ -1,0 +1,9 @@
+_*
+comment.cut
+*.aux
+*.blg
+*.log
+*.out
+*.synctex.gz
+.DS_Store
+moldableExceptions.pdf
