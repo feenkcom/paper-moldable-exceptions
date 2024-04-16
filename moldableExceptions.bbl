@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{1}
+\begin{thebibliography}{5}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -37,6 +37,19 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
+\bibitem[\protect\citeauthoryear{Beller, Spruit, Spinellis, and Zaidman}{Beller
+  et~al\mbox{.}}{2018}]%
+        {Bell18a}
+\bibfield{author}{\bibinfo{person}{Moritz Beller}, \bibinfo{person}{Niels
+  Spruit}, \bibinfo{person}{Diomidis Spinellis}, {and} \bibinfo{person}{Andy
+  Zaidman}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{On the dichotomy of debugging behavior among
+  programmers}. In \bibinfo{booktitle}{\emph{Proceedings of the 40th
+  International Conference on Software Engineering}}.
+  \bibinfo{pages}{572--583}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Chi\c{s}, Denker, G\^irba, and
   Nierstrasz}{Chi\c{s} et~al\mbox{.}}{2015}]%
         {Chis15c}
@@ -56,6 +69,51 @@
 \newblock
 \shownote{Special issue on the 6th and 7th International Conference on Software
   Language Engineering ({SLE} 2013 and {SLE} 2014).}
+
+
+\bibitem[\protect\citeauthoryear{Hanson and Korn}{Hanson and Korn}{1997}]%
+        {Hans97a}
+\bibfield{author}{\bibinfo{person}{David~R. Hanson} {and}
+  \bibinfo{person}{Jeffrey~L. Korn}.} \bibinfo{year}{1997}\natexlab{}.
+\newblock \showarticletitle{A Simple and Extensible Graphical Debugger}. In
+  \bibinfo{booktitle}{\emph{IN WINTER 1997 USENIX CONFERENCE}}.
+  \bibinfo{pages}{173--184}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Lindeman, Kats, and Visser}{Lindeman
+  et~al\mbox{.}}{2011}]%
+        {Lind11a}
+\bibfield{author}{\bibinfo{person}{Ricky~T. Lindeman},
+  \bibinfo{person}{Lennart~C.L. Kats}, {and} \bibinfo{person}{Eelco Visser}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Declaratively Defining Domain-specific Language
+  Debuggers}.
+\newblock \bibinfo{journal}{\emph{SIGPLAN Not.}} \bibinfo{volume}{47},
+  \bibinfo{number}{3} (\bibinfo{date}{Oct.} \bibinfo{year}{2011}),
+  \bibinfo{pages}{127--136}.
+\newblock
+\showISSN{0362-1340}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2189751.2047885}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Wu, Gray, and Mernik}{Wu
+  et~al\mbox{.}}{2008}]%
+        {HuiW08a}
+\bibfield{author}{\bibinfo{person}{Hui Wu}, \bibinfo{person}{Jeff Gray}, {and}
+  \bibinfo{person}{Marjan Mernik}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Grammar-driven Generation of Domain-specific
+  Language Debuggers}.
+\newblock \bibinfo{journal}{\emph{Softw. Pract. Exper.}} \bibinfo{volume}{38},
+  \bibinfo{number}{10} (\bibinfo{date}{Aug.} \bibinfo{year}{2008}),
+  \bibinfo{pages}{1073--1103}.
+\newblock
+\showISSN{0038-0644}
+\urldef\tempurl%
+\url{https://doi.org/10.1002/spe.v38:10}
+\showDOI{\tempurl}
 
 
 \end{thebibliography}
