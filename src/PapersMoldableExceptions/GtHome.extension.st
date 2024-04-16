@@ -9,13 +9,3 @@ GtHome >> moldableExceptionsSection [
 		priority: 10;
 		yourself
 ]
-
-{ #category : #'*PapersMoldableExceptions' }
-GtHome >> oscarSection [
-	<gtHomeSection>
-	<gtExample>
-	<noTest>
-	^ OscarHomeSection new
-		priority: 5;
-		yourself
-]
