@@ -7,3 +7,11 @@ comment.cut
 *.synctex.gz
 .DS_Store
 moldableExceptions.pdf
+_*
+scg.bib
+*.aux
+*.blg
+*.log
+*.out
+*.synctex.gz
+.DS_Store
