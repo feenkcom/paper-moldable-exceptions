@@ -29,7 +29,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:04:53.127877+02:00"
+						"dateAndTimeString" : "2024-04-16T10:08:40.155034+02:00"
 					}
 				},
 				"uid" : {
@@ -39,7 +39,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "See {{gtPage:Extending the debugger through moldable exceptions|db=2j9m7db2i4oz116bexd7wbdxo}}  "
+				"string" : "`See {{gtPage:Extending the debugger through moldable exceptions|db=2j9m7db2i4oz116bexd7wbdxo}}  "
 			},
 			{
 				"__type" : "textSnippet",
@@ -624,7 +624,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-12T14:39:54.456549+02:00"
+												"dateAndTimeString" : "2024-04-12T14:40:14.679767+02:00"
 											}
 										},
 										"uid" : {
@@ -634,7 +634,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "**NB:** This view also adds actions. Currently this is done by subclassing, but will soon be by adding a meth"
+										"string" : "**NB:** This view also adds actions. Currently this is done by subclassing, but will soon be by adding an action method ([[AC]] just needs to finish and push)"
 									},
 									{
 										"__type" : "textSnippet",
