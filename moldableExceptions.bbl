@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -97,6 +97,16 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2189751.2047885}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1988}]%
+        {Meye88a}
+\bibfield{author}{\bibinfo{person}{Bertrand Meyer}.}
+  \bibinfo{year}{1988}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Disciplined Exceptions}}.
+\newblock \bibinfo{type}{TR-EI-22/EX}. \bibinfo{institution}{Interactive
+  Software Engineering}, \bibinfo{address}{Goleta, CA}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Wu, Gray, and Mernik}{Wu

@@ -10,7 +10,7 @@
 \acmYear{2018}
 \acmDOI{XXXXXXX.XXXXXXX}
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[Onward!]{Onward!}{Oct. 20-25, 2024}{Pasadena, CA}
+\acmConference[Onward!]{Onward!}{Oct.\ 20-25, 2024}{Pasadena, CA}
 \acmISBN{978-1-4503-XXXX-X/18/06}
 % ============================================================
 \input{macros}
@@ -59,19 +59,23 @@
 \renewcommand{\shortauthors}{Chi\c{s} et al.}
 
 \begin{abstract}
-\todo{DRAFT}
 Debugging is hard.
-All debuggers are the same.
+Debuggers are mostly the same.
 They show you a stack, a way to sample the state of the stack, and, if the debugger is live, a way to step through execution.
-Exceptions are always raised in a specific context.
-We can exploit this context to show more useful information when debugging.
-Moldable exceptions offer a lightweight mechanism to adapt a moldable debugger to the specific context of the exception raised to show more useful views and actions to a developer.
-We present, through a series of examples, how moldable exceptions can be added to a live programming environment.
-\tg{Debugging is hard. Most debuggers are the same. They show you a stack, a way to sample the state of the stack, and, if the debugger is live, a way to step through execution. In contrast, moldable debuggers change based on the context of the stack. Contextual debugging views and actions greatly improve our ability to reason about the current problem. Still, creating custom debuggers is much less trivial than extending an inspector with custom views and actions. In this paper, we introduce a lightweight mechanism centered around exceptions to create custom debugging views and actions: as exceptions hold the entire necessary debugging context, extending the debugger can be as easy as extending the inspector of an exception. We present, through a series of examples, how moldable exceptions can enhance a live programming environment.}
+The standard debugger mostly offers a clumsy, low-level interface to track down and fix bugs.
+A custom debugger, such as those developed for specific application domains, offers alternative interfaces more suitable to the specific execution context of the program being debugged.
+% In contrast, a ``moldable debugger'' offers alternative interfaces based on the current execution context.
+% In contrast, moldable debuggers change based on the context of the stack.
+Contextual debugging views and actions greatly improve our ability to reason about the current problem.
+Implementing such custom debuggers, however, is non-trivial, and poses a barrier to improving the debugging experience.
+% Still, creating custom debuggers is much less trivial than extending an inspector with custom views and actions.
+In this paper we introduce \emph{moldable exceptions}, a lightweight mechanism to adapt a debugger's interface based on contextual information provided by a raised exception.
+% In this paper, we introduce a lightweight mechanism centered around exceptions to create custom debugging views and actions: as exceptions hold the entire necessary debugging context, extending the debugger can be as easy as extending the inspector of an exception.
+%Moldable exceptions offer a lightweight mechanism to adapt a moldable debugger to the specific context of the exception raised to show more useful views and actions to a developer.
+We present, through a series of examples, how moldable exceptions can enhance a live programming environment.
 \end{abstract}
 
-
-\keywords{\todo{}}
+\keywords{Exceptions, debuggers, \todo{more ...}}
 
 %\received{20 February 2007}
 %\received[revised]{12 March 2009}
@@ -82,34 +86,54 @@ We present, through a series of examples, how moldable exceptions can be added t
 % ============================================================
 \section{Introduction}\label{sec:intro}
 
-\ac{For the abstract/introduction we could emphasise more that even if it is currently possible to have multiple custom debuggers in GT/Pharo, the extension mechanism plays an important role. If the cost is high, the chances that developers will do it decreases. Maybe a good discussion here would be the extensions for views/searches/actions. There the extensions mechanism is different and we created many extensions. But even if the debugger is extensible we have only a few custom debuggers as the effort to create one is high. We will still need to have standalone debuggers with a higher cost to create in some cases (for example the SmaCC debugger), but in many cases we will benefit from being able to integrate views/actions in the debugger in an easier way.\\
-In a way Moldable Exceptions augments the current extension mechanism for the debugger. In the current extension mechanism at each step in the execution we need to determine the list of available debuggers. For that we have multiple debuggers registered in the system, and we ask each debugger if it wants to handle the current context or not. With moldable exceptions in case we have also an exception in the current context we ask that exception to provide us with a list of of debugging views and actions to add to the current debugger and a list of new debugging interfaces.\\
-One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided. We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening. Users will not be exposed to exceptions, but developers need to reason about them. And if they can help, developers can actually have a bigger incentive to create custom exceptions.}
-
-\todo{Just a rough outline --- text to be rewritten}
-
 In the bad old days, all debuggers were the same.
 You had commands to sample the current execution state, and you had commands to step through the running code.
 Nowadays we have graphical debuggers that show us the run-time stack, and offer buttons instead of commands to step through the code, but they are still all the same.
 The trouble with this is that every debugging problem is different, but debuggers all show us the same thing.
 
-What if the debugger were to be aware of the kind of exception being raised, and instead of showing a generic debugger view, it would provide views and actions specific to the context of that exception?
-This is what \emph{moldable exceptions} do.
+There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages.
+These custom debuggers provide dedicated views and actions that are tailored to a specific application context.
+\todo{add a concrete example from related work}
+Building a custom debugger is, however, a non-trivial task, so this doesn't happen too often.
+\todo{evidence?}
+An \emph{extensible} debugger (such as {\tt deet}~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
+A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugger which activates alternative debugger interfaces depending on the current execution context, however the development of these alternative debuggers is still non-trivial.
 
-\todo{Explain the example}
+%\ac{For the abstract/introduction we could emphasise more that even if it is currently possible to have multiple custom debuggers in GT/Pharo, the extension mechanism plays an important role.
+%If the cost is high, the chances that developers will do it decreases.
+%Maybe a good discussion here would be the extensions for views/searches/actions.
+%There the extensions mechanism is different and we created many extensions.
+%But even if the debugger is extensible we have only a few custom debuggers as the effort to create one is high.
+%We will still need to have standalone debuggers with a higher cost to create in some cases (for example the SmaCC debugger), but in many cases we will benefit from being able to integrate views/actions in the debugger in an easier way.}
 
+%\ac{In a way Moldable Exceptions augments the current extension mechanism for the debugger.
+%In the current extension mechanism at each step in the execution we need to determine the list of available debuggers.
+%For that we have multiple debuggers registered in the system, and we ask each debugger if it wants to handle the current context or not.
+%With moldable exceptions in case we have also an exception in the current context we ask that exception to provide us with a list of of debugging views and actions to add to the current debugger and a list of new debugging interfaces.}
+
+We propose a new, lightweight mechanism, called \emph{moldable exceptions}, to dynamically adapt a moldable debugger using contextual information provided by the exception itself.
+In modern, object-oriented software, it is common practice to define dedicated classes of exceptions to signal individual run-time issues.
+Each exception therefore implicitly carries knowledge about the kind of issue being raised.
+Moldable exceptions leverage this knowledge by associating simple views and actions to be activated by a moldable debugger when that exception is raised.
+
+Consider the following example.
+In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two strings.
+In a normal setting, this assertion will fail, yielding a standard debugger view, as we see in \autoref{fig:genericDebugger}.
+It will then take some time to putter in the debugger interface to understand the specific error (the strings don't match), and why the strings don't match.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{stringComparisonSnippet}
   \caption{A failing string comparison assertion.}
   \label{fig:stringComparisonSnippet}
 \end{figure}
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{genericDebugger}
   \caption{A generic debugger view.}
   \label{fig:genericDebugger}
 \end{figure}
 
+Suppose that instead of seeing the generic debugger, we are offered a view that highlights the actual differences, as in \autoref{fig:stringComparisonView}.
+Such a view not only homes directly in on the specific problem, but also highlights the individual differences in a dedicated ``diff'' view.
+Furthermore, since the diff view already exists as a component used in other applications, the development effort is close to zero.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{stringComparisonView}
   \caption{A string diff debugger view.}
@@ -171,7 +195,15 @@ Providing views with access to the debugger context.
 Moldable exceptions for other platforms -- what do you need?
 }
 
-\ac{As a side note. Technically we have access to the raised exception just when initially opening the debugger. Any step over action for example could lead to another exception being raises. The standard behaviour in Pharo is to always open the debugger on an exception. The default one is OupsNullException, but also in case an exception was explicitly raised doing a step into for example, changes the exception to the default one. I think we should more or less also do that. Currently we never change the exception that was raised in the debugger, even if when stepping we get another one. Just we can extend that with the notion of the last “real” exception that was raised, and a history of exceptions raised in that debugging session. Like that we could have step actions/view added by an exception that can be use as long as another explicit exception was not raised.}
+\ac{As a side note.
+Technically we have access to the raised exception just when initially opening the debugger.
+Any step over action for example could lead to another exception being raises.
+The standard behaviour in Pharo is to always open the debugger on an exception.
+The default one is OupsNullException, but also in case an exception was explicitly raised doing a step into for example, changes the exception to the default one.
+I think we should more or less also do that.
+Currently we never change the exception that was raised in the debugger, even if when stepping we get another one.
+Just we can extend that with the notion of the last “real” exception that was raised, and a history of exceptions raised in that debugging session.
+Like that we could have step actions/view added by an exception that can be use as long as another explicit exception was not raised.}
 
 % ============================================================
 \section{Related work}\label{sec:related}
@@ -197,6 +229,14 @@ Declaratively Defining Domain-Specific Language Debuggers
 \cite{Lind11a}
 Using a high-level spec to define DSL debuggers
 
+Disciplined Exceptions
+\cite{Meye88a}
+First paper describing the use of exceptions in DbC.
+\ac{
+One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
+We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening.
+Users will not be exposed to exceptions, but developers need to reason about them.
+And if they can help, developers can actually have a bigger incentive to create custom exceptions.}
 
 % ============================================================
 \section{Conclusion}\label{sec:conclusion}
