@@ -184,7 +184,7 @@ Although the precondition violation is clearly reported, the debugger interface 
 What we perhaps would like to see is the current state of the game, in addition to a history of the past moves.
 Perhaps we could find these by navigation through the existing debugger views, but why not show them directly, after all, we know that when this exception is raised what it is that we'd like to see?
 Furthermore, if we already have such views defined elsewhere (we do!), it's not a question of defining new views, but of reusing them in the context of the debugger.
-We just need to define three view methods in the class \lmaf.
+We just need to define two view methods in the class \lmaf.
 
 Here is the definition of the first view, which simply forwards (delegates) the view to another existing one.
 Let's step through the code: \st{gtGameViewFor:} is the name of the view method, which takes as its argument \st{aView}, the view to be defined.
@@ -195,14 +195,13 @@ We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the 
 gtGameViewFor: aView	<gtExceptionDebuggingView>	^ aView forward		title: 'Game';		priority: 10;		object: [ move game ];		view: #gtPositionsFor:
 \end{code}
 
-We similarly define methods for the history of past moves, and a graphical view of the current move, and now the debugger, instead of showing us the classical debugger, will offer us these three views.
-The Game view shows us the current game state graphically, the Moves view shows us a browsable list of pas moves, and the Move view graphically depicts what happened during the last move.
+We similarly define a methods for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us these two views.
+The Game view shows us the current game state graphically, and the Moves view shows us a browsable list of past moves.
 Note that we can always switch to the old debugger by selecting the \emph{GT Debugger} button.
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoView1-Game}
   \includegraphics[width=\columnwidth]{ludoView2-Moves}
-  \includegraphics[width=\columnwidth]{ludoView3-Move}
   \caption{Custom debugger views for the Ludo game.}
   \label{fig:ludoCustomViews}
 \end{figure}
@@ -216,6 +215,19 @@ For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}
 
 % ============================================================
 \section{Providing domain-specific debugger interactions}\label{sec:interactions}
+
+The examples we have seen so far have reused existing inspector views
+
+\todo{
+Show the scripter example.
+To test user interface interaction, we use a ``scripter'', that builds a GUI with labeled elements that react to events.
+We can then check assertions about the state of the UI after these events.
+The classic debugger is too low level.
+Instead we can have a graph view of the hierarchy of scripter steps, showing the failed assertions.
+This is done in AssertionFailure -- gtScripterStepsFor:
+}
+
+\st{AssertionFailure>>#gtScripterStepsFor:}
 
 \todo{
 Mention other domains from the moldable debugger, such as event-driven apps and parsers?
