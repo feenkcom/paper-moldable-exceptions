@@ -1075,43 +1075,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "The debugger viewer checks if we are in the context of a Scripter: {{gtMethod:name=AssertionFailure>>#gtScripterStepsFor:}}"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-12T14:23:40.902016+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-12T14:23:40.902016+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "2wc3FEfSDQC1rdSWBMSAQA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : ""
 									}
 								]
 							},
@@ -1178,43 +1141,6 @@
 					"__type" : "textStyle"
 				},
 				"string" : "For moldable exceptions the cases that we have now in GT are:"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:00:40.283884+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:00:40.283884+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "p3vswUbSDQChuY1QBMSAQA=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
 			},
 			{
 				"__type" : "textSnippet",
@@ -1325,6 +1251,43 @@
 								"uidString" : "yvr2n7fRDQCPTrUnCdeYJQ=="
 							},
 							"code" : "GtLudoRecordingGameExamples new bEntersAndPlaysWithAahead\r\troll: 6;\r\tmoveTokenNamed: 'B';\r\tyourself."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-17T09:56:28.126546+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-17T10:05:56.789838+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "xSrL7afSDQCQ47zCB48tJA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "This is implemented by overriding {{gtMethod:name=GtLudoMove>>#assert:description:}} to throw a {{gtClass:name=LudoMoveAssertionFailure}} wrapping the {{gtClass:name=GtLudoMove}} instance."
 						},
 						{
 							"__type" : "textSnippet",
