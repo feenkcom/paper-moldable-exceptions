@@ -1,5 +1,6 @@
 % Modeled after sample-sigplan.tex
 \documentclass[sigplan,anonymous,review,10pt]{acmart}
+%\documentclass[sigplan,10pt]{acmart}
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -19,8 +20,8 @@
 %\renewcommand{\nbc}[3]{} % To hide reviewer comments
 \newcommand\on[1]{\nbc{ON}{#1}{olive}} % add more author macros here
 \newcommand\tg[1]{\nbc{TG}{#1}{blue}}
+\newcommand\ac[1]{\nbc{AC}{#1}{teal}}
 %\newcommand\XXX[1]{\nbc{XXX}{#1}{red}}
-%\newcommand\XXX[1]{\nbc{XXX}{#1}{teal}}
 %\newcommand\XXX[1]{\nbc{XXX}{#1}{violet}}
 \usepackage{caption}
 \captionsetup{aboveskip=5pt,belowskip=-10pt} % Adjust the space around figure captions
@@ -42,12 +43,12 @@
   \city{Wabern}
   \country{Switzerland}}
 \email{andrei.chis@feenk.com}
-%\author{Tudor G\^irba}
-%\affiliation{%
-%  \institution{feenk gmbh}
-%  \city{Wabern}
-%  \country{Switzerland}}
-%\email{tudor.girba@feenk.com}
+\author{Tudor G\^irba}
+\affiliation{%
+  \institution{feenk gmbh}
+  \city{Wabern}
+  \country{Switzerland}}
+\email{tudor.girba@feenk.com}
 \author{Oscar Nierstrasz}
 \affiliation{%
   \institution{feenk gmbh}
@@ -66,6 +67,7 @@ Exceptions are always raised in a specific context.
 We can exploit this context to show more useful information when debugging.
 Moldable exceptions offer a lightweight mechanism to adapt a moldable debugger to the specific context of the exception raised to show more useful views and actions to a developer.
 We present, through a series of examples, how moldable exceptions can be added to a live programming environment.
+\tg{Debugging is hard. Most debuggers are the same. They show you a stack, a way to sample the state of the stack, and, if the debugger is live, a way to step through execution. In contrast, moldable debuggers change based on the context of the stack. Contextual debugging views and actions greatly improve our ability to reason about the current problem. Still, creating custom debuggers is much less trivial than extending an inspector with custom views and actions. In this paper, we introduce a lightweight mechanism centered around exceptions to create custom debugging views and actions: as exceptions hold the entire necessary debugging context, extending the debugger can be as easy as extending the inspector of an exception. We present, through a series of examples, how moldable exceptions can enhance a live programming environment.}
 \end{abstract}
 
 
@@ -79,6 +81,10 @@ We present, through a series of examples, how moldable exceptions can be added t
 
 % ============================================================
 \section{Introduction}\label{sec:intro}
+
+\ac{For the abstract/introduction we could emphasise more that even if it is currently possible to have multiple custom debuggers in GT/Pharo, the extension mechanism plays an important role. If the cost is high, the chances that developers will do it decreases. Maybe a good discussion here would be the extensions for views/searches/actions. There the extensions mechanism is different and we created many extensions. But even if the debugger is extensible we have only a few custom debuggers as the effort to create one is high. We will still need to have standalone debuggers with a higher cost to create in some cases (for example the SmaCC debugger), but in many cases we will benefit from being able to integrate views/actions in the debugger in an easier way.\\
+In a way Moldable Exceptions augments the current extension mechanism for the debugger. In the current extension mechanism at each step in the execution we need to determine the list of available debuggers. For that we have multiple debuggers registered in the system, and we ask each debugger if it wants to handle the current context or not. With moldable exceptions in case we have also an exception in the current context we ask that exception to provide us with a list of of debugging views and actions to add to the current debugger and a list of new debugging interfaces.\\
+One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided. We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening. Users will not be exposed to exceptions, but developers need to reason about them. And if they can help, developers can actually have a bigger incentive to create custom exceptions.}
 
 \todo{Just a rough outline --- text to be rewritten}
 
@@ -132,6 +138,8 @@ We conclude in \autoref{sec:conclusion}.
 % ============================================================
 \section{Adding views and actions}\label{sec:views}
 
+\ac{On the structure side, after the section with the initial example, we could have a section describing the high-level model for the extension mechanism based on moldable exceptions.}
+
 \todo{
 This should function like a mini-tutorial, where we add debugger views to an existing class.
 We could use the Ludo game as a first example.
@@ -162,6 +170,8 @@ Discuss the LifeWare tests?
 Providing views with access to the debugger context.
 Moldable exceptions for other platforms -- what do you need?
 }
+
+\ac{As a side note. Technically we have access to the raised exception just when initially opening the debugger. Any step over action for example could lead to another exception being raises. The standard behaviour in Pharo is to always open the debugger on an exception. The default one is OupsNullException, but also in case an exception was explicitly raised doing a step into for example, changes the exception to the default one. I think we should more or less also do that. Currently we never change the exception that was raised in the debugger, even if when stepping we get another one. Just we can extend that with the notion of the last “real” exception that was raised, and a history of exceptions raised in that debugging session. Like that we could have step actions/view added by an exception that can be use as long as another explicit exception was not raised.}
 
 % ============================================================
 \section{Related work}\label{sec:related}
