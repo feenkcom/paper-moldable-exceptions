@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{10}
+\begin{thebibliography}{11}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -62,6 +62,21 @@
   International Conference on Software Engineering}}.
   \bibinfo{pages}{572--583}.
 \newblock
+
+
+\bibitem[\protect\citeauthoryear{Brant, Lecerf, Goubier, Ducasse, and
+  Black}{Brant et~al\mbox{.}}{2017}]%
+        {Brant17a}
+\bibfield{author}{\bibinfo{person}{John Brant}, \bibinfo{person}{Jason Lecerf},
+  \bibinfo{person}{Thierry Goubier}, \bibinfo{person}{St{\'e}phane Ducasse},
+  {and} \bibinfo{person}{Andrew Black}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \bibinfo{title}{Smacc: a compiler-compiler}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{http://books.pharo.org/booklet-Smacc/pdf/2018-10-21-Smacc-Compiler.pdf}
+\showURL{%
+\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Chi\c{s}, Denker, G\^irba, and

@@ -370,7 +370,7 @@ This custom debugger view decorates the source code with an explanation pointing
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{emptyViewError}
-  \caption{}
+  \caption{Catching an ``empty view'' error.}
   \label{fig:emptyViewError}
 \end{figure}
 
@@ -380,7 +380,7 @@ Clicking on the \emph{Apply refactoring and proceed} button will transform the s
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{emptyViewErrorFix}
-  \caption{}
+  \caption{Tranmsforming an empty view error.}
   \label{fig:emptyViewErrorFix}
 \end{figure}
 
@@ -405,19 +405,37 @@ As before, the custom debugger views and actions are mostly built from existing 
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The cost of creating these views and actions can be very low.
-At the time of writing we have implement some 26 custom debugger views, with an average of under 12 lines of code.
+At the time of writing we have implemented some 26 custom debugger views, with an average of under 12 lines of code.
 Over half of the views forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
 Several more are simple text, list or tree views, and only three create custom graphical widgets.
 
+The simplest debugging views are just like inspector views, and many of our examples just forward (delegate) to existing views, but more generally exceptions have access to the reified run-time stack at the time that they are raised, so debugger views can extract and present arbitrary run-time information.
+The \emph{Scripter steps} view we saw earlier in \autoref{fig:scripterStepsViewClicked} offers an example.
+The same approach could be used, for example, to present or highlight just the ``interesting'' stack frames, for example in an event-driven application, just the methods that are responsible for processing events.
+\on{AC: can you perhaps provide a better or more detailed example?}
 
+At this time, moldable exceptions only offer the possibility to provide alternative views and actions, but not alternative ways to step through the execution.
+Currently this is only possible by providing a completely separate debugger implementation.
+In \autoref{fig:smaccDebugger} we see such a dedicated debugger for SmaCC~\cite{Brant17a}, the Smalltalk compiler compiler framework that has been spawned on an invalid fragment of Java code.
+The SmaCC debugger offers the possibility step through the grammar rules of a parser and explore its execution state.
+\on{AC: is this something that we can foresee in the future? If so, what might it look like?}
 
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{smaccDebugger}
+  \caption{A custom SmaCC debugger on an invalid Java snippet.}
+  \label{fig:smaccDebugger}
+\end{figure}
 
+Our proof-of-concept implementation of moldable exceptions present here heavily leverages the existing infrastructure for moldable inspector views, but in principle there is nothing to prevent its application to other programming languages and IDEs.
+The basic idea is simple: any moldable tool must be prepared, whenever it is created, to examine the execution context of the objects it is initialized with, and use that context to adapt its behavior.
+In the case of a moldable debugger, this context is provided by the exception raised.
+Custom debugger views and actions must then be provided by the specific exception raised.
+One way to provide such views and actions is by specially annotated methods, but other means could be used, such as a naming convention, or a registry of debugger extensions.
+The precise extension method will depend on the language technology available.
+\on{More to say here?}
 
+\on{Other future directions?}
 
-\todo{
-Providing views with access to the debugger context.
-Moldable exceptions for other platforms -- what do you need?
-}
 
 \ac{As a side note.
 Technically we have access to the raised exception just when initially opening the debugger.
