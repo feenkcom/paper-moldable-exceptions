@@ -35,6 +35,7 @@
 \setboolean{anonymous}{true}
 \newcommand\anonymize[2]{\ifthenelse{\boolean{anonymous}}{#2}{#1}\xspace}
 \newcommand\feenk{\anonymize{feenk}{anonymous company}}
+\newcommand\deet{{\tt deet}\xspace}
 % ============================================================
 \begin{document}
 \title{Moldable Exceptions}
@@ -97,7 +98,7 @@ These custom debuggers provide dedicated views and actions that are tailored to 
 \todo{add a concrete example from related work}
 Building a custom debugger is, however, a non-trivial task, so this doesn't happen too often.
 \todo{evidence?}
-An \emph{extensible} debugger (such as {\tt deet}~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
+An \emph{extensible} debugger (such as \deet~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
 A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugger which activates alternative debugger interfaces depending on the current execution context, however the development of these alternative debuggers is still non-trivial.
 
 %\ac{For the abstract/introduction we could emphasise more that even if it is currently possible to have multiple custom debuggers in GT/Pharo, the extension mechanism plays an important role.
@@ -344,7 +345,12 @@ While the \st{deprecated:} message normally spawns a Debugger, when a transforma
 Here the transformation rule matches a send of \st{definition} for some receiver expression, and rewrites the message send to \st{definitionString}.
 
 \begin{code}
-ClassDescription>>definition	"Answer a String that defines the receiver."	self		deprecated: #definition		transformWith: '`@receiver definition' -> '`@receiver definitionString'.	^ self definitionString
+ClassDescription>>definition
+	"Answer a String that defines the receiver."
+	self
+		deprecated: #definition
+		transformWith: '`@receiver definition' -> '`@receiver definitionString'.
+	^ self definitionString
 \end{code}
 
 The fix is so straightforward, that it can be applied without any programmer intervention, or the need to spawn a debugger.
@@ -436,7 +442,6 @@ The precise extension method will depend on the language technology available.
 
 \on{Other future directions?}
 
-
 \ac{As a side note.
 Technically we have access to the raised exception just when initially opening the debugger.
 Any step over action for example could lead to another exception being raises.
@@ -450,36 +455,53 @@ Like that we could have step actions/view added by an exception that can be use 
 % ============================================================
 \section{Related work}\label{sec:related}
 
-\todo{Expand this list}
+\todo{Need more references and especially more recent ones.}
 
-Moldable Debugger
-\cite{Chis15c}
+Early debuggers provided a command-line interface to inspect and step through the execution of a running program or a \emph{post mortem} ``core dump.''
+With the advent of GUI-based IDEs, debuggers were also updated to offer interactive views to explore the execution state of a program and to step through its execution~\cite{Rose96a}.
 
-The Moldable Inspector
-\cite{Chis15a}
-Early version of Inspector did not have such an easy mechanism to add views.
 
-On the Dichotomy of Debugging Behavior Among Programmers
+% Debugging behavior
+Studies of developer debugging behavior have shown that many developers have difficulty using debuggers and often shy away from them.
+% Debugging: a review of the literature from an educational perspective
+``We note, however, that our experiences with debugging tools is that many of them use execution traces as a method of assisting students to understand the execution of a program. Tubaishat~\cite{Tuba01a} characterized the use of execution traces as an example of a shallow reasoning technique''~\cite{McCa08a}.
+% On the Dichotomy of Debugging Behavior Among Programmers
+``Debuggers are difficult to use. Another reason given by interviewees, even though seasoned engineers, was that `the debugger is a complicated beast' (I2) and that `debuggers that are available now are certainly not friendly tools and they don't lend toward self-exploration.'''
 \cite{Bell18a}
-Online developer survey shows that IDE-provided debuggers are not used as often as expected.
 
-A Simple and Extensible Graphical Debugger
-\cite{Hans97a}
-An early example of an extensible debugger
+% Extensible debuggers
+% A Simple and Extensible Graphical Debugger
+An early example of an extensible debugger is \deet~\cite{Hans97a}.
+Extensions to \deet were written Tcl/Tk or the Korn shell.
+The focus of the extension mechanism in \deet is on adding new debugger features, rather than providing debugging support for specific application contexts.
 
-Grammar-Driven Generation of Domain-Specific Language Debuggers
-\cite{HuiW08a}
-Generating debuggers for DSLs from the grammar spec.
+% Extensible Debugger Framework for Extensible Languages
+mbeddr~\cite{Voel17a} is a collection of languages and language extensions, mainly focusing on C, built with the Jetbrains MPS language workbench.
+mbeddr includes an extensible debugger framework~\cite{Pavl15a} that focuses on providing support for the individual language extension, not application specific customizations.
 
-Declaratively Defining Domain-Specific Language Debuggers
-\cite{Lind11a}
-Using a high-level spec to define DSL debuggers
+% DSL Debugger extensions
+There have been numerous efforts to develop specialized debuggers for domain-specific languages (DSLs) using a variety of approaches.
+%  Grammar-Driven Generation of Domain-Specific Language Debuggers
+Wu \etal report on grammar-driven generation of DSL debuggers~\cite{HuiW08a}.
+% Declaratively Defining Domain-Specific Language Debuggers
+Lindeman \etal leverage the Spoofax language workbench~\cite{Kats10a} declaratively defined DSL debuggers~\cite{Lind11a}.
+% D2X: An eXtensible conteXtual Debugger for Modern DSLs
+D2X~\cite{Brah23a} provides an API for DSLs to provide debugger extensions.
+All of these DSL debugger approaches focus on providing general debugging for a given DSL, not for more finely-grained application debugging issues.
 
-Disciplined Exceptions
-\cite{Meye88a}
-First paper describing the use of exceptions in DbC.
-\ac{
-One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
+% Moldable tools
+The Moldable Debugger~\cite{Chis15c} is an example of a ``moldable tool''~\cite{Chis17a} that adapts its behavior to a specific run-time application context.
+The original moldable debugger, however, still required some significant implementation effort to define an alternative debugger, much as the other approaches we have cited from literature.
+Similarly, the original Moldable Inspector~\cite{Chis15a} did not offer a very easy mechanism to provide custom inspector views depending on the object being inspected.
+Very quickly, however, the extension mechanism of using annotated methods to define inspector customizations was adopted and led to a large number of custom inspector views in the current version of \GT (over 3000 at last count).
+
+% Historical
+% Disciplined Exceptions
+Disciplined use of exceptions is a well-established practice in object-oriented software development~\cite{Meye88a}.
+The key insight and original contribution of this paper is to leverage exceptions as the hook to molding the behavior of the debugger.
+No previous approach to extensible debuggers, including the original moldable debugger, has taken this approach.
+
+\ac{One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
 We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening.
 Users will not be exposed to exceptions, but developers need to reason about them.
 And if they can help, developers can actually have a bigger incentive to create custom exceptions.}

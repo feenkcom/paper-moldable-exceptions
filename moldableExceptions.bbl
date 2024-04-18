@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{11}
+\begin{thebibliography}{19}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -64,6 +64,22 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Brahmakshatriya and
+  Amarasinghe}{Brahmakshatriya and Amarasinghe}{2023}]%
+        {Brah23a}
+\bibfield{author}{\bibinfo{person}{Ajay Brahmakshatriya} {and}
+  \bibinfo{person}{Saman Amarasinghe}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{{D2X}: An {eXtensible} {conteXtual} Debugger for
+  Modern {DSLs}}. In \bibinfo{booktitle}{\emph{Proceedings of the 21st ACM/IEEE
+  International Symposium on Code Generation and Optimization}}.
+  \bibinfo{pages}{162--172}.
+\newblock
+\urldef\tempurl%
+\url{http://groups.csail.mit.edu/commit/papers/2023/ajay-cgo23-d2x.pdf}
+\showURL{%
+\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Brant, Lecerf, Goubier, Ducasse, and
   Black}{Brant et~al\mbox{.}}{2017}]%
         {Brant17a}
@@ -100,6 +116,24 @@
   Language Engineering ({SLE} 2013 and {SLE} 2014).}
 
 
+\bibitem[\protect\citeauthoryear{Chi\c{s}, G\^irba, Kubelka, Nierstrasz,
+  Reichhart, and Syrel}{Chi\c{s} et~al\mbox{.}}{2017}]%
+        {Chis17a}
+\bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Tudor
+  G\^irba}, \bibinfo{person}{Juraj Kubelka}, \bibinfo{person}{Oscar
+  Nierstrasz}, \bibinfo{person}{Stefan Reichhart}, {and}
+  \bibinfo{person}{Aliaksei Syrel}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Moldable Tools for Object-oriented Development}.
+\newblock In \bibinfo{booktitle}{\emph{PAUSE: Present And Ulterior Software
+  Engineering}}, \bibfield{editor}{\bibinfo{person}{Bertrand~Meyer
+  Manuel~Mazzara}} (Ed.). \bibinfo{publisher}{Springer, Cham},
+  \bibinfo{pages}{77--101}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1007/978-3-319-67425-4_6}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Chi\c{s}, G\^irba, Nierstrasz, and
   Syrel}{Chi\c{s} et~al\mbox{.}}{2015b}]%
         {Chis15a}
@@ -129,6 +163,22 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Kats and Visser}{Kats and Visser}{2010}]%
+        {Kats10a}
+\bibfield{author}{\bibinfo{person}{Lennart C.~L. Kats} {and}
+  \bibinfo{person}{Eelco Visser}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{The {Spoofax} Language Workbench. {Rules} for
+  Declarative Specification of Languages and {IDEs}}. In
+  \bibinfo{booktitle}{\emph{OOPSLA'10: Proceedings of the 25th International
+  Conference on Object-Oriented Programming, Systems, Languages, and
+  Applications}}, \bibfield{editor}{\bibinfo{person}{Martin Rinard}} (Ed.).
+  \bibinfo{address}{Reno/Tahoe, NV, USA}, \bibinfo{pages}{444--463}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1869459.1869497}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Lindeman, Kats, and Visser}{Lindeman
   et~al\mbox{.}}{2011}]%
         {Lind11a}
@@ -145,6 +195,21 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2189751.2047885}
 \showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{McCauley, Fitzgerald, Lewandowski, Murphy,
+  Simon, Thomas, and Zander}{McCauley et~al\mbox{.}}{2008}]%
+        {McCa08a}
+\bibfield{author}{\bibinfo{person}{Renee McCauley}, \bibinfo{person}{Sue
+  Fitzgerald}, \bibinfo{person}{Gary Lewandowski}, \bibinfo{person}{Laurie
+  Murphy}, \bibinfo{person}{Beth Simon}, \bibinfo{person}{Lynda Thomas}, {and}
+  \bibinfo{person}{Carol Zander}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Debugging: a review of the literature from an
+  educational perspective}.
+\newblock \bibinfo{journal}{\emph{Computer Science Education}}
+  \bibinfo{volume}{18}, \bibinfo{number}{2} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{67--92}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1988}]%
@@ -184,6 +249,64 @@
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1145/1148493.1148513}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Pavletic, Voelter, Raza, Kolb, and
+  Kehrer}{Pavletic et~al\mbox{.}}{2015}]%
+        {Pavl15a}
+\bibfield{author}{\bibinfo{person}{Domenik Pavletic}, \bibinfo{person}{Markus
+  Voelter}, \bibinfo{person}{SyedAoun Raza}, \bibinfo{person}{Bernd Kolb},
+  {and} \bibinfo{person}{Timo Kehrer}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Extensible Debugger Framework for Extensible
+  Languages}.
+\newblock In \bibinfo{booktitle}{\emph{Reliable Software Technologies --
+  Ada--Europe 2015}}, \bibfield{editor}{\bibinfo{person}{Juan~Antonio de~la
+  Puente} {and} \bibinfo{person}{Tullio Vardanega}} (Eds.).
+  \bibinfo{series}{Lecture Notes in Computer Science},
+  Vol.~\bibinfo{volume}{9111}. \bibinfo{publisher}{Springer International
+  Publishing}, \bibinfo{pages}{33--49}.
+\newblock
+\showISBNx{978-3-319-19583-4}
+\urldef\tempurl%
+\url{https://doi.org/10.1007/978-3-319-19584-1_3}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Rosenberg}{Rosenberg}{1996}]%
+        {Rose96a}
+\bibfield{author}{\bibinfo{person}{Jonathan~B Rosenberg}.}
+  \bibinfo{year}{1996}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{How debuggers work: algorithms, data
+  structures, and architecture}}.
+\newblock \bibinfo{publisher}{John Wiley \& Sons, Inc.}
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Tubaishat}{Tubaishat}{2001}]%
+        {Tuba01a}
+\bibfield{author}{\bibinfo{person}{Abdallah Tubaishat}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{A Knowledge Base for Program Debugging}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the ACS/IEEE International
+  Conference on Computer Systems and Applications}}. \bibinfo{pages}{321}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Voelter, Kolb, Szab{\'o}, Ratiu, and van
+  Deursen}{Voelter et~al\mbox{.}}{2017}]%
+        {Voel17a}
+\bibfield{author}{\bibinfo{person}{Markus Voelter}, \bibinfo{person}{Bernd
+  Kolb}, \bibinfo{person}{Tam{\'a}s Szab{\'o}}, \bibinfo{person}{Daniel Ratiu},
+  {and} \bibinfo{person}{Arie van Deursen}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Lessons learned from developing mbeddr: a case
+  study in language engineering with {MPS}}.
+\newblock \bibinfo{journal}{\emph{Software {\&} Systems Modeling}}
+  (\bibinfo{date}{09 Jan.} \bibinfo{year}{2017}).
+\newblock
+\showISSN{1619-1374}
+\urldef\tempurl%
+\url{https://doi.org/10.1007/s10270-016-0575-4}
 \showDOI{\tempurl}
 
 
