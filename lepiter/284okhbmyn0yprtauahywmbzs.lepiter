@@ -1004,7 +1004,45 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [ ]
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T08:40:52.194428+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T08:47:55.361891+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "9bpF/brSDQClUQzwDX2s9g=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "We create a broken one for demo purposes: {{gtMethod:name=BrokenScripterExamples>>#pageWithClassClicked}}"
+									}
+								]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -1051,7 +1089,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T08:40:52.194428+02:00"
+									"dateAndTimeString" : "2024-04-18T10:11:36.842269+02:00"
 								}
 							},
 							"editEmail" : {
@@ -1062,17 +1100,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T08:47:55.361891+02:00"
+									"dateAndTimeString" : "2024-04-18T10:12:53.76893+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "9bpF/brSDQClUQzwDX2s9g=="
+								"uidString" : "FHXMQbzSDQCz8I6NCfJf9g=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "We create a broken one for demo purposes: {{gtMethod:name=BrokenScripterExamples>>#pageWithClassClicked}}"
+							"string" : "[[AC]] also suggests to look at {{gtMethod:name=GtSpotterByScripterExamples>>#spotterElementOnStartSampleActOnSecondCategoryWithDefaultCategoryActOn}} "
 						},
 						{
 							"__type" : "textSnippet",

@@ -49,7 +49,7 @@ BrokenScripterExamples >> pageWithClassClicked [
 				id: #content;
 				onChildAt: 1;
 				onChildAt: 1;
-				satisfies: [ :aPager | aPager pages size = 1 ] ].
+				value: [ :aPager | aPager pages size ] equals: 1 ].
 
 	^ aScripter
 ]
