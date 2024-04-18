@@ -37,6 +37,20 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
+\bibitem[\protect\citeauthoryear{Araya, Bergel, Cassou, Ducasse, and
+  Laval}{Araya et~al\mbox{.}}{2013}]%
+        {Pena13b}
+\bibfield{author}{\bibinfo{person}{Vanessa~Pe{\~n}a Araya},
+  \bibinfo{person}{Alexandre Bergel}, \bibinfo{person}{Damien Cassou},
+  \bibinfo{person}{St\'ephane Ducasse}, {and} \bibinfo{person}{Jannik Laval}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Scripting Visualizations with Mondrian}.
+\newblock In \bibinfo{booktitle}{\emph{Deep Into Pharo}}.
+  \bibinfo{publisher}{Square Bracket Associates}, \bibinfo{pages}{20}.
+\newblock
+\showISBNx{978-3-9523341-6-4}
+
+
 \bibitem[\protect\citeauthoryear{Beller, Spruit, Spinellis, and Zaidman}{Beller
   et~al\mbox{.}}{2018}]%
         {Bell18a}
@@ -156,20 +170,6 @@
 \urldef\tempurl%
 \url{https://doi.org/10.1145/1148493.1148513}
 \showDOI{\tempurl}
-
-
-\bibitem[\protect\citeauthoryear{na~Araya, Bergel, Cassou, Ducasse, and
-  Laval}{na~Araya et~al\mbox{.}}{2013}]%
-        {Pena13b}
-\bibfield{author}{\bibinfo{person}{Vanessa~Pe\ na Araya},
-  \bibinfo{person}{Alexandre Bergel}, \bibinfo{person}{Damien Cassou},
-  \bibinfo{person}{St\'ephane Ducasse}, {and} \bibinfo{person}{Jannik Laval}.}
-  \bibinfo{year}{2013}\natexlab{}.
-\newblock \showarticletitle{Scripting Visualizations with Mondrian}.
-\newblock In \bibinfo{booktitle}{\emph{Deep Into Pharo}}.
-  \bibinfo{publisher}{Square Bracket Associates}, \bibinfo{pages}{20}.
-\newblock
-\showISBNx{978-3-9523341-6-4}
 
 
 \bibitem[\protect\citeauthoryear{Wu, Gray, and Mernik}{Wu
