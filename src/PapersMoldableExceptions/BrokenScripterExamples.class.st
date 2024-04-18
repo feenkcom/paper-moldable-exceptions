@@ -8,6 +8,98 @@ Class {
 }
 
 { #category : #'example - play example' }
+BrokenScripterExamples >> pageOneWithClass [
+	<gtExample>
+	| aPage |
+	aPage := LeUIByScripterExamples new pageOne.
+	
+	aPage snippetBuilder 
+		string: '{{gtClass:Object}}';
+		add.
+	
+	^ aPage
+]
+
+{ #category : #'example - play example' }
+BrokenScripterExamples >> pageWithClassClicked [
+	<gtExample>
+	| aScripter |
+	aScripter := self pageWithClassIntoWorldTab.
+
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
+
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
+
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page was spawned';
+				id: #content;
+				onChildAt: 1;
+				onChildAt: 1;
+				satisfies: [ :aPager | aPager pages size = 1 ] ].
+
+	^ aScripter
+]
+
+{ #category : #'example - play example' }
+BrokenScripterExamples >> pageWithClassIntoWorldTab [
+	<gtExample>
+	| aScripter |
+	aScripter := GtWorldByScripterExamples new tabElementInScripter.
+
+	aScripter
+		doStep: [ :s | 
+			s
+				label: 'Show Coder space';
+				block: [ :aTabElement | 
+					| aStencil |
+					aStencil := [ | aPage |
+						aPage := self pageOneWithClass.
+						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+
+					GtWorldUtility
+						showSpaceWithIcon: BrGlamorousVectorIcons transparent
+						title: 'Lepiter Page'
+						with: aStencil
+						from: aTabElement ] ].
+
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page in a new tab';
+				value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
+
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab label';
+				value: [ :anElement | anElement tabs tabs second widget label asString ]
+					equals: 'Page One' ].
+
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+					description: [ 'Page tab must be selected' ] ].
+
+	^ aScripter
+]
+
+{ #category : #'example - play example' }
 BrokenScripterExamples >> playExample [
 	<gtExample>
 	| aScripter |
