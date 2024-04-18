@@ -163,8 +163,24 @@ We conclude in \autoref{sec:conclusion}.
 % ============================================================
 \section{Adding custom debugger views}\label{sec:views}
 
-Moldable exceptions are instances of an Exception class that has been extended with a dedicated method for each each custom debugger view or action.
-These methods are recognized by the moldable debugger through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
+Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a moldable object inspector~\cite{Chis15a}.
+When a moldable object inspector is opened on an object it looks for any view methods defined in the class of that object, and uses those methods to create custom views.
+For example, in \autoref{fig:onwardUrlInspectorView} we see an inspector on a \st{ZnUrl} object.
+Instead of just showing us the classical ``raw'' view of the objects instance variables, we see here one of several dedicated views providing detailed information about the URL.
+Just below we see part of the (Smalltalk) source code defining this view
+These view methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
+In this case the annotation is \st{<gtView>}, seen in the second line of the method.
+
+\begin{figure}[t]
+  \includegraphics[width=\columnwidth]{onwardUrlInspectorView}
+  \includegraphics[width=\columnwidth]{onwardUrlInspectorViewSource}
+  \caption{A moldable inspector view of a ZnUrl object and its source code.}
+  \label{fig:onwardUrlInspectorView}
+\end{figure}
+
+Moldable exceptions provide custom debugger views and actions in essentially the same way.
+Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each each custom debugger view or action.
+These methods are annotated with a \lst{<gt\-Exception\-Debugging\-View>} pragma.
 
 Let's go through a typical example.
 Suppose we have an implementation of a Ludo\footnote{A simple game in which players move tokens around a board based on the roll of a die.
@@ -368,6 +384,8 @@ Clicking on the \emph{Apply refactoring and proceed} button will transform the s
   \label{fig:emptyViewErrorFix}
 \end{figure}
 
+A custom debugger action, such as \emph{Fix it \& Proceed} or \emph{Retry} is defined in the same way as a custom debugger view: it is method with a particular annotation, in this case it is \st{<gtPhlowSameViewReturnDebugAction>} rather than \mbox{\st{<gtExceptionDebuggingView>}}, but  the mechanism is essentially the same.
+
 The default behavior of such fixits is to open a debugger with the possibility of applying a proposed code transformation.
 If, on the other hand, such code transformations should be applied automatically, this can be configured.
 In our proof-of-concept implementation of moldable exceptions, this is done by evaluation the following code, setting a flag in a globally accessible Singleton.
@@ -384,6 +402,17 @@ As before, the custom debugger views and actions are mostly built from existing 
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
+
+Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
+The cost of creating these views and actions can be very low.
+At the time of writing we have implement some 26 custom debugger views, with an average of under 12 lines of code.
+Over half of the views forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
+Several more are simple text, list or tree views, and only three create custom graphical widgets.
+
+
+
+
+
 
 \todo{
 Providing views with access to the debugger context.
