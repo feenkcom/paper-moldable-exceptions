@@ -87,6 +87,43 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T14:06:57.491268+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T14:06:58.226307+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "XnZ0i7/SDQCHiOJIAofGIA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "There can be three types of extensions based on the exception:"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
 								"items" : [
 									{
 										"__type" : "textSnippet",
@@ -337,7 +374,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-12T14:50:20.202199+02:00"
+												"dateAndTimeString" : "2024-04-18T14:07:26.910987+02:00"
 											}
 										},
 										"uid" : {
@@ -347,7 +384,75 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "By default a debugger will open. You can enable automatic transformations by running {{gtMethod:name=GtMoldableExceptionTransformationsSettings>>#allowAutomaticTransformations}}"
+										"string" : "By default a debugger will open. You can enable automatic transformations by running {{gtMethod:name=GtMoldableExceptionTransformationsSettings>>#allowAutomaticTransformations}}. "
+									},
+									{
+										"__type" : "pharoSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T14:57:27.785874+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T14:57:50.433528+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "lBITQMDSDQCISQ05AofGIA=="
+										},
+										"code" : "GtMoldableExceptionTransformationsSettings defaultInstance\r\tallowAutomaticTransformations."
+									},
+									{
+										"__type" : "pharoSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T14:57:50.931128+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-18T14:57:58.085364+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "ykJ0QcDSDQCIgDzRAofGIA=="
+										},
+										"code" : "GtMoldableExceptionTransformationsSettings defaultInstance\r\tdisableAutomaticTransformations"
 									},
 									{
 										"__type" : "textSnippet",
@@ -500,7 +605,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:34:18.310732+02:00"
+						"dateAndTimeString" : "2024-04-18T14:06:55.625527+02:00"
 					}
 				},
 				"editEmail" : {
@@ -511,7 +616,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:34:21.124864+02:00"
+						"dateAndTimeString" : "2024-04-18T14:07:21.229166+02:00"
 					}
 				},
 				"uid" : {
@@ -521,7 +626,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "There can be three types of extensions based on the exception:"
+				"string" : "# Contributions"
 			},
 			{
 				"__type" : "textSnippet",
@@ -603,6 +708,43 @@
 							"string" : "A simple case is {{gtMethod:name=ClassDescription>>#definition}}."
 						},
 						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T13:51:53.771033+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T13:52:12.536023+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "lsmWVb/SDQCBmZHNAofGIA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "We create a demo that shows how sends of `definition` are automatically rewritten."
+						},
+						{
 							"__type" : "pharoSnippet",
 							"children" : {
 								"__type" : "snippets",
@@ -616,7 +758,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T11:27:49.134015+02:00"
+									"dateAndTimeString" : "2024-04-18T13:50:33.674391+02:00"
 								}
 							},
 							"editEmail" : {
@@ -627,14 +769,48 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T11:29:17.232636+02:00"
+									"dateAndTimeString" : "2024-04-18T13:52:44.930004+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "CxZUUr3SDQCR12/rAGaKWA=="
+								"uidString" : "/ZzQUL/SDQCBcnDOAofGIA=="
 							},
-							"code" : "Object subclass: #Foo\r\tinstanceVariableNames: ''\r\tclassVariableNames: ''\r\tpackage: 'Foo'.\r#Foo asClass compile: 'deprecationDemo\r\t^ self class definition'.\r#Foo asClass new deprecationDemo.\r#Foo"
+							"code" : "DeprecationDemo class\r\t\tcompile: 'demo\r\t^ self class definition'."
+						},
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T13:49:23.921226+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T13:51:35.14512+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "PkOoTL/SDQCBOdnuAofGIA=="
+							},
+							"code" : "DeprecationDemo demo"
 						}
 					]
 				},
@@ -673,7 +849,42 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-12T14:36:02.777741+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-12T14:36:14.392471+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "qyJvQEfSDQC5wbbzBMSAQA=="
+							},
+							"code" : "JavaParser parse: 'public class'"
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -694,7 +905,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:01.507853+02:00"
+						"dateAndTimeString" : "2024-04-18T14:06:44.162253+02:00"
 					}
 				},
 				"uid" : {
@@ -704,41 +915,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:02.777741+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:14.392471+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "qyJvQEfSDQC5wbbzBMSAQA=="
-				},
-				"code" : "JavaParser parse: 'public class'"
+				"string" : "# SMaCC custom debugger"
 			}
 		]
 	},
