@@ -315,21 +315,75 @@ Obviously this does not prove that all domain-specific debugger interfaces will 
 % ============================================================
 \section{Enabling automated fixes}\label{sec:fixes}
 
-
+Many cases of common programming errors can be automatically repaired.
+A good example of this is that of deprecated methods for which a well-defined alternative is available.
+In Pharo Smalltalk\footnote{\url{https://pharo.org}} this is achieved with the \st{#deprecated:transformWith:} message defined in the class \st{Object}.
+It takes as arguments
+\begin{inparaenum}[(i)]
+	\item an explanatory string, and
+	\item a source code transformation rule.
+\end{inparaenum}    
+We see an example below, where the method \st{ClassDescription>>definition} has been deprecated, and should be replaced by \st{definitionString} in client code.
+While the \st{deprecated:} message normally spawns a Debugger, when a transformation rule is supplied, instead the client code is automatically rewritten, after which execution proceeds.
+Here the transformation rule matches a send of \st{definition} for some receiver expression, and rewrites the message send to \st{definitionString}.
 
 \begin{code}
 ClassDescription>>definition	"Answer a String that defines the receiver."	self		deprecated: #definition		transformWith: '`@receiver definition' -> '`@receiver definitionString'.	^ self definitionString
 \end{code}
 
-\todo{
-Introduce the deprecation special case.
-Collector views.
-Demo the empty view fix example.
-Discuss the LifeWare tests?
-}
+The fix is so straightforward, that it can be applied without any programmer intervention, or the need to spawn a debugger.
+In \autoref{fig:deprecationDemo} we see the result of running client code of the old, deprecated method.
+If we \emph{Play and Inspect} the method, we see that it is rewritten, and then directly evaluated.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{deprecationDemoBefore}
+  \includegraphics[width=\columnwidth]{deprecationDemoAfter}
+  \caption{Automatically rewriting a client of deprecated code, before and after.}
+  \label{fig:deprecationDemo}
+\end{figure}
+
+Unfortunately the automated fix for deprecated methods is bespoke behavior.
+Pharo offers no general mechanism for automatically fixing other kinds of simple programming errors.
+Moldable exceptions, however, offer a more general solution.
+
+Consider the case of a common programming error being that of providing to an API an object of the wrong type, or of the right type but the wrong state.
+While the first kind of mistake could arguably be caught a static type system, detecting objects being in a wrong state is rather a run-time issue, typically caught by a precondition.
+Some common cases can be fixed by rewriting the client code.
+In \autoref{fig:emptyViewError} we see the source code for a custom inspector view that incorrectly returns \st{aView} instead of \st{aView empty} in the preamble.
+This custom debugger view decorates the source code with an explanation pointing out the likely errors.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{emptyViewError}
+  \caption{}
+  \label{fig:emptyViewError}
+\end{figure}
+
+Since such preambles are a common idiom in defining GT inspector views, and the error is also not uncommon, it becomes easy to fix with the help of a transformation.
+\autoref{fig:emptyViewErrorFix} shows the result of performing the \emph{Fix it \& Proceed} action: a refactoring widget is generated that proposes a code transformation.
+Clicking on the \emph{Apply refactoring and proceed} button will transform the source code, leave the debugger, and evaluate the rewritten code.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{emptyViewErrorFix}
+  \caption{}
+  \label{fig:emptyViewErrorFix}
+\end{figure}
+
+The default behavior of such fixits is to open a debugger with the possibility of applying a proposed code transformation.
+If, on the other hand, such code transformations should be applied automatically, this can be configured.
+In our proof-of-concept implementation of moldable exceptions, this is done by evaluation the following code, setting a flag in a globally accessible Singleton.
+
+\begin{code}
+GtMoldableExceptionTransformationsSettings defaultInstance allowAutomaticTransformations.
+\end{code}
+
+The \st{signal} method of exception classes can then optionally consult this flag to decide whether to spawn a debugger or apply the transformation.
+
+As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
+
+\todo{Discuss the LifeWare tests?}
 
 % ============================================================
-\section{Future directions}\label{sec:directions}
+\section{Discussion and future directions}\label{sec:directions}
 
 \todo{
 Providing views with access to the debugger context.
