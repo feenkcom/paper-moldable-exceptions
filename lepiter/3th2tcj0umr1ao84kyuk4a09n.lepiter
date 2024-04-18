@@ -564,7 +564,79 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T11:24:08.201591+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T11:24:18.786519+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "WoigRL3SDQCQGPDCAGaKWA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "A simple case is {{gtMethod:name=ClassDescription>>#definition}}."
+						},
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T11:27:49.134015+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-18T11:29:29.034511+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "CxZUUr3SDQCR12/rAGaKWA=="
+							},
+							"code" : "Object subclass: #Foo\r\tinstanceVariableNames: ''\r\tclassVariableNames: ''\r\tpackage: 'Foo'.\r#Foo asClass compile: 'deprecationDemo\r\t^ self class definition'.\r#Foo asClass new deprecationDemo.\r#Foo asClass >> #deprecationDemo."
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -585,7 +657,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:01.325061+02:00"
+						"dateAndTimeString" : "2024-04-18T11:23:58.963097+02:00"
 					}
 				},
 				"uid" : {
@@ -595,7 +667,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "# Deprecation example"
 			},
 			{
 				"__type" : "textSnippet",
