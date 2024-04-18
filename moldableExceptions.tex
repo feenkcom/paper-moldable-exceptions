@@ -192,7 +192,13 @@ The method is annotated with \lst{<gtExceptionDebuggingView>}, which tells the m
 We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the view a title and a priority (order in which views) appear, and we specify the object to forward to (the move's \st{game}) and the already existing view method to forward to (\st{gtPositionsFor:}).
 
 \begin{code}
-gtGameViewFor: aView	<gtExceptionDebuggingView>	^ aView forward		title: 'Game';		priority: 10;		object: [ move game ];		view: #gtPositionsFor:
+gtGameViewFor: aView
+	<gtExceptionDebuggingView>
+	^ aView forward
+		title: 'Game';
+		priority: 10;
+		object: [ move game ];
+		view: #gtPositionsFor:
 \end{code}
 
 We similarly define a methods for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us these two views.
@@ -206,9 +212,29 @@ Note that we can always switch to the old debugger by selecting the \emph{GT Deb
   \label{fig:ludoCustomViews}
 \end{figure}
 
+In \autoref{fig:ludoCustomViewsSource} we can see that the definition of the \emph{Moves} debugger view forwards to an existing Object Inspector view also called \emph{Moves}, but defined in the \st{GtLudoRecordingGame} class.
+The existing view uses just a few lines of code to create a browsable list of past moves with several columns for the details of each move.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{ludoView2-Moves-Source}
+  \caption{Browsing the source code of debugger views.}
+  \label{fig:ludoCustomViewsSource}
+\end{figure}
+
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
 \begin{code}
-gtTwoPanesStringDiffFor: aView	<gtView>	<gtExceptionDebuggingView>	| assertionContext |	self gtHasStack ifFalse: [ ^ aView empty ].	assertionContext := self gtLocateAssertEqualsContextWithComparableTypes.	assertionContext ifNil: [ ^ aView empty ].	^ aView forward		title: 'Textual Diff';		priority: 0;		object: [ assertionContext ];		view: #gtTwoPanesStringDiffFor:
+gtTwoPanesStringDiffFor: aView
+	<gtView>
+	<gtExceptionDebuggingView>
+	| assertionContext |
+	self gtHasStack ifFalse: [ ^ aView empty ].
+	assertionContext := self gtLocateAssertEqualsContextWithComparableTypes.
+	assertionContext ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Textual Diff';
+		priority: 0;
+		object: [ assertionContext ];
+		view: #gtTwoPanesStringDiffFor:
 \end{code}
 The key difference is that not every \st{AssertionFailure} is raised as the result of a string comparison.
 For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}) in case the assertion did not fail in the context of an \st{assert:equals:} check.
@@ -268,6 +294,10 @@ Like that we could have step actions/view added by an exception that can be use 
 
 Moldable Debugger
 \cite{Chis15c}
+
+The Moldable Inspector
+\cite{Chis15a}
+Early version of Inspector did not have such an easy mechanism to add views.
 
 On the Dichotomy of Debugging Behavior Among Programmers
 \cite{Bell18a}
