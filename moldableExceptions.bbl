@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{6}
+\begin{thebibliography}{10}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -51,11 +51,11 @@
 
 
 \bibitem[\protect\citeauthoryear{Chi\c{s}, Denker, G\^irba, and
-  Nierstrasz}{Chi\c{s} et~al\mbox{.}}{2015}]%
+  Nierstrasz}{Chi\c{s} et~al\mbox{.}}{2015a}]%
         {Chis15c}
 \bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Marcus
   Denker}, \bibinfo{person}{Tudor G\^irba}, {and} \bibinfo{person}{Oscar
-  Nierstrasz}.} \bibinfo{year}{2015}\natexlab{}.
+  Nierstrasz}.} \bibinfo{year}{2015}\natexlab{a}.
 \newblock \showarticletitle{Practical domain-specific debuggers using the
   {Moldable Debugger} framework}.
 \newblock \bibinfo{journal}{\emph{Computer Languages, Systems \& Structures}}
@@ -69,6 +69,25 @@
 \newblock
 \shownote{Special issue on the 6th and 7th International Conference on Software
   Language Engineering ({SLE} 2013 and {SLE} 2014).}
+
+
+\bibitem[\protect\citeauthoryear{Chi\c{s}, G\^irba, Nierstrasz, and
+  Syrel}{Chi\c{s} et~al\mbox{.}}{2015b}]%
+        {Chis15a}
+\bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Tudor
+  G\^irba}, \bibinfo{person}{Oscar Nierstrasz}, {and} \bibinfo{person}{Aliaksei
+  Syrel}.} \bibinfo{year}{2015}\natexlab{b}.
+\newblock \showarticletitle{The {Moldable} {Inspector}}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2015 ACM International Symposium
+  on New Ideas, New Paradigms, and Reflections on Programming and Software}}
+  (Pittsburgh, PA, USA) \emph{(\bibinfo{series}{Onward! 2015})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{44--60}.
+\newblock
+\showISBNx{978-1-4503-3688-8}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2814228.2814234}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Hanson and Korn}{Hanson and Korn}{1997}]%
@@ -107,6 +126,50 @@
 \newblock \bibinfo{type}{TR-EI-22/EX}. \bibinfo{institution}{Interactive
   Software Engineering}, \bibinfo{address}{Goleta, CA}.
 \newblock
+
+
+\bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1992}]%
+        {Meye92b}
+\bibfield{author}{\bibinfo{person}{Bertrand Meyer}.}
+  \bibinfo{year}{1992}\natexlab{}.
+\newblock \showarticletitle{Applying Design by Contract}.
+\newblock \bibinfo{journal}{\emph{IEEE Computer (Special Issue on Inheritance
+  \& Classification)}} \bibinfo{volume}{25}, \bibinfo{number}{10}
+  (\bibinfo{date}{Oct.} \bibinfo{year}{1992}), \bibinfo{pages}{40--52}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/2.161279}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Meyer, G\^irba, and Lungu}{Meyer
+  et~al\mbox{.}}{2006}]%
+        {Meye06a}
+\bibfield{author}{\bibinfo{person}{Michael Meyer}, \bibinfo{person}{Tudor
+  G\^irba}, {and} \bibinfo{person}{Mircea Lungu}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Mondrian: An Agile Visualization Framework}. In
+  \bibinfo{booktitle}{\emph{ACM Symposium on Software Visualization
+  (SoftVis'06)}}. \bibinfo{publisher}{ACM Press}, \bibinfo{address}{New York,
+  NY, USA}, \bibinfo{pages}{135--144}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1148493.1148513}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{na~Araya, Bergel, Cassou, Ducasse, and
+  Laval}{na~Araya et~al\mbox{.}}{2013}]%
+        {Pena13b}
+\bibfield{author}{\bibinfo{person}{Vanessa~Pe\ na Araya},
+  \bibinfo{person}{Alexandre Bergel}, \bibinfo{person}{Damien Cassou},
+  \bibinfo{person}{St\'ephane Ducasse}, {and} \bibinfo{person}{Jannik Laval}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Scripting Visualizations with Mondrian}.
+\newblock In \bibinfo{booktitle}{\emph{Deep Into Pharo}}.
+  \bibinfo{publisher}{Square Bracket Associates}, \bibinfo{pages}{20}.
+\newblock
+\showISBNx{978-3-9523341-6-4}
 
 
 \bibitem[\protect\citeauthoryear{Wu, Gray, and Mernik}{Wu
