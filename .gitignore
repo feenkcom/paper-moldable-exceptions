@@ -6,7 +6,7 @@ comment.cut
 *.out
 *.synctex.gz
 .DS_Store
-moldableExceptions.pdf
+moldableExceptions*.pdf
 _*
 scg.bib
 *.aux

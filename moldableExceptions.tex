@@ -77,7 +77,7 @@ In this paper we introduce \emph{moldable exceptions}, a lightweight mechanism t
 We present, through a series of examples, how moldable exceptions can enhance a live programming environment.
 \end{abstract}
 
-\keywords{Exceptions, debuggers, \todo{more ...}}
+\keywords{Exceptions, debuggers, customization.}
 
 %\received{20 February 2007}
 %\received[revised]{12 March 2009}
@@ -95,11 +95,9 @@ The trouble with this is that every debugging problem is different, but debugger
 
 There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages.
 These custom debuggers provide dedicated views and actions that are tailored to a specific application context.
-\todo{add a concrete example from related work}
 Building a custom debugger is, however, a non-trivial task, so this doesn't happen too often.
-\todo{evidence?}
 An \emph{extensible} debugger (such as \deet~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
-A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugger which activates alternative debugger interfaces depending on the current execution context, however the development of these alternative debuggers is still non-trivial.
+A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugger that can activate alternative debugger interfaces depending on the current execution context, however the development of these alternative debuggers is still non-trivial.
 
 %\ac{For the abstract/introduction we could emphasise more that even if it is currently possible to have multiple custom debuggers in GT/Pharo, the extension mechanism plays an important role.
 %If the cost is high, the chances that developers will do it decreases.
@@ -119,46 +117,45 @@ Each exception therefore implicitly carries knowledge about the kind of issue be
 Moldable exceptions leverage this knowledge by associating simple views and actions to be activated by a moldable debugger when that exception is raised.
 
 Consider the following example.
-In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two strings.\footnote{All the examples are written in Pharo Smalltalk, running in the open-source Glamorous Toolkit IDE. \url{https://gtoolkit.com}}
-In a normal setting, this assertion will fail, yielding a standard debugger view, as we see in \autoref{fig:genericDebugger}.
-It will then take some time to putter in the debugger interface to understand the specific error (the strings don't match), and why the strings don't match.
+In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two strings.\footnote{All the examples are written in Pharo Smalltalk (\url{https://pharo.org}), running in the open-source Glamorous Toolkit IDE (\url{https://gtoolkit.com}).}
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{stringComparisonSnippet}
   \caption{A failing string comparison assertion.}
   \label{fig:stringComparisonSnippet}
 \end{figure}
+In a normal setting, this assertion will fail, yielding a standard debugger view, as we see in \autoref{fig:genericDebugger}.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{genericDebugger}
   \caption{A generic debugger view.}
   \label{fig:genericDebugger}
 \end{figure}
+It will then take a developer some time to putter around in the debugger interface to understand the specific error (the strings don't match), and why the strings don't match.
 
 Suppose that instead of seeing the generic debugger, we are offered a view that highlights the actual differences, as in \autoref{fig:stringComparisonView}.
-Such a view not only homes directly in on the specific problem, but also highlights the individual differences in a dedicated ``diff'' view.
-Furthermore, since the diff view already exists as a component used in other applications, the development effort is close to zero.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{stringComparisonView}
   \caption{A string diff debugger view.}
   \label{fig:stringComparisonView}
 \end{figure}
+Such a view not only homes directly in on the specific problem, but also highlights the individual differences in a dedicated ``diff'' view.
+Furthermore, since the diff view already exists as a component used in other applications, the development effort is close to zero.
 
 Moldable exceptions work as follows: when an exception is raised, the exception (an object) is caught and passed to the debugger.
 Every exception not only provides the debugger with the context it needs to generate the debugging UI, but it can also offer alternative views and actions.
 In the case of our implementation, this is achieved by the exception class providing specially annotated debugger extension methods.
 
 This simple mechanism allows moldable exceptions to do three things:
-\begin{inparaenum}[(i)]
+\begin{enumerate}[(i)]
 	\item provide domain-specific debugging views and actions,
 	\item offer new debugger GUI interactions, and
 	\item enable automated fixes (code transformations) for common programming errors.
-\end{inparaenum}    
+\end{enumerate}
 
-\todo{add section overview}
-In \autoref{sec:views} we will ...
-\autoref{sec:interactions}
-\autoref{sec:fixes}
-\autoref{sec:directions}
-We discuss related work in \autoref{sec:related}.
+We will illustrate these three points with numerous examples.
+In \autoref{sec:views} we show how custom debugger views can easily be defined by adding simple annotated view methods to the class of a moldable exception.
+In \autoref{sec:interactions} we show how a richer debugger interface can be provided in much the same way by leveraging existing GUI frameworks.
+Finally we show an example of moldable exceptions enabling automated fixes in \autoref{sec:fixes}.
+We summarize our contributions and discuss some possible future work in \autoref{sec:directions}, and we discuss related work in \autoref{sec:related}.
 We conclude in \autoref{sec:conclusion}.
 
 % ============================================================
@@ -334,7 +331,7 @@ Obviously this does not prove that all domain-specific debugger interfaces will 
 
 Many cases of common programming errors can be automatically repaired.
 A good example of this is that of deprecated methods for which a well-defined alternative is available.
-In Pharo Smalltalk\footnote{\url{https://pharo.org}} this is achieved with the \st{#deprecated:transformWith:} message defined in the class \st{Object}.
+In Pharo Smalltalk this is achieved with the \st{#deprecated:transformWith:} message defined in the class \st{Object}.
 It takes as arguments
 \begin{inparaenum}[(i)]
 	\item an explanatory string, and
