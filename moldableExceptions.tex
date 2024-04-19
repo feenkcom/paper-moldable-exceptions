@@ -385,15 +385,15 @@ The \st{signal} method of exception classes can then optionally consult this fla
 
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
-% \todo{Discuss the LifeWare tests?}
+\on{AC: Discuss the LifeWare tests?}
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The cost of creating these views and actions can be very low.
-At the time of writing we have implemented some 26 custom debugger views, with an average of under 12 lines of code.
-Over half of the views forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
+At the time of writing we have implemented some 26 custom debugger views, in an average of under 12 lines of code.
+Over half of these are forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
 Several more are simple text, list or tree views, and only three create custom graphical widgets.
 
 The simplest debugging views are just like inspector views, and many of our examples just forward (delegate) to existing views, but more generally exceptions have access to the reified run-time stack at the time that they are raised, so debugger views can extract and present arbitrary run-time information.
@@ -404,20 +404,20 @@ The same approach could be used, for example, to present or highlight just the `
 At this time, moldable exceptions only offer the possibility to provide alternative views and actions, but not alternative ways to step through the execution.
 Currently this is only possible by providing a completely separate debugger implementation.
 In \autoref{fig:smaccDebugger} we see such a dedicated debugger for SmaCC~\cite{Brant17a}, the Smalltalk compiler compiler framework that has been spawned on an invalid fragment of Java code.
-The SmaCC debugger offers the possibility step through the grammar rules of a parser and explore its execution state.
-\on{AC: is this something that we can foresee in the future? If so, what might it look like?}
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{smaccDebugger}
   \caption{A custom SmaCC debugger on an invalid Java snippet.}
   \label{fig:smaccDebugger}
 \end{figure}
+The SmaCC debugger offers the possibility to step through the grammar rules of a parser and explore its execution state.
 
-Our proof-of-concept implementation of moldable exceptions present here heavily leverages the existing infrastructure for moldable inspector views, but in principle there is nothing to prevent its application to other programming languages and IDEs.
+\on{AC: is extending a debugger with custom stepping behavior something that we can foresee in the future? If so, what might it look like?}
+
+Our proof-of-concept implementation of moldable exceptions presented here heavily leverages the existing infrastructure for moldable inspector views in \GT, but in principle there is nothing to prevent its application to other programming languages and IDEs.
 The basic idea is simple: any moldable tool must be prepared, whenever it is created, to examine the execution context of the objects it is initialized with, and use that context to adapt its behavior.
 In the case of a moldable debugger, this context is provided by the exception raised.
 Custom debugger views and actions must then be provided by the specific exception raised.
-One way to provide such views and actions is by specially annotated methods, but other means could be used, such as a naming convention, or a registry of debugger extensions.
+One way to provide such views and actions is through specially annotated methods, but other means could be used, such as naming conventions, or a registry of debugger extensions.
 The precise extension method will depend on the language technology available.
 \on{More to say here?}
 
@@ -432,11 +432,12 @@ I think we should more or less also do that.
 Currently we never change the exception that was raised in the debugger, even if when stepping we get another one.
 Just we can extend that with the notion of the last “real” exception that was raised, and a history of exceptions raised in that debugging session.
 Like that we could have step actions/view added by an exception that can be use as long as another explicit exception was not raised.}
+\on{Can you write a paragraph explaining this?}
 
 % ============================================================
 \section{Related work}\label{sec:related}
 
-\todo{Need more references and especially more recent ones.}
+\on{AC: Can you provide more references and especially more recent ones?}
 
 Early debuggers provided a command-line interface to inspect and step through the execution of a running program or a \emph{post mortem} ``core dump.''
 With the advent of GUI-based IDEs, debuggers were also updated to offer interactive views to explore the execution state of a program and to step through its execution~\cite{Rose96a}.
@@ -445,9 +446,11 @@ With the advent of GUI-based IDEs, debuggers were also updated to offer interact
 % Debugging behavior
 Studies of developer debugging behavior have shown that many developers have difficulty using debuggers and often shy away from them.
 % Debugging: a review of the literature from an educational perspective
+McCauley \etal report:
 ``We note, however, that our experiences with debugging tools is that many of them use execution traces as a method of assisting students to understand the execution of a program. Tubaishat~\cite{Tuba01a} characterized the use of execution traces as an example of a shallow reasoning technique''~\cite{McCa08a}.
 % On the Dichotomy of Debugging Behavior Among Programmers
-``Debuggers are difficult to use. Another reason given by interviewees, even though seasoned engineers, was that `the debugger is a complicated beast' (I2) and that `debuggers that are available now are certainly not friendly tools and they don't lend toward self-exploration.'''
+And Beller \etal note that
+``Debuggers are difficult to use. Another reason given by interviewees, even though seasoned engineers, was that `the debugger is a complicated beast' (I2) and that `debuggers that are available now are certainly not friendly tools and they don't lend toward self-exploration'.''
 \cite{Bell18a}
 
 % Extensible debuggers
@@ -465,38 +468,38 @@ There have been numerous efforts to develop specialized debuggers for domain-spe
 %  Grammar-Driven Generation of Domain-Specific Language Debuggers
 Wu \etal report on grammar-driven generation of DSL debuggers~\cite{HuiW08a}.
 % Declaratively Defining Domain-Specific Language Debuggers
-Lindeman \etal leverage the Spoofax language workbench~\cite{Kats10a} declaratively defined DSL debuggers~\cite{Lind11a}.
+Lindeman \etal leverage the Spoofax language workbench~\cite{Kats10a} to declaratively define DSL debuggers~\cite{Lind11a}.
 % D2X: An eXtensible conteXtual Debugger for Modern DSLs
-D2X~\cite{Brah23a} provides an API for DSLs to provide debugger extensions.
+D2X~\cite{Brah23a} provides an API for DSLs to define debugger extensions.
 All of these DSL debugger approaches focus on providing general debugging for a given DSL, not for more finely-grained application debugging issues.
 
 % Moldable tools
-The Moldable Debugger~\cite{Chis15c} is an example of a ``moldable tool''~\cite{Chis17a} that adapts its behavior to a specific run-time application context.
-The original moldable debugger, however, still required some significant implementation effort to define an alternative debugger, much as the other approaches we have cited from literature.
-Similarly, the original Moldable Inspector~\cite{Chis15a} did not offer a very easy mechanism to provide custom inspector views depending on the object being inspected.
-Very quickly, however, the extension mechanism of using annotated methods to define inspector customizations was adopted and led to a large number of custom inspector views in the current version of \GT (over 3000 at last count).
+The Moldable Debugger~\cite{Chis15c} is an example of a \emph{moldable tool}~\cite{Chis17a} that adapts its behavior to a specific run-time application context.
+The original moldable debugger, however, still required some significant implementation effort to define an alternative debugger interface, much like the other approaches we have cited from literature.
+Similarly, the original moldable inspector~\cite{Chis15a} did not offer a very easy mechanism to provide custom inspector views depending on the object being inspected.
+The adoption of the extension mechanism of using annotated methods to define inspector customizations led, over time, to the development of a large number of custom inspector views in the current version of \GT (over 3000 at last count).
 
 % Historical
 % Disciplined Exceptions
 Disciplined use of exceptions is a well-established practice in object-oriented software development~\cite{Meye88a}.
-The key insight and original contribution of this paper is to leverage exceptions as the hook to molding the behavior of the debugger.
+The key insight and original contribution of moldable exceptions is to leverage exceptions as the hook to molding the behavior of the debugger.
 No previous approach to extensible debuggers, including the original moldable debugger, has taken this approach.
 
 \ac{One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
 We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening.
 Users will not be exposed to exceptions, but developers need to reason about them.
-And if they can help, developers can actually have a bigger incentive to create custom exceptions.}
+And if they can help, developers can actually have a bigger incentive to create custom exceptions.}\on{I think this is addressed now ...}
 
 % ============================================================
 \section{Conclusion}\label{sec:conclusion}
 
 Debuggers are unloved beasts.
 They provide a generic and clumsy interface to explore and debug the run-time state of a running program.
-Many debugging problems can be better attacked by understanding the nature of the exception that was raised and caused the debugger to be activated.
-Our key contribution is to show how a debugger can be dynamically ``molded'' with custom views and actions that depend on the specific exception raised.
+Many debugging problems can be better tackled by understanding the nature of the exception that was raised and caused the debugger to be activated.
+Our key contribution is to show how a debugger can be dynamically molded with custom views and actions that depend on the specific exception raised.
 The mechanism is lightweight, and many useful extensions can be defined with minimal implementation effort.
 
-\todo{What more to say?}
+\on{What more can we say?}
 
 %% The acknowledgments section is defined using the "acks" environment
 %% (and NOT an unnumbered section).
