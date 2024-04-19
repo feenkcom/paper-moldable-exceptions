@@ -253,57 +253,57 @@ For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}
 \section{Providing domain-specific debugger interfaces}\label{sec:interactions}
 
 The examples we have seen so far have reused existing inspector views, but sometimes there is a need to develop a new kind of debugger interface.
-Also this does not necessarily imply a heavy implementation effort.
+This also does not necessarily imply a heavy implementation effort.
 
-
-Let us consider the case of assertion errors arising in testing a user interface interaction.
+Let us consider the case of assertion errors being raised while testing a user interface interaction with the help of a GUI ``Scripter'' object.
 We introduce three dedicated debugger views.
 The \emph{Scripter preview} (\autoref{fig:scripterPreview}) shows the result of a scripted interaction:
-\begin{inparaenum}[(i)]
-	\item a notebook page has been created, containing a link to the class \st{Object}, and
-	\item the link to the class has been clicked, opening a source code browser on the class.
-\end{inparaenum}
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterPreview}
   \caption{Scripter preview.}
   \label{fig:scripterPreview}
 \end{figure}
+\begin{inparaenum}[(i)]
+	\item a notebook page has been created, containing a link to the class \st{Object}, and
+	\item the link to the class has been clicked, opening a source code browser on the class.
+\end{inparaenum}
 
 The \emph{Scripter steps} view (\autoref{fig:scripterStepsViewClicked}) shows us a graphical tree view of the steps performed by the GUI Scripter, as well as the assertions that have been checked.
-The green steps and assertions have succeeded, whereas the red ones have failed.
-By clicking on any step or assertion node, we can see the corresponding code highlighted in the scripter method.
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterStepsViewClicked}
   \caption{Scripter steps view.}
   \label{fig:scripterStepsViewClicked}
 \end{figure}
+The green steps and assertions have succeeded, whereas the red ones have failed.
+By clicking on any step or assertion node, we can see the corresponding code highlighted in the scripter method at the right.
 
 Finally, the \emph{Textual Diff} view (\autoref{fig:scripterDiff}) is the same one we have seen earlier, reused again.
-It just tells us that the check should verify that there are now two pages in the pager, not just one, as we can see in the preview.
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterDiff}
   \caption{Scripter textual diff view.}
   \label{fig:scripterDiff}
 \end{figure}
+It just tells us that the check should verify that there are now two pages in the pager, not just one, as we can also see in the \emph{Scripter preview}.
 
-\emph{Why do we need these views?}
+\paragraph{Why do we need these views?}
 The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} (\autoref{fig:scripterClassicDebugger}) at the point where the exception is raised.
-Although it is possible to get at the information we seek, it is clumsy, and the classical stack view only confuses matters instead of helping us to debug the problem.
-This can be the case with many application domains, especially those that depend on event scheduling.
-The run-time stack does not do a good job of telling you how the events have been triggered, so another kind of view is needed.
-
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterClassicDebugger}
   \caption{The trouble with the standard debugger.}
   \label{fig:scripterClassicDebugger}
 \end{figure}
+Although it is possible to get at the information we seek, it is clumsy, and the classical stack view only confuses matters instead of helping us to debug the problem.
+This can be the case with many application domains, especially those that depend on event scheduling.
+The run-time stack does not do a good job of telling you how the events have been triggered, so another kind of view is needed.
 
-\emph{How hard is it to implement a domain-specific debugger interface?}
+\paragraph{How hard is it to implement a domain-specific debugger interface?}
 The \emph{Scripter steps view} is implemented using a version of \emph{Mondrian}~\cite{Pena13b,Meye06a}, a builder for graph-based visualizations.
-In \autoref{fig:scripterStepsViewSource} we can see the entire source code of the view expanded in place, implemented in justfour methods.
+In \autoref{fig:scripterStepsViewSource} we can see the entire source code of the view expanded in place, implemented in just four methods.
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{scripterStepsViewSource}
+  \caption{The Scripter steps source code.}
+  \label{fig:scripterStepsViewSource}
+\end{figure}
 The debugging view at the top just adds a ``Inspect Scripter'' button to the next method, an object inspector view for a Scripter.
 This in turn just delegates to the \emph{Steps} view of a \st{BlDevScripterStep} object.
 Finally, this method embeds a Mondrian visualization implemented in 12 lines of code in the \st{paintTreeWith:} method.
@@ -313,12 +313,6 @@ Finally, this method embeds a Mondrian visualization implemented in 12 lines of 
 %  8 LOC BlDevScripterStep>>#gtStepsMondrianTreeFor:
 % 12 LOC BlDevScripterStep>>#paintTreeWith:
 % TOTAL: 12 mondrian + 25 boilerplate
-
-\begin{figure}[h]
-  \includegraphics[width=\columnwidth]{scripterStepsViewSource}
-  \caption{The Scripter steps source code.}
-  \label{fig:scripterStepsViewSource}
-\end{figure}
 
 Obviously this does not prove that all domain-specific debugger interfaces will be so tiny, but it does demonstrate that a useful debugger extension can be implemented in an almost trivial amount of code.
 
