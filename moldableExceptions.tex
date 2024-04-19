@@ -161,20 +161,19 @@ We conclude in \autoref{sec:conclusion}.
 % ============================================================
 \section{Adding custom debugger views}\label{sec:views}
 
-Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a moldable object inspector~\cite{Chis15a}.
+Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a \emph{moldable object inspector}~\cite{Chis15a}.
 When a moldable object inspector is opened on an object it looks for any view methods defined in the class of that object, and uses those methods to create custom views.
 For example, in \autoref{fig:onwardUrlInspectorView} we see an inspector on a \st{ZnUrl} object.
-Instead of just showing us the classical ``raw'' view of the objects instance variables, we see here one of several dedicated views providing detailed information about the URL.
-Just below we see part of the (Smalltalk) source code defining this view
-These view methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
-In this case the annotation is \st{<gtView>}, seen in the second line of the method.
-
+Instead of just showing us the classical ``raw'' view of the object's instance variables, we see here one of several dedicated views providing detailed information about the URL.
 \begin{figure}[t]
   \includegraphics[width=\columnwidth]{onwardUrlInspectorView}
   \includegraphics[width=\columnwidth]{onwardUrlInspectorViewSource}
   \caption{A moldable inspector view of a ZnUrl object and its source code.}
   \label{fig:onwardUrlInspectorView}
 \end{figure}
+Just below we see part of the source code defining this view.
+These view methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
+In this case the annotation is \st{<gtView>}, seen in the second line of the method.
 
 Moldable exceptions provide custom debugger views and actions in essentially the same way.
 Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each each custom debugger view or action.
@@ -185,28 +184,24 @@ Suppose we have an implementation of a Ludo\footnote{A simple game in which play
 \url{https://en.wikipedia.org/wiki/Ludo}} game implemented with the help of \emph{Design by Contract}~\cite{Meye92b}.
 Players alternate in throwing a die and moving a token.
 Rolling a die when when a player should move, or vice versa, constitutes a precondition violation, which raises a \st{LudoMoveAssertionFailure}.
-Similarly, if an attempt is made to move the wrong player's token, this will raise a precondition failure.
-Normally, this would fire up the classical debugger as in \autoref{fig:ludoClassicDebugger}.
-Although the precondition violation is clearly reported, the debugger interface is not ideal for tracking down the actual reason for the violation.
-
+Similarly, if an attempt is made to move the wrong player's token, this will trigger a precondition failure.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoClassicDebugger}
   \caption{A classical debugger for a precondition failure.}
   \label{fig:ludoClassicDebugger}
 \end{figure}
+Normally, this would fire up the classical debugger, as seen in \autoref{fig:ludoClassicDebugger}.
+Although the precondition violation is clearly reported, the debugger interface is not ideal for tracking down the actual reason for the violation.
 
-What we perhaps would like to see is the current state of the game, in addition to a history of the past moves.
-Perhaps we could find these by navigation through the existing debugger views, but why not show them directly, after all, we know that when this exception is raised what it is that we'd like to see?
+What we would perhaps like to see instead is the current state of the game, in addition to a history of the past moves.
+We could possibly find these by navigating through the existing debugger views, but why not show them directly?
+After all, we know that whenever this exception is raised, what it is that we'd like to see.
 Furthermore, if we already have such views defined elsewhere (we do!), it's not a question of defining new views, but of reusing them in the context of the debugger.
-We just need to define two view methods in the class \lmaf.
+We just need to define two new view methods in the class \lmaf.
 
 Here is the definition of the first view, which simply forwards (delegates) the view to another existing one.
-Let's step through the code: \st{gtGameViewFor:} is the name of the view method, which takes as its argument \st{aView}, the view to be defined.
-The method is annotated with \lst{<gtExceptionDebuggingView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
-We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the view a title and a priority (order in which views) appear, and we specify the object to forward to (the move's \st{game}) and the already existing view method to forward to (\st{gtPositionsFor:}).
-
 \begin{code}
-LudoMoveAssertionFailure>>gtGameViewFor: aView
+gtGameViewFor: aView
 	<gtExceptionDebuggingView>
 	^ aView forward
 		title: 'Game';
@@ -214,26 +209,27 @@ LudoMoveAssertionFailure>>gtGameViewFor: aView
 		object: [ move game ];
 		view: #gtPositionsFor:
 \end{code}
+Let's step through the code: \st{gtGameViewFor:} is the name of the view method, which takes as its argument \st{aView}, the view to be defined.
+The method is annotated with \lst{<gtExceptionDebuggingView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
+We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the view a title and a priority (order in which views) appear, and we specify the object to forward to (the move's \st{game}) and the already existing view method to forward to (\st{gtPositionsFor:}).
 
-We similarly define a methods for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us these two views.
-The Game view shows us the current game state graphically, and the Moves view shows us a browsable list of past moves.
-Note that we can always switch to the old debugger by selecting the \emph{GT Debugger} button.
-
+We similarly define a method for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us the two views seen in \autoref{fig:ludoCustomViews}.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoView1-Game}
   \includegraphics[width=\columnwidth]{ludoView2-Moves}
   \caption{Custom debugger views for the Ludo game.}
   \label{fig:ludoCustomViews}
 \end{figure}
+The Game view shows us the current game state graphically, and the Moves view shows us a browsable list of past moves.
+Note that we can always switch to the old debugger by selecting the \emph{GT Debugger} button at the top.
 
-In \autoref{fig:ludoCustomViewsSource} we can see that the definition of the \emph{Moves} debugger view forwards to an existing Object Inspector view also called \emph{Moves}, but defined in the \st{GtLudoRecordingGame} class.
-The existing inspector view uses just a few lines of code to create a browsable list of past moves with several columns for the details of each move.
-
+In \autoref{fig:ludoCustomViewsSource} we can see that the \emph{Moves} debugger view forwards to an existing Object Inspector view also called \emph{Moves}, but defined in the \st{GtLudoRecordingGame} class.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoView2-Moves-Source}
   \caption{Browsing the source code of debugger views.}
   \label{fig:ludoCustomViewsSource}
 \end{figure}
+The existing inspector view uses just a few lines of code to create a browsable ``columned'' list of past moves with several columns for the details of each move.
 
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
 \begin{code}
@@ -251,7 +247,7 @@ AssertionFailure>>gtTwoPanesStringDiffFor: aView
 		view: #gtTwoPanesStringDiffFor:
 \end{code}
 The key difference is that not every \st{AssertionFailure} is raised as the result of a string comparison.
-For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}) in case the assertion did not fail in the context of an \st{assert:equals:} check.
+For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
 
 % ============================================================
 \section{Providing domain-specific debugger interfaces}\label{sec:interactions}
