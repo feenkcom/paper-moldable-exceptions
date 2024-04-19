@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{19}
+\begin{thebibliography}{20}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -150,6 +150,23 @@
 \showISBNx{978-1-4503-3688-8}
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2814228.2814234}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Dupriez, Polito, Costiou, Aranega, and
+  Ducasse}{Dupriez et~al\mbox{.}}{2019}]%
+        {Dupr19a}
+\bibfield{author}{\bibinfo{person}{Thomas Dupriez}, \bibinfo{person}{Guillermo
+  Polito}, \bibinfo{person}{Steven Costiou}, \bibinfo{person}{Vincent Aranega},
+  {and} \bibinfo{person}{St{\'e}phane Ducasse}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Sindarin: A versatile scripting {API} for the
+  {Pharo} debugger}. In \bibinfo{booktitle}{\emph{Proceedings of the 15th ACM
+  SIGPLAN International Symposium on Dynamic Languages}}.
+  \bibinfo{pages}{67--79}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3359619.3359745}
 \showDOI{\tempurl}
 
 
