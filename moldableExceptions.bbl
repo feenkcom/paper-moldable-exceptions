@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{20}
+\begin{thebibliography}{21}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -150,6 +150,25 @@
 \showISBNx{978-1-4503-3688-8}
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2814228.2814234}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Ducasse, Polito, Zaitsev, Denker, and
+  Tesone}{Ducasse et~al\mbox{.}}{2022}]%
+        {Duca22a}
+\bibfield{author}{\bibinfo{person}{St{\'{e}}phane Ducasse},
+  \bibinfo{person}{Guillermo Polito}, \bibinfo{person}{Oleksandr Zaitsev},
+  \bibinfo{person}{Marcus Denker}, {and} \bibinfo{person}{Pablo Tesone}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Deprewriter: On the fly rewriting method
+  deprecations}.
+\newblock \bibinfo{journal}{\emph{Journal of Object Technology}}
+  \bibinfo{volume}{21}, \bibinfo{number}{1} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1:1--23}.
+\newblock
+\showISSN{1660-1769}
+\urldef\tempurl%
+\url{https://doi.org/10.5381/jot.2022.21.1.a1}
 \showDOI{\tempurl}
 
 

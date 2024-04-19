@@ -64,16 +64,11 @@
 Debugging is hard.
 Debuggers are mostly the same.
 They show you a stack, a way to sample the state of the stack, and, if the debugger is live, a way to step through execution.
-The standard debugger mostly offers a clumsy, low-level interface to track down and fix bugs.
+The standard debugger mostly offers a low-level interface in terms of generic language constructs to track down and fix bugs.
 A custom debugger, such as those developed for specific application domains, offers alternative interfaces more suitable to the specific execution context of the program being debugged.
-% In contrast, a ``moldable debugger'' offers alternative interfaces based on the current execution context.
-% In contrast, moldable debuggers change based on the context of the stack.
 Contextual debugging views and actions greatly improve our ability to reason about the current problem.
 Implementing such custom debuggers, however, is non-trivial, and poses a barrier to improving the debugging experience.
-% Still, creating custom debuggers is much less trivial than extending an inspector with custom views and actions.
 In this paper we introduce \emph{moldable exceptions}, a lightweight mechanism to adapt a debugger's interface based on contextual information provided by a raised exception.
-% In this paper, we introduce a lightweight mechanism centered around exceptions to create custom debugging views and actions: as exceptions hold the entire necessary debugging context, extending the debugger can be as easy as extending the inspector of an exception.
-%Moldable exceptions offer a lightweight mechanism to adapt a moldable debugger to the specific context of the exception raised to show more useful views and actions to a developer.
 We present, through a series of examples, how moldable exceptions can enhance a live programming environment.
 \end{abstract}
 
@@ -157,6 +152,8 @@ In \autoref{sec:interactions} we show how a richer debugger interface can be pro
 Finally we show an example of moldable exceptions enabling automated fixes in \autoref{sec:fixes}.
 We summarize our contributions and discuss some possible future work in \autoref{sec:directions}, and we discuss related work in \autoref{sec:related}.
 We conclude in \autoref{sec:conclusion}.
+
+\ac{We could add maybe a section later describing a bit more the model. Moldable exceptions provide a list of debugging configurations used to create debuggers for that exception. A debugging configuration defines for example the pragmas used to find views and actions, but could also be different.}
 
 % ============================================================
 \section{Adding custom debugger views}\label{sec:views}
@@ -246,7 +243,7 @@ AssertionFailure>>gtTwoPanesStringDiffFor: aView
 		object: [ assertionContext ];
 		view: #gtTwoPanesStringDiffFor:
 \end{code}
-The key difference is that not every \st{AssertionFailure} is raised as the result of a string comparison.
+The key difference is that not every \st{AssertionFailure} is raised as the result of a comparison.
 For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
 
 % ============================================================
@@ -256,6 +253,7 @@ The examples we have seen so far have reused existing inspector views, but somet
 This also does not necessarily imply a heavy implementation effort.
 
 Let us consider the case of assertion errors being raised while testing a user interface interaction with the help of a GUI ``Scripter'' object.
+\ac{We could add one paragraph describing scripter, and why we need it.}
 We introduce three dedicated debugger views.
 The \emph{Scripter preview} (\autoref{fig:scripterPreview}) shows the result of a scripted interaction:
 \begin{figure}[h]
@@ -321,7 +319,8 @@ Obviously this does not prove that all domain-specific debugger interfaces will 
 
 Many cases of common programming errors can be automatically repaired.
 A good example is that of deprecated methods for which a well-defined alternative is available.
-In Pharo Smalltalk this is achieved with the \lst{\#de\-pre\-cat\-ed:trans\-form\-With:} message defined in the class \st{Object}.
+In Pharo Smalltalk this is achieved with the \lst{\#de\-pre\-cat\-ed:trans\-form\-With:} message defined in the class \st{Object}~\cite{Duca22a}.
+% \ac{We can cite and compare with Duca22a.}
 It takes as arguments
 \begin{inparaenum}[(i)]
 	\item an explanatory string, and
@@ -368,7 +367,7 @@ Since such preambles are a common idiom in defining GT inspector views, and the 
 \autoref{fig:emptyViewErrorFix} shows the result of performing the \emph{Fix it \& Proceed} action: a refactoring widget is generated that proposes a code transformation.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{emptyViewErrorFix}
-  \caption{Tranmsforming an empty view error.}
+  \caption{Transforming an empty view error.}
   \label{fig:emptyViewErrorFix}
 \end{figure}
 Clicking on the \emph{Apply refactoring and proceed} button will transform the source code, leave the debugger, and evaluate the rewritten code.
@@ -381,11 +380,12 @@ In our proof-of-concept implementation of moldable exceptions, this is done by e
 \begin{code}
 GtMoldableExceptionTransformationsSettings defaultInstance allowAutomaticTransformations.
 \end{code}
-The \st{signal} method of exception classes can then optionally consult this flag to decide whether to spawn a debugger or apply the transformation.
+The \st{signal} method of exception classes can then optionally consult this flag to decide whether to spawn a debugger or apply the fix.
+\ac{We can also generalize this a bit as the fix could not be just applying a transformation but also changing the state of the object at runtime. In this case we could also fix the error by replacing the returned view with a new instance of an empty view without changing the code. I'll add an example of such an action.}
 
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
-\on{AC: Discuss the LifeWare tests?}
+\on{AC will check if we are allowed to describe here some of the LifeWare tests.}
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
@@ -437,7 +437,7 @@ Like that we could have step actions/view added by an exception that can be use 
 % ============================================================
 \section{Related work}\label{sec:related}
 
-\on{AC: Can you provide more references and especially more recent ones?}
+\on{Are there other important references, and more recent ones, that we are missing?}
 
 Early debuggers provided a command-line interface to inspect and step through the execution of a running program or a \emph{post mortem} ``core dump.''
 With the advent of GUI-based IDEs, debuggers were also updated to offer interactive views to explore the execution state of a program and to step through its execution~\cite{Rose96a}.
@@ -464,11 +464,6 @@ mbeddr~\cite{Voel17a} is a collection of languages and language extensions, main
 mbeddr includes an extensible debugger framework~\cite{Pavl15a} that focuses on providing support for the individual language extension, not application specific customizations.
 
 
-\on{To add: Dupr19a
-Sindarin: A versatile scripting API for the Pharo debugger
-}
-\nocite{Dupr19a}
-
 % DSL Debugger extensions
 There have been numerous efforts to develop specialized debuggers for domain-specific languages (DSLs) using a variety of approaches.
 %  Grammar-Driven Generation of Domain-Specific Language Debuggers
@@ -478,6 +473,10 @@ Lindeman \etal leverage the Spoofax language workbench~\cite{Kats10a} to declara
 % D2X: An eXtensible conteXtual Debugger for Modern DSLs
 D2X~\cite{Brah23a} provides an API for DSLs to define debugger extensions.
 All of these DSL debugger approaches focus on providing general debugging for a given DSL, not for more finely-grained application debugging issues.
+
+% Sindarin: A versatile scripting API for the Pharo debugger
+Sindarin is an extensible Pharo-based debugger that offers a rich API for scripting debugger extensions~\cite{Dupr19a}.
+The use case for Sindarin is rather different from that of moldable exceptions, allowing developers to enter debugger scripts during a debugging session, rather than as a way to enable specialized debugger behavior in response to specific kinds of exceptions.
 
 % Moldable tools
 The Moldable Debugger~\cite{Chis15c} is an example of a \emph{moldable tool}~\cite{Chis17a} that adapts its behavior to a specific run-time application context.
@@ -491,10 +490,10 @@ Disciplined use of exceptions is a well-established practice in object-oriented 
 The key insight and original contribution of moldable exceptions is to leverage exceptions as the hook to molding the behavior of the debugger.
 No previous approach to extensible debuggers, including the original moldable debugger, has taken this approach.
 
-\ac{One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
-We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening.
-Users will not be exposed to exceptions, but developers need to reason about them.
-And if they can help, developers can actually have a bigger incentive to create custom exceptions.}\on{I think this is addressed now ...}
+%\ac{One argument reviewer B can bring :)), is that that exceptions are bad and should be avoided.
+%We can also emphasize that when working with frameworks having dedicated exceptions can help developers understand what is happening.
+%Users will not be exposed to exceptions, but developers need to reason about them.
+%And if they can help, developers can actually have a bigger incentive to create custom exceptions.}\on{I think this is addressed now ...}
 
 % ============================================================
 \section{Conclusion}\label{sec:conclusion}
