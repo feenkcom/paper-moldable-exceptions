@@ -1,6 +1,6 @@
 Extension { #name : #GtHome }
 
-{ #category : #'*PapersMoldableExceptions' }
+{ #category : #'*PaperMoldableExceptions' }
 GtHome >> moldableExceptionsSection [
 	<gtHomeSection>
 	<gtExample>

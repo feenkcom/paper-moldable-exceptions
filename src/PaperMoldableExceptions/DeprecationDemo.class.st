@@ -1,7 +1,7 @@
 Class {
 	#name : #DeprecationDemo,
 	#superclass : #Object,
-	#category : #'PapersMoldableExceptions-Demo'
+	#category : #'PaperMoldableExceptions-Demo'
 }
 
 { #category : #accessing }

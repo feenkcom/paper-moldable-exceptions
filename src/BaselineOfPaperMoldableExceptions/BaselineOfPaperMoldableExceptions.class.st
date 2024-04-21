@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfPaperMoldableExceptions,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfPapersMoldableExceptions
+	#category : #BaselineOfPaperMoldableExceptions
 }
 
 { #category : #loading }

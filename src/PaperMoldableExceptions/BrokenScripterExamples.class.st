@@ -4,7 +4,7 @@ I am a broken version of GtSourceCoderEditorElementByScripterExamples for demo p
 Class {
 	#name : #BrokenScripterExamples,
 	#superclass : #GtCoderByScripterExamples,
-	#category : #'PapersMoldableExceptions-Examples'
+	#category : #'PaperMoldableExceptions-Examples'
 }
 
 { #category : #'example - play example' }
