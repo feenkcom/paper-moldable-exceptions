@@ -8,12 +8,11 @@ Class {
 MEHomeSection >> moldableExceptionsHomeCard [
 	<gtSectionCard>
 	<gtExample>
-	^ GtHomeCard lazy
+	^ GtHomeCard page
 		title: 'Moldable Exceptions';
 		description: 'Moldable Exceptions Paper';
 		databaseName: 'feenkcom/paper-moldable-exceptions/lepiter';
 		pageName: 'Moldable Exceptions Paper';
-		loadLepiter: [ BaselineOfPaperMoldableExceptions loadLepiter ];
 		priority: 10;
 		assertInvariant;
 		yourself

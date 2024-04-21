@@ -2,7 +2,7 @@ This is the repo for a draft paper on *Moldable Exceptions* to be submitted to [
 The repo contains not only the LaTeX source code, but also GT examples and Lepiter pages of notes.
 ## Installation
 
-```st
+```
 Metacello new
 	repository: 'github://feenkcom/paper-moldable-exceptions:master/src';
 	baseline: 'PaperMoldableExceptions';
