@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfPapersMoldableExceptions,
+	#name : #BaselineOfPaperMoldableExceptions,
 	#superclass : #BaselineOf,
 	#category : #BaselineOfPapersMoldableExceptions
 }
 
 { #category : #loading }
-BaselineOfPapersMoldableExceptions class >> loadLepiter [
+BaselineOfPaperMoldableExceptions class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
 			aRepository name = 'papers-moldable-exceptions' ]
@@ -20,9 +20,9 @@ BaselineOfPapersMoldableExceptions class >> loadLepiter [
 ]
 
 { #category : #baseline }
-BaselineOfPapersMoldableExceptions >> baseline: spec [
+BaselineOfPaperMoldableExceptions >> baseline: spec [
 	<baseline>
 		^ spec for: #common do: [
-			spec package: 'PapersMoldableExceptions'
+			spec package: 'PaperMoldableExceptions'
 		]
 ]
