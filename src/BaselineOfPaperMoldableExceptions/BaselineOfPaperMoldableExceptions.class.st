@@ -8,7 +8,7 @@ Class {
 BaselineOfPaperMoldableExceptions class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
-			aRepository name = 'papers-moldable-exceptions' ]
+			aRepository name = 'paper-moldable-exceptions' ]
 		ifFound: [ :aRepository | 
 			| defaultDatabase currentProperties |
 			defaultDatabase := LeDatabasesRegistry defaultLogicalDatabase.
