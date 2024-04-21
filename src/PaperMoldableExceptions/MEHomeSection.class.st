@@ -11,7 +11,7 @@ MEHomeSection >> moldableExceptionsHomeCard [
 	^ GtHomeCard lazy
 		title: 'Moldable Exceptions';
 		description: 'Moldable Exceptions Paper';
-		databaseName: 'feenkcom/papers-moldable-exceptions/lepiter';
+		databaseName: 'feenkcom/paper-moldable-exceptions/lepiter';
 		pageName: 'Moldable Exceptions Paper';
 		loadLepiter: [ BaselineOfPaperMoldableExceptions loadLepiter ];
 		priority: 10;
