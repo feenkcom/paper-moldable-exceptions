@@ -5,9 +5,9 @@ The repo contains not only the LaTeX source code, but also GT examples and Lepit
 ```st
 Metacello new
 	repository: 'github://feenkcom/paper-moldable-exceptions:master/src';
-	baseline: 'PapersMoldableExceptions';
+	baseline: 'PaperMoldableExceptions';
 	load.
-#BaselineOfPapersMoldableExceptions asClass loadLepiter.
+#BaselineOfPaperMoldableExceptions asClass loadLepiter.
 ```
 
 
