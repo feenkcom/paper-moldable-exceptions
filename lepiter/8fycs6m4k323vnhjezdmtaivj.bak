@@ -843,6 +843,43 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-05T10:59:15.851065+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2024-04-05T10:59:15.851065+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "r5hFaLfRDQCShPsHDomdjg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "• scripter: when we get a scripter failure we show the element and the structure of assertions"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2024-04-05T10:57:45.785129+02:00"
 											}
 										},
@@ -854,7 +891,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-05T10:59:14.243157+02:00"
+												"dateAndTimeString" : "2024-04-05T10:59:16.955886+02:00"
 											}
 										},
 										"uid" : {
@@ -864,7 +901,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "• scripter: when we get a scripter failure we show the element and the structure of assertions\n missing/files folders: we show the path and can offer action to create the file/folder and retry"
+										"string" : "• missing/files folders: we show the path and can offer action to create the file/folder and retry"
 									}
 								]
 							},
