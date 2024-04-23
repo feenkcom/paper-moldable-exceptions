@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{21}
+\begin{thebibliography}{29}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -49,6 +49,10 @@
   \bibinfo{publisher}{Square Bracket Associates}, \bibinfo{pages}{20}.
 \newblock
 \showISBNx{978-3-9523341-6-4}
+\urldef\tempurl%
+\url{https://inria.hal.science/hal-00858725/document}
+\showURL{%
+\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Beller, Spruit, Spinellis, and Zaidman}{Beller
@@ -62,6 +66,24 @@
   International Conference on Software Engineering}}.
   \bibinfo{pages}{572--583}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/3180155.3180175}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Bousse, Leroy, Combemale, Wimmer, and
+  Baudry}{Bousse et~al\mbox{.}}{2018}]%
+        {Bous18a}
+\bibfield{author}{\bibinfo{person}{Erwan Bousse}, \bibinfo{person}{Dorian
+  Leroy}, \bibinfo{person}{Benoit Combemale}, \bibinfo{person}{Manuel Wimmer},
+  {and} \bibinfo{person}{Benoit Baudry}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Omniscient debugging for executable {DSLs}}.
+\newblock \bibinfo{journal}{\emph{Journal of Systems and Software}}
+  \bibinfo{volume}{137} (\bibinfo{year}{2018}), \bibinfo{pages}{261--288}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1016/j.jss.2017.11.025}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Brahmakshatriya and
@@ -153,6 +175,22 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Costiou, Dupriez, and Pollet}{Costiou
+  et~al\mbox{.}}{2020}]%
+        {Cost20a}
+\bibfield{author}{\bibinfo{person}{Steven Costiou}, \bibinfo{person}{Thomas
+  Dupriez}, {and} \bibinfo{person}{Damien Pollet}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Handling Error-Handling Errors: dealing with
+  debugger bugs in Pharo}. In \bibinfo{booktitle}{\emph{Preprint from IWST20:
+  International Workshop on Smalltalk Technologies}}.
+\newblock
+\urldef\tempurl%
+\url{https://inria.hal.science/hal-02992644/document}
+\showURL{%
+\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Ducasse, Polito, Zaitsev, Denker, and
   Tesone}{Ducasse et~al\mbox{.}}{2022}]%
         {Duca22a}
@@ -189,6 +227,22 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Enet, Bousse, Tisi, and Suny{\'e}}{Enet
+  et~al\mbox{.}}{2023}]%
+        {Enet23a}
+\bibfield{author}{\bibinfo{person}{Josselin Enet}, \bibinfo{person}{Erwan
+  Bousse}, \bibinfo{person}{Massimo Tisi}, {and} \bibinfo{person}{Gerson
+  Suny{\'e}}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Protocol-Based Interactive Debugging for
+  Domain-Specific Languages}.
+\newblock \bibinfo{journal}{\emph{The Journal of Object Technology}}
+  \bibinfo{volume}{22}, \bibinfo{number}{2} (\bibinfo{year}{2023}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.5381/jot.2023.22.2.a6}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Hanson and Korn}{Hanson and Korn}{1997}]%
         {Hans97a}
 \bibfield{author}{\bibinfo{person}{David~R. Hanson} {and}
@@ -197,6 +251,10 @@
   \bibinfo{booktitle}{\emph{IN WINTER 1997 USENIX CONFERENCE}}.
   \bibinfo{pages}{173--184}.
 \newblock
+\urldef\tempurl%
+\url{https://www.usenix.org/legacy/publications/library/proceedings/ana97/full_papers/hanson/hanson.html}
+\showURL{%
+\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Kats and Visser}{Kats and Visser}{2010}]%
@@ -246,6 +304,9 @@
   \bibinfo{volume}{18}, \bibinfo{number}{2} (\bibinfo{year}{2008}),
   \bibinfo{pages}{67--92}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1080/08993400802114581}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1988}]%
@@ -256,6 +317,10 @@
 \newblock \bibinfo{type}{TR-EI-22/EX}. \bibinfo{institution}{Interactive
   Software Engineering}, \bibinfo{address}{Goleta, CA}.
 \newblock
+\urldef\tempurl%
+\url{https://se.inf.ethz.ch/old/people/meyer/publications/methodology/exceptions.pdf}
+\showURL{%
+\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1992}]%
@@ -288,6 +353,31 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Microsoft}{Microsoft}{2021}]%
+        {DAP21}
+\bibfield{author}{\bibinfo{person}{Microsoft}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{Debug Adapter Protocol}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://microsoft.github.io/debug-adapter-protocol}
+\showURL{%
+\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Oracle}{Oracle}{2024}]%
+        {JVMTI24}
+\bibfield{author}{\bibinfo{person}{Oracle}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{{JVM} {Tool} {Interface} version 22.0}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://docs.oracle.com/en/java/javase/22/docs/specs/jvmti.html}
+\showURL{%
+\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Pavletic, Voelter, Raza, Kolb, and
   Kehrer}{Pavletic et~al\mbox{.}}{2015}]%
         {Pavl15a}
@@ -309,6 +399,22 @@
 \showDOI{\tempurl}
 
 
+\bibitem[\protect\citeauthoryear{Ressia, Bergel, and Nierstrasz}{Ressia
+  et~al\mbox{.}}{2012}]%
+        {Ress12a}
+\bibfield{author}{\bibinfo{person}{Jorge Ressia}, \bibinfo{person}{Alexandre
+  Bergel}, {and} \bibinfo{person}{Oscar Nierstrasz}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Object-Centric Debugging}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 34rd international conference on
+  Software engineering}} (Zurich, Switzerland) \emph{(\bibinfo{series}{ICSE
+  '12})}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/ICSE.2012.6227167}
+\showDOI{\tempurl}
+
+
 \bibitem[\protect\citeauthoryear{Rosenberg}{Rosenberg}{1996}]%
         {Rose96a}
 \bibfield{author}{\bibinfo{person}{Jonathan~B Rosenberg}.}
@@ -327,6 +433,41 @@
   \bibinfo{booktitle}{\emph{Proceedings of the ACS/IEEE International
   Conference on Computer Systems and Applications}}. \bibinfo{pages}{321}.
 \newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/AICCSA.2001.934005}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Van De~Vanter, Seaton, Haupt, Humer, and
+  W{\"u}rthinger}{Van De~Vanter et~al\mbox{.}}{2018}]%
+        {Vant18a}
+\bibfield{author}{\bibinfo{person}{Michael Van De~Vanter},
+  \bibinfo{person}{Chris Seaton}, \bibinfo{person}{Michael Haupt},
+  \bibinfo{person}{Christian Humer}, {and} \bibinfo{person}{Thomas
+  W{\"u}rthinger}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Fast, flexible, polyglot instrumentation support
+  for debuggers and other tools}.
+\newblock \bibinfo{journal}{\emph{The Art, Science, and Engineering of
+  Programming}} (\bibinfo{year}{2018}).
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.22152/programming-journal.org/2018/2/14}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Van De~Vanter}{Van De~Vanter}{2015}]%
+        {Vant15a}
+\bibfield{author}{\bibinfo{person}{Michael~L Van De~Vanter}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Building debuggers and other tools: we can ``have
+  it all''}. In \bibinfo{booktitle}{\emph{Proceedings of the 10th Workshop on
+  Implementation, Compilation, Optimization of Object-Oriented Languages,
+  Programs and Systems}}. Article \bibinfo{articleno}{2},
+  \bibinfo{numpages}{3}~pages.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1145/2843915.2843917}
+\showDOI{\tempurl}
 
 
 \bibitem[\protect\citeauthoryear{Voelter, Kolb, Szab{\'o}, Ratiu, and van
