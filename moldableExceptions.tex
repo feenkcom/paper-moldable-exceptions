@@ -159,7 +159,8 @@ This simple mechanism allows moldable exceptions to do three things:
 
 We will illustrate these three points with numerous examples.
 \steve{Line 145 it does not seem correct that you present "numerous" examples. I did not count but I think you have some examples for each scenario. To me "numerous" implies "a lot", but my english is not that good --- like many reviewers ;)}
-In \autoref{sec:views} we show how custom debugger views can easily be defined by adding simple annotated view methods to the class of a moldable exception.
+In \autoref{sec:inspectorViews} we introduce the \emph{moldable inspector}, which allows objects to define custom views when they are inspected.
+In \autoref{sec:views} we show how custom debugger views can easily be defined in a similar way by adding simple annotated view methods to the class of a moldable exception.
 In \autoref{sec:interactions} we show how a richer debugger interface can be provided in much the same way by leveraging existing GUI frameworks.
 Finally we show an example of moldable exceptions enabling automated fixes in \autoref{sec:fixes}.
 We summarize our contributions and discuss some possible future work in \autoref{sec:directions}, and we discuss related work in \autoref{sec:related}.
@@ -168,30 +169,51 @@ We conclude in \autoref{sec:conclusion}.
 \ac{We could add maybe a section later describing a bit more the model. Moldable exceptions provide a list of debugging configurations used to create debuggers for that exception. A debugging configuration defines for example the pragmas used to find views and actions, but could also be different.}
 
 % ============================================================
-\section{Adding custom debugger views}\label{sec:views}
+\section{The moldable inspector}\label{sec:inspectorViews}
 
 Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a \emph{moldable object inspector}~\cite{Chis15a}.
 When a moldable object inspector is opened on an object it looks for any view methods defined in the class of that object, and uses those methods to create custom views.
-For example, in \autoref{fig:onwardUrlInspectorView} we see an inspector on a \st{ZnUrl} object.
-Instead of just showing us the classical ``raw'' view of the object's instance variables, we see here one of several dedicated views providing detailed information about the URL.
-\begin{figure}[t]
-  \includegraphics[width=\columnwidth]{onwardUrlInspectorView}
-  \includegraphics[width=\columnwidth]{onwardUrlInspectorViewSource}
-  \caption{A moldable inspector view of a ZnUrl object and its source code. \tg{We should use here an example we can reuse in the description of the debugger. I propose to use the Moves view of the Ludo game and replace \autoref{fig:ludoCustomViewsSource}}}
-  \label{fig:onwardUrlInspectorView}
+
+Let us consider a typical example.
+Suppose we have an implementation of a Ludo\footnote{A simple game in which players move tokens around a board based on the roll of a die.
+\url{https://en.wikipedia.org/wiki/Ludo}} game.
+Players alternate in throwing a die and moving a token until one player reaches their goal square.
+In \autoref{fig:ludoRawBoardViews} we see at the left the classical \emph{Raw} view supported by a typical object inspector.
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{ludoRawBoardViews}
+  \caption{A classical raw view of a Ludo game next to a graphical \emph{Board} view.}
+  \label{fig:ludoRawBoardViews}
 \end{figure}
-Just below we see part of the source code defining this view.
-These view methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
+It just shows the state of the object as a list of instance variables and their values.
+At the right, however, we see an alternative, graphical \emph{Board} view showing the current state of the game as a user would see it.
+
+In general, a variety of views may be more useful than the classical``raw'' view, and this is also true for the Ludo game.
+In \autoref{fig:ludoMovesMoveViews} we see a \emph{Moves} view that lists all the moves of the game played thus far.
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{ludoMovesMoveViews}
+  \caption{A custom historical \emph{Moves} view ofa Ludo game, and a custom graphical view of a selected move.}
+  \label{fig:ludoMovesMoveViews}
+\end{figure}
+By clicking on a move (at the left) you can then inspect (at the right) the corresponding \st{GtLudoMove} object, with its custom views, in this case showing the details of what happened in this move.
+
+In \autoref{fig:ludoMovesSource} we see the source code defining the \emph{Moves} view.
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{ludoMovesSource}
+  \caption{The \emph{Moves} view next to its source code.}
+  \label{fig:ludoMovesSource}
+\end{figure}
+This method uses just a few lines of code to create a browsable ``columned'' list of past moves with several columns for the details of each move.
+View methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
 In this case the annotation is \st{<gtView>}, seen in the second line of the method.
 
-Moldable exceptions provide custom debugger views and actions in essentially the same way.
-Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each custom debugger view or action.
-These methods are annotated with a \lst{<gt\-Exception\-Debugging\-View>} pragma.
+% ============================================================
+\section{Adding custom debugger views}\label{sec:views}
 
-Let us go through a typical example.
-Suppose we have an implementation of a Ludo\footnote{A simple game in which players move tokens around a board based on the roll of a die.
-\url{https://en.wikipedia.org/wiki/Ludo}} game implemented with the help of \emph{Design by Contract}~\cite{Meye92b}.
-Players alternate in throwing a die and moving a token.
+Moldable exceptions provide custom debugger views and actions in essentially the same way as the moldable inspector.
+Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each custom debugger view or action.
+These methods are annotated with a \lst{<gtExceptionView>} pragma.
+
+Let us consider that the Ludo game has been implemented with the help of \emph{Design by Contract}~\cite{Meye92b}.
 Rolling a die when a player should move, or vice versa, constitutes a precondition violation, which raises a \st{LudoMoveAssertionFailure}.
 Similarly, if an attempt is made to move the wrong player's token, this will trigger a precondition failure.
 \begin{figure}[h]
@@ -212,7 +234,7 @@ Here is the definition of the first view, which simply forwards (delegates) the 
 \steve{Why, in the script from line 250, the method does not have a `<gtView>` pragma while the one from line 325 does? I would suggest removing the `<gtView>` pragma since it is not explained and it does not serve the explanations of the idea.}
 \begin{code}
 gtGameViewFor: aView
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 	^ aView forward
 		title: 'Game';
 		priority: 10;
@@ -220,8 +242,9 @@ gtGameViewFor: aView
 		view: #gtPositionsFor:
 \end{code}
 \steve{I do not understand the result of the priority "10" in line 254 when I look at the screenshot. Perhaps change it to priority "1"?}
+
 Let us step through the code: \st{gtGameViewFor:} is the name of the view method, which takes as its argument \st{aView}, the view to be defined.
-The method is annotated with \lst{<gtExceptionDebuggingView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
+The method is annotated with \lst{<gtExceptionView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
 We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the view a title and a priority (order in which views) appear, and we specify the object to forward to (the move's \st{game}) and the already existing view method to forward to (\st{gtPositionsFor:}).
 
 We similarly define a method for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us the two views seen in \autoref{fig:ludoCustomViews}.
@@ -232,18 +255,15 @@ We similarly define a method for the history of past moves, and now the debugger
   \label{fig:ludoCustomViews}
 \end{figure}
 The Game view shows us the current game state graphically, and the Moves view shows us a browsable list of past moves.
-Note that we can always switch to the old debugger by selecting the \emph{GT Debugger} button at the top.
-\ab{Line 273: "the old debugger" => "the standard debugger"}
-\steve{line 273 "old debugger" -> "standard debugger" I think that in many cases customized debugger views might come as complement to the standard debugger. Since there can sometimes be no dedicated actions in views, they can serve as additional visualization tools to find and understand data that helps taking a decision in the standard debugger.}
+Note that we can always switch to the standard debugger by selecting the \emph{GT} button at the top.
+%\ab{Line 273: "the old debugger" => "the standard debugger"}
+%\steve{line 273 "old debugger" -> "standard debugger" I think that in many cases customized debugger views might come as complement to the standard debugger. Since there can sometimes be no dedicated actions in views, they can serve as additional visualization tools to find and understand data that helps taking a decision in the standard debugger.}
 
-In \autoref{fig:ludoCustomViewsSource} we can see that the \emph{Moves} debugger view forwards to an existing Object Inspector view also called \emph{Moves}, but defined in the \st{GtLudoRecordingGame} class.
-\steve{line 323 I find the transition between examples a bit rough, perhaps paragraphs with identified titles could help}
-\begin{figure}[h]
-  \includegraphics[width=\columnwidth]{ludoView2-Moves-Source}
-  \caption{Browsing the source code of debugger views.}
-  \label{fig:ludoCustomViewsSource}
-\end{figure}
-The existing inspector view uses just a few lines of code to create a browsable ``columned'' list of past moves with several columns for the details of each move.
+The \emph{Moves} debugger view is also defined by reusing the existing object inspector \emph{Moves} view:
+\begin{code}
+gtMovesViewFor: aView
+	<gtExceptionView>	^ aView forward		title: 'Moves';		priority: 20;		object: [ move game ];		view: #gtMovesFor:
+\end{code}
 
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
 \begin{code}
@@ -327,7 +347,7 @@ In \autoref{fig:scripterStepsViewSource} we can see the entire source code of th
   \caption{The Scripter steps source code.}
   \label{fig:scripterStepsViewSource}
 \end{figure}
-\steve{Just thinking now about the screenshots: they are small and we can't read much of the code. I understand that might not be that important such as in Fig. 12 where the point is showing the short amount of lines of code. It is however frustrating for the reader that cannot not see that there is code :P but I don't know what you can do there...}
+\steve{Just thinking now about the screenshots: they are small and we can't read much of the code. I understand that might not be that important such as in Fig. 12 where the point is showing the short amount of lines of code. It is however frustrating for the reader that cannot not see that there is code :P but I don't know what you can do there...}\on{Gave more space to the source code.}
 The debugging view at the top just adds a ``Inspect Scripter'' button to the next method, an object inspector view for a Scripter.
 This in turn just delegates to the \emph{Steps} view of a \st{BlDevScripterStep} object.
 Finally, this method embeds a Mondrian visualization implemented in 12 lines of code in the \st{paintTreeWith:} method.
