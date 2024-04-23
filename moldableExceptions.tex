@@ -98,7 +98,7 @@ The trouble with this is that every debugging problem is different, but debugger
 \steve{Following the first remark, l.39  you say all debuggers show us the same things, but they also provide us with the same actions: step, break, etc. and it is very limited as you say later for investigating problem-specific things. It also introduces a gap: when investigating specific, non-conventional debugging problems, we have to transform somehow our debugging questions to a sequence of steps and breakpoints etc. that bring us to the information we seek, but it's difficult as it's like using a hammer to break nuts.}
 
 There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages.
-\ab{Line 40: "There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages." => Can be reinforced with a ref, such as this one: Object-Centric Debugging -- Jorge Ressia, Alexandre Bergel, Oscar Nierstrasz. Proceedings of the 34th International Conference on Software Engineering (ICSE'12)}
+\ab{Line 40: "There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages." => Can be reinforced with a ref, such as this one: Object-Centric Debugging -- Jorge Ressia, Alexandre Bergel, Oscar Nierstrasz. Proceedings of the 34th International Conference on Software Engineering (ICSE'12)}\nocite{Ress12a}
 These custom debuggers provide dedicated views and actions that are tailored to a specific application context.
 Building a custom debugger is, however, a non-trivial task, so this does not happen too often.
 An \emph{extensible} debugger (such as \deet~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
@@ -468,31 +468,36 @@ Like that we could have step actions/view added by an exception that can be use 
 \on{Are there other important references, and more recent ones, that we are missing?}
 
 \steve{The Java Platform Debugger Architecture (JPDA) provides a 3-level architecture to build debuggers. The highest level is Java Debug Interface, basically you write a Java program that consumes VM stepping (and other) events. In the middle you have an interface to connect to the back end. Those two are to build new debuggers. With the lowest level, Java Virtual Machine Tools Interface (JVMTI), you can write agents that you attach to your debugger. In that sense, you can extend your debugger with new features. However with JVMTI you can only write in C or C++ (don't remember) so you have to write a debugger extension in another language than the one you debug and so you have to change worlds and manipulate very low-level concepts (cognitive cost) each time you observe something in your "home" language for which you want to extend your debugger. If you need a specific view, you need to build it from scratch and integrate it in your environment.}
+\nocite{JVMTI24}
 
 \steve{The VSCode debugger follows another philosophy, where you have a very standard debugger with very standard actions, but you can extend that debugger to support another back end for the language of your choice, so that your very specific language can benefit from super generic operations. For that it provides a protocol named Debugger Adapter Protocol (DAP).}
+\nocite{DAP21}
 
 \steve{The work of Bousse et al [1] follow the same path but for DSLs. They provide an environment to build DSLs execution engines, and for every DSL built with the environment, the environment provides a generic (time-traveling) debugger with the same features for all DSLs, except that the debugger will adapt to the stepping semantics of each DSLs. That semantic must be defined while designing and building the DSL, and is rather expansive to do (it is way harder than using introspection and intercession in Pharo like in the old GT-Debugger paper). They try to cope with that later by providing a "generic architecture" that allows them to build/extend specific debugging tools for DSLs [2] (they specifically speak about "Reducing the development cost of interactive debugger for DSLs"). They use the DAP to provide these new controls in VSCode. I don't think they provide views however. I'm not strong on this particular work though, it's worth re-reading it.}
 % [1] Omniscient Debugging for Executable DSLs
 % https://inria.hal.science/hal-01662336/file/jss17-debugging.pdf
+\nocite{Bous18a}
 % [2] Protocol-Based Interactive Debugging for Domain-Specific Languages
 % https://hal.science/hal-04124727/document
+\nocite{Enet23a}
 
 \steve{In OUPS [3] a few years ago (that's an IWST paper, I like it but it's not top quality paper), we redesigned the way Pharo dealt with exceptions. It evolved since then and is better designed and more stable than at the time. We conditioned the opening of a debugger to the acceptance of both the debugger and the exception. In short, when an exception is raised the debugger system takes a list of available debuggers sorted by a priority property, and try to open the exception with each one of them until one debugger accepts the exception, and the exception accepts to be debugged by the debugger. We obtained two new capabilities:\\
 - First at that time I was heavily working on the development of the current Pharo debugger, and it was unstable. When there was a bug in the debugger (which was often) I had no way to debug it. Fortunately, the GTDebugger was still there in the system. We created some kind of "meta-error", that was raised if an error originated from the opening of a debugger. That meta-error was debugged with the next-in-line debugger, so we could use another debugger to debug the failing debugger. For a long time that scenario was working so nice: I had a bug in the spec debugger, so it opened the GT-debugger that I used to debug the spec debugger and upon proceeding, the spec debugger opened working perfectly. GT was later removed.\\
 - Second, we wanted to use it to open specific debuggers for specific exceptions. So you could have a domain exception that would accept only a specific debugger, or a specific debugger that would accept only specific exceptions. The problem is that we have to build complete debuggers for that (ie, at worst one debugger for each problem), which is why I guess we never applied this in real scenarios.}
 % [3] Handling Error-Handling Errors: dealing with debugger bugs in Pharo
 % https://inria.hal.science/hal-02992644/document 
-
+\nocite{Cost20a}
 
 \steve{A bit distant maybe, the work of Van de Vanter at al ([4]and [5]) where they extend the Truffle language implementation framework with "probes" that can extend the AST with introspection and (I think) intercession features. There are no views involved, but I remember the idea of extending the AST with new probes to easily build new debugging tools without touching low-level language concepts.}
-% [4] Fast, Flexible, Polyglot Instrumentation Support for Debuggers and other Tools, 
-% https://arxiv.org/ftp/arxiv/papers/1803/1803.10201.pdf\\
+% [4] Fast, Flexible, Polyglot Instrumentation Support for Debuggers and other Tools
+% https://arxiv.org/ftp/arxiv/papers/1803/1803.10201.pdf
+\nocite{Vant18a}
 % [5] Building Debuggers and Other Tools: We Can “Have it All”
-% https://vandevanter.net/mlvdv/publications/2015-icooolps.pdf}
+% https://vandevanter.net/mlvdv/publications/2015-icooolps.pdf
+\nocite{Vant15a}
 
 Early debuggers provided a command-line interface to inspect and step through the execution of a running program or a \emph{post mortem} ``core dump.''
 With the advent of GUI-based IDEs, debuggers were also updated to offer interactive views to explore the execution state of a program and to step through its execution~\cite{Rose96a}.
-
 
 % Debugging behavior
 Studies of developer debugging behavior have shown that many developers have difficulty using debuggers and often shy away from them.
