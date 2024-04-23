@@ -555,14 +555,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-03-05T11:10:16.683991+01:00"
+									"dateAndTimeString" : "2024-04-22T16:41:15.734+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "ZphFGEjPDQCaSH5eC7u3hA=="
 							},
-							"code" : "(#gtExceptionDebuggingView gtPragmas contents collect: #methodClass) asSet."
+							"code" : "(#gtExceptionView gtPragmas contents collect: #methodClass) asSet."
 						},
 						{
 							"__type" : "textSnippet",
