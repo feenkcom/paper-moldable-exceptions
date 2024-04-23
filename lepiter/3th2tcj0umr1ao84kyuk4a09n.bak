@@ -411,7 +411,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2024-04-18T14:07:26.910987+02:00"
+												"dateAndTimeString" : "2024-04-22T16:40:56.666995+02:00"
 											}
 										},
 										"uid" : {
@@ -653,7 +653,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-18T14:07:21.229166+02:00"
+						"dateAndTimeString" : "2024-04-22T16:40:56.659298+02:00"
 					}
 				},
 				"uid" : {
@@ -708,6 +708,43 @@
 							"string" : "What's a good, simple and canonical example?"
 						},
 						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-23T15:39:06.110608+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-23T15:39:30.442636+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "jVwxaiXTDQCgbT+iAc+9lg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Instead of the ZnUrl example, TG proposes the Ludo Moves view."
+						},
+						{
 							"__type" : "pharoSnippet",
 							"children" : {
 								"__type" : "snippets",
@@ -721,7 +758,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:39:36.161566+02:00"
+									"dateAndTimeString" : "2024-04-23T15:39:31.804022+02:00"
 								}
 							},
 							"editEmail" : {
@@ -732,14 +769,51 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:50:48.737327+02:00"
+									"dateAndTimeString" : "2024-04-23T15:41:31.181941+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "LgnH1sDSDQCM3n6vAofGIA=="
+								"uidString" : "2Wu5ayXTDQChyMmGAc+9lg=="
 							},
-							"code" : "'/' asFileReference."
+							"code" : "GtLudoRecordingGameExamples"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-23T15:39:06.367783+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2024-04-23T15:39:06.367783+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "ZEw1aiXTDQCgcZoBAc+9lg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : ""
 						},
 						{
 							"__type" : "pharoSnippet",
@@ -906,14 +980,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:25:22.194498+02:00"
+									"dateAndTimeString" : "2024-04-22T16:41:39.786142+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "n+GnoMDSDQCJer5iAofGIA=="
 							},
-							"code" : "#gtExceptionDebuggingView gtPragmas."
+							"code" : "#gtExceptionView gtPragmas."
 						},
 						{
 							"__type" : "pharoSnippet",
@@ -940,14 +1014,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:25:47.180789+02:00"
+									"dateAndTimeString" : "2024-04-22T16:41:42.366648+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "EHrwo8DSDQCJs9WLAofGIA=="
 							},
-							"code" : "#gtExceptionDebuggingView gtPragmas & #forward gtSenders."
+							"code" : "#gtExceptionView gtPragmas & #forward gtSenders."
 						},
 						{
 							"__type" : "pharoSnippet",
@@ -974,14 +1048,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:25:59.467305+02:00"
+									"dateAndTimeString" : "2024-04-22T16:41:44.628411+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "8a7ppcDSDQCLCw8yAofGIA=="
 							},
-							"code" : "#gtExceptionDebuggingView gtPragmas & #forward gtSenders not."
+							"code" : "#gtExceptionView gtPragmas & #forward gtSenders not."
 						},
 						{
 							"__type" : "pharoSnippet",
@@ -1008,14 +1082,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2024-04-18T15:31:31.831754+02:00"
+									"dateAndTimeString" : "2024-04-22T16:41:47.090804+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "2MjessDSDQCLMl9iAofGIA=="
 							},
-							"code" : "#gtExceptionDebuggingView gtPragmas & #forward gtSenders not\r\t& #columnedList gtSenders not & #list gtSenders not\r\t& #columnedTree gtSenders not\r\t& #textEditor gtSenders not"
+							"code" : "#gtExceptionView gtPragmas & #forward gtSenders not\r\t& #columnedList gtSenders not & #list gtSenders not\r\t& #columnedTree gtSenders not\r\t& #textEditor gtSenders not"
 						}
 					]
 				},
@@ -1207,7 +1281,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:01.325061+02:00"
+						"dateAndTimeString" : "2024-04-22T16:40:56.729627+02:00"
 					}
 				},
 				"editEmail" : {
@@ -1218,7 +1292,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-18T11:23:58.963097+02:00"
+						"dateAndTimeString" : "2024-04-22T16:40:56.729627+02:00"
 					}
 				},
 				"uid" : {
@@ -1279,7 +1353,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-12T14:36:01.507853+02:00"
+						"dateAndTimeString" : "2024-04-22T16:40:56.741985+02:00"
 					}
 				},
 				"editEmail" : {
@@ -1290,7 +1364,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2024-04-18T14:06:44.162253+02:00"
+						"dateAndTimeString" : "2024-04-22T16:40:56.741985+02:00"
 					}
 				},
 				"uid" : {
