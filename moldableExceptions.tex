@@ -181,7 +181,7 @@ Players alternate in throwing a die and moving a token until one player reaches 
 In \autoref{fig:ludoRawBoardViews} we see at the left the classical \emph{Raw} view supported by a typical object inspector.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoRawBoardViews}
-  \caption{A classical raw view of a Ludo game next to a graphical \emph{Board} view.}
+  \caption{A classical raw view of a Ludo game next to a graphical \emph{Board} view. \tg{I would change this picture with two separate windows showing the two views: this is because people typically associated adjacent panes with some connection - it seems harder for people to grasp that we can spawn the same object there, too. Also, there should be no highlighting in the Raw view.}}
   \label{fig:ludoRawBoardViews}
 \end{figure}
 It just shows the state of the object as a list of instance variables and their values.
@@ -262,7 +262,12 @@ Note that we can always switch to the standard debugger by selecting the \emph{G
 The \emph{Moves} debugger view is also defined by reusing the existing object inspector \emph{Moves} view:
 \begin{code}
 gtMovesViewFor: aView
-	<gtExceptionView>	^ aView forward		title: 'Moves';		priority: 20;		object: [ move game ];		view: #gtMovesFor:
+	<gtExceptionView>
+	^ aView forward
+		title: 'Moves';
+		priority: 20;
+		object: [ move game ];
+		view: #gtMovesFor:
 \end{code}
 
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
