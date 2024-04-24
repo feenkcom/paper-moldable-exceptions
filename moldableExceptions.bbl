@@ -175,9 +175,8 @@
 \newblock \showarticletitle{The {Moldable} {Inspector}}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 2015 ACM International Symposium
   on New Ideas, New Paradigms, and Reflections on Programming and Software}}
-  (Pittsburgh, PA, USA) \emph{(\bibinfo{series}{Onward! 2015})}.
-  \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
-  \bibinfo{pages}{44--60}.
+  \emph{(\bibinfo{series}{Onward! 2015})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{44--60}.
 \newblock
 \showISBNx{978-1-4503-3688-8}
 \urldef\tempurl%
@@ -401,8 +400,7 @@
   \bibinfo{year}{2012}\natexlab{}.
 \newblock \showarticletitle{Object-Centric Debugging}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 34rd international conference on
-  Software engineering}} (Zurich, Switzerland) \emph{(\bibinfo{series}{ICSE
-  '12})}.
+  Software engineering}} \emph{(\bibinfo{series}{ICSE '12})}.
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1109/ICSE.2012.6227167}

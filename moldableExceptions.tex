@@ -428,6 +428,104 @@ The \st{signal} method of exception classes can then optionally consult this fla
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
 % ============================================================
+\section{A case study of Moldable Exceptions}\label{sec:casestudy}
+As a case study, we applied moldable exceptions in a company developing applications for managing insurance policies to improve the developmnt process by integrating an external tool into the debugger. 
+
+One part of the application consists in generating various documents related to insurance contracts. 
+The creation of documents is verified using tests checking that recreating a document matches an expected version saved in the system. 
+When a comparison fails a developer need to assess the differences between the two documents and then in case those differences are expected, update the expected document with the obtained one, or in case they are not expected, fix the route cause of the difference.
+
+A developer can use a dedicated tool to see the diff between the obtain and the expected document, and in case the difference is ok update the expected document with the new one. 
+In case the difference indicates a bug, the developer has to run again the test using the debugger to explore the live execution. In this flow developers have to choose the tool before they run the test, which means that they typically ran a test twice. 
+This can be a problem as some tests take minutes to run.
+
+With moldable exceptions we integrated views showing differences between the obtained and the expected documents, and actions to update the expected document with the new one and resume executing the test, directly in the debugger. 
+To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} exceptions when two documents to not match.
+
+\begin{figure*}[h]
+  \includegraphics[width=\textwidth]{comparisonFailureVisualDiff}
+  \caption{A view showing visual differences between two PDF documents (different pars are highlighted in magenta)}
+  \label{fig:comparisonFailureVisualDiff}
+\end{figure*}
+
+\begin{figure*}[h]
+  \includegraphics[width=\textwidth]{comparisonFailureTextualDiff}
+  \caption{A view showing textual differences between the text content of two PDF documents}
+  \label{fig:comparisonFailureTextualDiff}
+\end{figure*}
+
+Figure \autoref{fig:comparisonFailureVisualDiff}  shows the debugger opened on a \lst{ComparisonFailures} raised as a result of a failed comparison two pdf documents. 
+In this case the exception provides several diff views: one at the image level highlighting visually the parts that are different between the two documents (Figure \autoref{fig:comparisonFailureVisualDiff}), one only at the level of the text contained by the PDF documents (Figure \autoref{fig:comparisonFailureTextualDiff}), and one at the level of the raw document format. 
+Apart from the diff views, the exception also provides an Accept action that updates the expected document with the new one and continues the execution of the test.
+
+We see below the source code of the `Image Diff` and Listing Y the source for of the 'Accept' action. 
+In both cases they reuse existing logic and within a few lines of code integrate it in the debugger. 
+This integration unifies the flow of comparing two documents and exploring why the failure happen using a debugger. 
+Developer can now simply run tests and when a comparison fails choose how to proceed.
+
+\begin{code}
+add code for the Diff view
+\end{code}
+
+\begin{code}
+add code for the Accept actions
+\end{code}
+
+% ============================================================
+\section{Implementation details}\label{sec:directions}
+We implemented the moldable exceptions idea in Glamorous Toolkit. This section discusses relevant aspects regarding its implementation.
+
+At the core of implementing moldable exceptions is allowing the exception to indicate how to locate relevant actions and views.
+In our implementation every exception can provide one or more debugger specifications. 
+Exceptions define these specifications through methods annotated with \lst{<gtDebuggerSpecification>}. 
+Below we see the method in the \lst{Exception} class that defines a custom debugger for every exception.
+
+\begin{code}
+gtExceptionDebuggerSpecification
+	<gtDebuggerSpecification>
+	
+	^ GtMoldableExceptionSpecificDebuggerSpecification 
+		forException: self
+\end{code}
+
+A debugger specification contains all the information needed by a debugger to locate actions and views. 
+\autoref{fig:debuggerSpecificationsProperties} shows the default properties defined by a debugger specification.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{debuggerSpecificationsProperties}
+  \caption{Default properties for a debugging specification.}
+  \label{fig:debuggerSpecificationsProperties}
+\end{figure}
+
+
+By default, as mentioned in \autoref{sec:views}, the debugger looks for methods  annotated with a \lst{<gtExceptionView>} pragma. 
+The exception can change the pragma if needed, or provide a list of pragmas. 
+Apart from from this the default specification also provides several other properties like:
+
+\begin{itemize}
+\item Debugging Targets: objects reachable from the exception where to look for actions and views
+\item Debugging Actions: pragmas for debugging actions
+\item Title, Icon:  details for displaying a debugger selector
+\item Priority:  debuggers are sorted by priority when shown; the first one is selected
+\item Activation Predicate: a condition for deciding if to show the debugger or not based on the exception state; by default the debugger is shows if any debugging views are found
+\item Available Automatically: if the debugger is active, can it be shown by default
+\item Debugger Class: The class of the debugger that is created from this specification
+\end{itemize}
+
+By default the debugger created from a specification searches for debugging views and actions in the class of the exception. 
+However, through the \lst{Debugging Targets} property an exception can change that, and provide any other list of objects. 
+That make it possible for other objects in the system reachable from the exception objects to provide debugging actions and views.
+
+To summarize, when an exception is raised the moldable debugger looks for debugger specifications in exception methods annotated with  \lst{<gtDebuggerSpecification>} and uses them to create custom debuggers. 
+These custom debuggers are shows when their activation predicate is true. For example, \autoref{fig:availableDebuggerSpecifications} shows the list of debugger specification located when the assertion failure from \autoref{fig:stringComparisonView} is raised. We see that in total 8 specifications are found, but just the one for the default debugger, and the one provided by the exception are active and result in a debugger being shown.
+
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{availableDebuggerSpecifications}
+  \caption{A list of debugger specification found when an exception was raised.}
+  \label{fig:availableDebuggerSpecifications}
+\end{figure}
+
+% ============================================================
 \section{Discussion and future directions}\label{sec:directions}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
