@@ -63,13 +63,13 @@
 
 \begin{abstract}
 Debugging is hard.
-Debuggers are mostly the same.
+Interactive debuggers are mostly the same.
 They show you a stack, a way to sample the state of the stack, and, if the debugger is live, a way to step through execution.
-The standard debugger mostly offers a low-level interface in terms of generic language constructs to track down and fix bugs.
-\steve{In the abstract, you say "the standard debugger". Perhaps it is an English subtility that I do not understand and it means "any standard debugger". The problems you mention concern the vast majority of debuggers, everywhere. Even Smalltalk debuggers are in fact very similar to the java debugger and others.}
+The standard interactive debugger for a general-purpose programming language provided by a mainstream IDE mostly offers a low-level interface in terms of generic language constructs to track down and fix bugs.
+% \steve{In the abstract, you say "the standard debugger". Perhaps it is an English subtility that I do not understand and it means "any standard debugger". The problems you mention concern the vast majority of debuggers, everywhere. Even Smalltalk debuggers are in fact very similar to the java debugger and others.}
 A custom debugger, such as those developed for specific application domains, offers alternative interfaces more suitable to the specific execution context of the program being debugged.
-Contextual debugging views and actions greatly improve our ability to reason about the current problem.
-\ab{The abstract implies that "Contextual debugging views" are "custom debuggers". I agree, but it is difficult to grasp from the text.}
+Custom debuggers offering contextual debugging views and actions can greatly improve our ability to reason about the current problem.
+% \ab{The abstract implies that "Contextual debugging views" are "custom debuggers". I agree, but it is difficult to grasp from the text.}
 Implementing such custom debuggers, however, is non-trivial, and poses a barrier to improving the debugging experience.
 In this paper we introduce \emph{moldable exceptions}, a lightweight mechanism to adapt a debugger's interface based on contextual information provided by a raised exception.
 We present, through a series of examples, how moldable exceptions can enhance a live programming environment.
@@ -86,22 +86,18 @@ We present, through a series of examples, how moldable exceptions can enhance a 
 % ============================================================
 \section{Introduction}\label{sec:intro}
 
-\tk{Scope: never stated we mean *interactive debuggers* vs automated debugging etc.}
+%\tk{Scope: never stated we mean *interactive debuggers* vs automated debugging etc.}
 
-\ab{I would add that a similar (albeit much less expressive) behavior could be achieved in other languages by simply overriding toString() to an exception. It is a common practice to have a detailed textual description of exceptions.\\
-This textual description is used by the classical Java debugger, but this is limited to a textual representation. Your approach goes much further by having a specific interface and specific actions. Maybe you could mention this in the related work, or in the introduction.}
-% [NamingException.java#L400](https://github.com/openjdk/jdk/blob/896107705615a3b9363b7a0a3e6703b20fedef70/src/java.naming/share/classes/javax/naming/NamingException.java#L400)
-% [NamingException.java#L424](https://github.com/openjdk/jdk/blob/896107705615a3b9363b7a0a3e6703b20fedef70/src/java.naming/share/classes/javax/naming/NamingException.java#L424)
-
-In the bad old days, all debuggers were the same.
-You had commands to sample the current execution state, and you had commands to step through the running code.
+In the bad old days, all interactive debuggers were the same.
+You had a command-line interface with commands to sample the current execution state, and you had commands to step through the running code.
 Nowadays we have graphical debuggers that show us the run-time stack, and offer buttons instead of commands to step through the code, but they are still all the same.
-The trouble with this is that every debugging problem is different, but debuggers all show us the same thing.
-\steve{Following the first remark, l.39  you say all debuggers show us the same things, but they also provide us with the same actions: step, break, etc. and it is very limited as you say later for investigating problem-specific things. It also introduces a gap: when investigating specific, non-conventional debugging problems, we have to transform somehow our debugging questions to a sequence of steps and breakpoints etc. that bring us to the information we seek, but it's difficult as it's like using a hammer to break nuts.}
+The trouble with this is that every debugging problem is different, but debuggers all show us the same thing, and they offer the same kinds of actions to step through the code.
+% \steve{Following the first remark, l.39  you say all debuggers show us the same things, but they also provide us with the same actions: step, break, etc. and it is very limited as you say later for investigating problem-specific things. It also introduces a gap: when investigating specific, non-conventional debugging problems, we have to transform somehow our debugging questions to a sequence of steps and breakpoints etc. that bring us to the information we seek, but it's difficult as it's like using a hammer to break nuts.}
 
 There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages.
-\ab{Line 40: "There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages." => Can be reinforced with a ref, such as this one: Object-Centric Debugging -- Jorge Ressia, Alexandre Bergel, Oscar Nierstrasz. Proceedings of the 34th International Conference on Software Engineering (ICSE'12)}\nocite{Ress12a}
 These custom debuggers provide dedicated views and actions that are tailored to a specific application context.
+For example, an \emph{object-centric debugger}~\cite{Ress12a} offers views and interactions that focus on specific objects rather than the run-time stack.
+% \ab{Line 40: "There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages." => Can be reinforced with a ref, such as this one: Object-Centric Debugging -- Jorge Ressia, Alexandre Bergel, Oscar Nierstrasz. Proceedings of the 34th International Conference on Software Engineering (ICSE'12)}\nocite{Ress12a}
 Building a custom debugger is, however, a non-trivial task, so this does not happen too often.
 An \emph{extensible} debugger (such as \deet~\cite{Hans97a}) is designed so that it can be easily extended with new graphical views and debugging operations, but these extensions still represent a significant development effort.
 A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugger that can activate alternative debugger interfaces depending on the current execution context, however the development of these alternative debuggers is still non-trivial.
@@ -124,20 +120,21 @@ Each exception therefore implicitly carries knowledge about the kind of issue be
 Moldable exceptions leverage this knowledge by associating simple views and actions to be activated by a moldable debugger when that exception is raised.
 
 Consider the following example.
-In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two strings.\footnote{All the examples are written in Pharo Smalltalk (\url{https://pharo.org}), running in the open-source Glamorous Toolkit IDE (\url{https://gtoolkit.com}).}
+In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two strings.\footnote{All the examples are written in Pharo Smalltalk (\url{https://pharo.org}), running in the open-source Glamorous Toolkit (GT) IDE (\url{https://gtoolkit.com}).}
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{stringComparisonSnippet}
   \caption{A failing string comparison assertion.}
   \label{fig:stringComparisonSnippet}
 \end{figure}
-In a normal setting, this assertion will fail, yielding a standard debugger view, as we see in \autoref{fig:genericDebugger}.
-\steve{I wonder if the debugger view from Fig. 2 is really generic. I don't recognize it (not a critic), I think it is already a customized view. Are we seeing the source code of each method on the stack? Perhaps it would be more precise to specify "The generic GT debugger view with common standard debugging actions" (but I don't know).}
+In a normal setting, this assertion will fail, yielding a standard debugger view, such the one as we see in \autoref{fig:genericDebugger}.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{genericDebugger}
   \caption{A generic debugger view.}
   \label{fig:genericDebugger}
 \end{figure}
-It will then take a developer some time to putter around in the debugger interface to understand the specific error (the strings do not match), and why the strings do not match.
+This is the standard debugger of the GT IDE, which resembles other generic debuggers in that it shows an error message at the top, a compact view of the reified run-time stack at the left, source code of each stack frame in the middle, an inspector on the variables of the current stack frame at the right, and a dashboard of buttons at the top right for stepping through the running program.
+% \steve{I wonder if the debugger view from Fig. 2 is really generic. I don't recognize it (not a critic), I think it is already a customized view. Are we seeing the source code of each method on the stack? Perhaps it would be more precise to specify "The generic GT debugger view with common standard debugging actions" (but I don't know).}
+It will typically take a developer some time to putter around in the debugger interface to understand the specific error (the strings do not match), and why the strings do not match.
 
 Suppose that instead of seeing the generic debugger, we are offered a view that highlights the actual differences, as in \autoref{fig:stringComparisonView}.
 \begin{figure}[h]
@@ -159,8 +156,8 @@ This simple mechanism allows moldable exceptions to do three things:
 	\item enable automated fixes (code transformations) for common programming errors.
 \end{enumerate}
 
-We will illustrate these three points with numerous examples.
-\steve{Line 145 it does not seem correct that you present "numerous" examples. I did not count but I think you have some examples for each scenario. To me "numerous" implies "a lot", but my english is not that good --- like many reviewers ;)}
+We will illustrate these three points with several examples.
+%\steve{Line 145 it does not seem correct that you present "numerous" examples. I did not count but I think you have some examples for each scenario. To me "numerous" implies "a lot", but my english is not that good --- like many reviewers ;)}
 In \autoref{sec:inspectorViews} we introduce the \emph{moldable inspector}, which allows objects to define custom views when they are inspected.
 In \autoref{sec:views} we show how custom debugger views can easily be defined in a similar way by adding simple annotated view methods to the class of a moldable exception.
 In \autoref{sec:interactions} we show how a richer debugger interface can be provided in much the same way by leveraging existing GUI frameworks.
@@ -172,26 +169,33 @@ We conclude in \autoref{sec:conclusion}.
 
 % ============================================================
 \section{The moldable inspector}\label{sec:inspectorViews}
+% \tk{Background on moldable tools was missing.}
 
-\tk{Background on moldable tools was missing.}
-
-Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a \emph{moldable object inspector}~\cite{Chis15a}.
+Understanding moldable exceptions can be easier if we first introduce another example of a similar approach.
+Moldable exceptions build on the idea of a \emph{moldable tool}~\cite{Chis17a}, an IDE tool that adapts its behavior to a specific run-time application context.
+A good example of such a tool is a \emph{moldable object inspector}~\cite{Chis15a}.
 When a moldable object inspector is opened on an object it looks for any view methods defined in the class of that object, and uses those methods to create custom views.
 
 Let us consider a typical example.
 Suppose we have an implementation of a Ludo\footnote{A simple game in which players move tokens around a board based on the roll of a die.
 \url{https://en.wikipedia.org/wiki/Ludo}} game.
 Players alternate in throwing a die and moving a token until one player reaches their goal square.
-In \autoref{fig:ludoRawBoardViews} we see at the left the classical \emph{Raw} view supported by a typical object inspector.
+In \autoref{fig:ludoRawView} we see a classical \emph{Raw} view supported by a typical object inspector.
 \begin{figure}[h]
-  \includegraphics[width=\columnwidth]{ludoRawBoardViews}
-  \caption{A classical raw view of a Ludo game next to a graphical \emph{Board} view. \tg{I would change this picture with two separate windows showing the two views: this is because people typically associated adjacent panes with some connection - it seems harder for people to grasp that we can spawn the same object there, too. Also, there should be no highlighting in the Raw view.}}
-  \label{fig:ludoRawBoardViews}
+  \includegraphics[width=\columnwidth]{ludoRawView}
+  \caption{A classical ``raw'' view of a Ludo game. }
+  \label{fig:ludoRawView}
 \end{figure}
+%\tg{I would change this picture with two separate windows showing the two views: this is because people typically associated adjacent panes with some connection - it seems harder for people to grasp that we can spawn the same object there, too. Also, there should be no highlighting in the Raw view.}
 It just shows the state of the object as a list of instance variables and their values.
-At the right, however, we see an alternative, graphical \emph{Board} view showing the current state of the game as a user would see it.
+In \autoref{fig:ludoBoardView}, however, we see an alternative, graphical \emph{Board} view showing the current state of the game as a user would see it.
+\begin{figure}[h]
+  \includegraphics[width=\columnwidth]{ludoBoardView}
+  \caption{An interactive GUI view of a Ludo game. }
+  \label{fig:ludoBoardView}
+\end{figure}
 
-In general, a variety of views may be more useful than the classical``raw'' view, and this is also true for the Ludo game.
+In general, a variety of views may be more useful than the classical ``raw'' view, and this is also true for the Ludo game.
 In \autoref{fig:ludoMovesMoveViews} we see a \emph{Moves} view that lists all the moves of the game played thus far.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoMovesMoveViews}
@@ -206,7 +210,7 @@ In \autoref{fig:ludoMovesSource} we see the source code defining the \emph{Moves
   \caption{The \emph{Moves} view next to its source code.}
   \label{fig:ludoMovesSource}
 \end{figure}
-This method uses just a few lines of code to create a browsable ``columned'' list of past moves with several columns for the details of each move.
+This method uses just a few lines of code to create a browsable ``columned list'' of past moves with several columns for the details of each move.
 View methods are recognized by the moldable inspector through a dedicated annotation, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
 In this case the annotation is \st{<gtView>}, seen in the second line of the method.
 
@@ -235,7 +239,7 @@ Furthermore, if we already have such views defined elsewhere (we do!), it is not
 We just need to define two new view methods in the class \lmaf.
 
 Here is the definition of the first view, which simply forwards (delegates) the view to another existing one.
-\steve{Why, in the script from line 250, the method does not have a `<gtView>` pragma while the one from line 325 does? I would suggest removing the `<gtView>` pragma since it is not explained and it does not serve the explanations of the idea.}
+%\steve{Why, in the script from line 250, the method does not have a `<gtView>` pragma while the one from line 325 does? I would suggest removing the `<gtView>` pragma since it is not explained and it does not serve the explanations of the idea.}
 \begin{code}
 gtGameViewFor: aView
 	<gtExceptionView>
@@ -245,11 +249,18 @@ gtGameViewFor: aView
 		object: [ move game ];
 		view: #gtPositionsFor:
 \end{code}
-\steve{I do not understand the result of the priority "10" in line 254 when I look at the screenshot. Perhaps change it to priority "1"?}
+%\steve{I do not understand the result of the priority "10" in line 254 when I look at the screenshot. Perhaps change it to priority "1"?}
 
-Let us step through the code: \st{gtGameViewFor:} is the name of the view method, which takes as its argument \st{aView}, the view to be defined.
-The method is annotated with \lst{<gtExceptionView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
-We return (\st{^}) the result of sending \st{forward} to \st{aView}, giving the view a title and a priority (order in which views) appear, and we specify the object to forward to (the move's \st{game}) and the already existing view method to forward to (\st{gtPositionsFor:}).
+Let us step through the code:
+\begin{inparaenum}[(i)]
+	\item \st{gtGameViewFor:} is the name of the view method, which takes as its argument \lst{aView}, the view to be defined.
+	\item The method is annotated with \lst{<gtExceptionView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
+	\item We return (\st{^}) the result of sending \st{forward} to \st{aView}.
+	\item We give the view a title and
+	\item a priority (order in which views ---  we set it to $10$ rather than $1$ to leave room for more important views later)
+	\item We specify the object to forward to (the move's \st{game}).
+	\item We name the already existing view method to forward to (\st{gtPositionsFor:}).
+\end{inparaenum}    
 
 We similarly define a method for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us the two views seen in \autoref{fig:ludoCustomViews}.
 \begin{figure}[h]
@@ -277,7 +288,6 @@ gtMovesViewFor: aView
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
 \begin{code}
 AssertionFailure>>gtTwoPanesStringDiffFor: aView
-	<gtView>
 	<gtExceptionDebuggingView>
 	| assertionContext |
 	self gtHasStack ifFalse: [ ^ aView empty ].
@@ -290,35 +300,47 @@ AssertionFailure>>gtTwoPanesStringDiffFor: aView
 		view: #gtTwoPanesStringDiffFor:
 \end{code}
 The key difference is that not every \st{AssertionFailure} is raised as the result of a comparison.
-For this reason, in lines $6-7$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
+For this reason, in line $6$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
 
 % ============================================================
-\section{Providing domain-specific debugger interfaces}\label{sec:interactions}
+\section{Building domain-specific debugger views}\label{sec:interactions}
 
-\ab{Section 3 is difficult to read. I am not sure what exactly you mean by "domain-specific debugger interface" actually. Are we talking about user-interface?}
+%\ab{Section 3 is difficult to read. I am not sure what exactly you mean by "domain-specific debugger interface" actually. Are we talking about user-interface?}
 
-\steve{By "interfaces" (line 345) do you mean "Human Machine Interfaces" or just views? I understand it is just views, because there are no actions visible in the example and it follows the previous sections where you reused views and here you create new ones. In that case I suggest keeping the vocabulary consistent because HMI = views + actions + user experience design, while here it is only a view. I think also the title section could be stronger: you are actually "building" rather than "providing" debugger views. Perhaps changing the title to "Building domain-specific debugger views"? (it would be consistent with the previous section)}
+%\steve{By "interfaces" (line 345) do you mean "Human Machine Interfaces" or just views? I understand it is just views, because there are no actions visible in the example and it follows the previous sections where you reused views and here you create new ones. In that case I suggest keeping the vocabulary consistent because HMI = views + actions + user experience design, while here it is only a view. I think also the title section could be stronger: you are actually "building" rather than "providing" debugger views. Perhaps changing the title to "Building domain-specific debugger views"? (it would be consistent with the previous section)}
 
-The examples we have seen so far have reused existing inspector views, but sometimes there is a need to develop a new kind of debugger interface.
+The examples we have seen so far have reused existing inspector views, but sometimes there is a need to develop a new kind of debugger view.
 This also does not necessarily imply a heavy implementation effort.
 
-Let us consider the case of assertion errors being raised while testing a user interface interaction with the help of a GUI ``Scripter'' object.
-\ac{We could add one paragraph describing scripter, and why we need it.}
-We introduce three dedicated debugger views.
-The \emph{Scripter preview} (\autoref{fig:scripterPreview}) shows the result of a scripted interaction:
-\ab{Line 354: I do not follow the link between the scripter preview and the previous Ludo example. Why a notebook page has been created?}
+The GT \emph{Scripter} is a tool used to ``script'' GUI interactions, mainly for testing purposes.
+%\ac{We could add one paragraph describing scripter, and why we need it.}
+Let us consider the case of assertion errors being raised while testing a user interface interaction with the help of the Scripter.
+The scenario is the following:
+\begin{inparaenum}[(i)]
+	\item We create a notebook page called ``Page One''.
+	\item We add a text snippet with a link to the \st{Object} class.
+	\item We assert the existence of the page. 
+	\item We click the link.
+	\item We check that a new page is created (\ie the \emph{Coder} for the \st{Object} class).
+\end{inparaenum}
+In case something goes wrong, we would like the debugger to provide us with high-level views of the state of the Scripter.
+
+We consequently introduce three dedicated debugger views.
+The \emph{Scripter preview} (\autoref{fig:scripterPreview}) shows the result of the scripted interaction:
+\begin{inparaenum}[(i)]
+	\item the notebook page has been created, containing a link to the class \st{Object}, and
+	\item the link to the class has been clicked, opening a source code browser on the class.
+\end{inparaenum}
+%\ab{Line 354: I do not follow the link between the scripter preview and the previous Ludo example. Why a notebook page has been created?}
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterPreview}
   \caption{Scripter preview.}
   \label{fig:scripterPreview}
 \end{figure}
-\begin{inparaenum}[(i)]
-	\item a notebook page has been created, containing a link to the class \st{Object}, and
-	\item the link to the class has been clicked, opening a source code browser on the class.
-\end{inparaenum}
 
 The \emph{Scripter steps} view (\autoref{fig:scripterStepsViewClicked}) shows us a graphical tree view of the steps performed by the GUI Scripter, as well as the assertions that have been checked.
-\ab{Line 374: What the graphical tree view is about?}
+(In this case the tree has only two levels, but in general there may be many levels.)
+%\ab{Line 374: What the graphical tree view is about?}
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterStepsViewClicked}
   \caption{Scripter steps view.}
@@ -327,36 +349,41 @@ The \emph{Scripter steps} view (\autoref{fig:scripterStepsViewClicked}) shows us
 The green steps and assertions have succeeded, whereas the red ones have failed.
 By clicking on any step or assertion node, we can see the corresponding code highlighted in the scripter method at the right.
 
-Finally, the \emph{Textual Diff} view (\autoref{fig:scripterDiff}) is the same one we have seen earlier, reused again.
+Finally, the \emph{Textual Diff} view (\autoref{fig:scripterDiffInDebugger}) is the same one we have seen earlier, reused again.
+However this time we show it as an additional view within the standard GT debugger.
 \begin{figure}[h]
-  \includegraphics[width=\columnwidth]{scripterDiff}
-  \caption{Scripter textual diff view. \tg{I think here we could show the default debugger with the custom Textual Diff view on the right as an example of how we can extend the default debugger as well.}}
-  \label{fig:scripterDiff}
+  \includegraphics[width=\columnwidth]{scripterDiffInDebugger}
+  \caption{Scripter textual diff view.}
+  \label{fig:scripterDiffInDebugger}
 \end{figure}
+% \tg{I think here we could show the default debugger with the custom Textual Diff view on the right as an example of how we can extend the default debugger as well.}
 It just tells us that the check should verify that there are now two pages in the pager, not just one, as we can also see in the \emph{Scripter preview}.
 
 \paragraph{Why do we need these views?}
-The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} (\autoref{fig:scripterClassicDebugger}) at the point where the exception is raised.
-\begin{figure}[h]
-  \includegraphics[width=\columnwidth]{scripterClassicDebugger}
-  \caption{The trouble with the standard debugger.}
-  \label{fig:scripterClassicDebugger}
-\end{figure}
+The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} at the point where the exception is raised.
+%\begin{figure}[h]
+%  \includegraphics[width=\columnwidth]{scripterClassicDebugger}
+%  \caption{The trouble with the generic debugger view.}
+%  \label{fig:scripterClassicDebugger}
+%\end{figure}
 Although it is possible to get at the information we seek, it is clumsy, and the classical stack view only confuses matters instead of helping us to debug the problem.
 This can be the case with many application domains, especially those that depend on event scheduling.
 The run-time stack does not do a good job of telling you how the events have been triggered, so another kind of view is needed.
-\steve{line 435 you say that the "run-time stack does not do a good job telling you how the events have been triggered". Perhaps worth adding that it is because it provides a generic view over the execution of any program, while you are in need of a view providing very specific information.}
+%\steve{line 435 you say that the "run-time stack does not do a good job telling you how the events have been triggered". Perhaps worth adding that it is because it provides a generic view over the execution of any program, while you are in need of a view providing very specific information.}
 
 \paragraph{How hard is it to implement a domain-specific debugger interface?}
-\steve{line 438 you ask "How hard is it to implement a domain-specific debugging interface?" -> I feel like this paragraph misses some comparison with how difficult it would be to do it with a standard debugger. That particular point is not covered in the related work either. For instance, with Pharo (before we implemented a similar moldable exception mechanism after Andrei explained to us, even if much less moldable than GT on the view part), we literally would have to implement a new debugger, probably by subclassing the existing one, having to deal with complex implementation problems to integrate a specific view, and then we would have to know when to choose the standard debugger and when to choose that specific one. Worse, if we use the specific one, and if we encounter another problem (imagine a DNU), since that debugger is specific to the example it would not be able to handle the DNU and allow me to debug it. This means extra implementation logic to handle such case... so tedious... }
+Extending a standard debugger with such views can be challenging.
+Typically such views would have to be added in a subclass of the standard debugger.
+With moldable exceptions, views only have to be added to the exception class itself.
+%\steve{line 438 you ask "How hard is it to implement a domain-specific debugging interface?" -> I feel like this paragraph misses some comparison with how difficult it would be to do it with a standard debugger. That particular point is not covered in the related work either. For instance, with Pharo (before we implemented a similar moldable exception mechanism after Andrei explained to us, even if much less moldable than GT on the view part), we literally would have to implement a new debugger, probably by subclassing the existing one, having to deal with complex implementation problems to integrate a specific view, and then we would have to know when to choose the standard debugger and when to choose that specific one. Worse, if we use the specific one, and if we encounter another problem (imagine a DNU), since that debugger is specific to the example it would not be able to handle the DNU and allow me to debug it. This means extra implementation logic to handle such case... so tedious... }
 The \emph{Scripter steps view} is implemented using a version of \emph{Mondrian}~\cite{Pena13b,Meye06a}, a builder for graph-based visualizations.
-In \autoref{fig:scripterStepsViewSource} we can see the entire source code of the view expanded in place, implemented in just four methods.
+In \autoref{fig:scripterStepsViewSource} we can see the entire source code of the view expanded in place, implemented in just four methods.\footnote{NB: The figure is intended just to emphasize the size of the source code, not to be an invitation to try to read it.}
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{scripterStepsViewSource}
   \caption{The Scripter steps source code.}
   \label{fig:scripterStepsViewSource}
 \end{figure}
-\steve{Just thinking now about the screenshots: they are small and we can't read much of the code. I understand that might not be that important such as in Fig. 12 where the point is showing the short amount of lines of code. It is however frustrating for the reader that cannot not see that there is code :P but I don't know what you can do there...}\on{Gave more space to the source code.}
+%\steve{Just thinking now about the screenshots: they are small and we can't read much of the code. I understand that might not be that important such as in Fig. 12 where the point is showing the short amount of lines of code. It is however frustrating for the reader that cannot not see that there is code :P but I don't know what you can do there...}\on{Gave more space to the source code.}
 The debugging view at the top just adds a ``Inspect Scripter'' button to the next method, an object inspector view for a Scripter.
 This in turn just delegates to the \emph{Steps} view of a \st{BlDevScripterStep} object.
 Finally, this method embeds a Mondrian visualization implemented in 12 lines of code in the \st{paintTreeWith:} method.
@@ -416,17 +443,17 @@ In \autoref{fig:emptyViewError} we see the source code for a custom inspector vi
   \caption{Catching an ``empty view'' error.}
   \label{fig:emptyViewError}
 \end{figure}
-This custom debugger view decorates the source code with an explanation pointing out the likely errors.
+This custom debugger view decorates the source code with an explanation pointing out the likely errors, and links (in yellow) to the offending source code.
+%\steve{Fig. 14 and 15, it is not clear if the `aView` text that is highlighted is a modification of the picture that you did or a feature of GT (I think it is the latter). I would clarify it perhaps to not let the reader think that you try to show something without explaining what it is, but that it is just the (awesome) tool that does that. Or I'm wrong and you forgot to tell why you highlighted it ;)}
 
 Since such preambles are a common idiom in defining GT inspector views, and the error is also not uncommon, it becomes easy to fix with the help of a transformation.
 \autoref{fig:emptyViewErrorFix} shows the result of performing the \emph{Fix it \& Proceed} action: a refactoring widget is generated that proposes a code transformation.
-\begin{figure}[h]
-  \includegraphics[width=\columnwidth]{emptyViewErrorFix}
+\begin{figure*}[h]
+  \includegraphics[width=\textwidth]{emptyViewErrorFix}
   \caption{Transforming an empty view error.}
   \label{fig:emptyViewErrorFix}
-\end{figure}
+\end{figure*}
 Clicking on the \emph{Apply refactoring and proceed} button will transform the source code, leave the debugger, and evaluate the rewritten code.
-\steve{Fig. 14 and 15, it is not clear if the `aView` text that is highlighted is a modification of the picture that you did or a feature of GT (I think it is the latter). I would clarify it perhaps to not let the reader think that you try to show something without explaining what it is, but that it is just the (awesome) tool that does that. Or I'm wrong and you forgot to tell why you highlighted it ;)}
 
 A custom debugger action, such as \emph{Fix it \& Proceed} or \emph{Retry} is defined in the same way as a custom debugger view: it is a method with a particular annotation, in this case being \st{<gtPhlowSameViewReturnDebugAction>} rather than \mbox{\st{<gtExceptionDebuggingView>}}, but  the mechanism is essentially the same.
 
@@ -441,17 +468,17 @@ The \st{signal} method of exception classes can then optionally consult this fla
 
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
-\on{AC will check if we are allowed to describe here some of the LifeWare tests.}
-
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
 
-\tk{Focus was on implementation effort, but not on impact.
-Does it really help in debugging?
-Is there some anecdotal evidence?}
-\on{Are there Lifeware anecdotes?}
-\tk{A study with students and the Ludo game could be interesting.
-One group with and another without the moldable debugger.}
+\todo{Add some anecdotal evidence of the impact of moldable exceptions in the Lifeware diff tests. }
+
+%\tk{Focus was on implementation effort, but not on impact.
+%Does it really help in debugging?
+%Is there some anecdotal evidence?}
+%\on{Are there Lifeware anecdotes?}
+%\tk{A study with students and the Ludo game could be interesting.
+%One group with and another without the moldable debugger.}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The cost of creating these views and actions can be very low.
@@ -462,10 +489,8 @@ Several more are simple text, list or tree views, and only three create custom g
 The simplest debugging views are just like inspector views, and many of our examples just forward (delegate) to existing views, but more generally exceptions have access to the reified run-time stack at the time that they are raised, so debugger views can extract and present arbitrary run-time information.
 The \emph{Scripter steps} view we saw earlier in \autoref{fig:scripterStepsViewClicked} offers an example.
 The same approach could be used, for example, to present or highlight just the ``interesting'' stack frames, for example in an event-driven application, just the methods that are responsible for processing events.
-\on{AC: can you perhaps provide a better or more detailed example?}
 
 At this time, moldable exceptions only offer the possibility to provide alternative views and actions, but not alternative ways to step through the execution.
-\steve{Line 623, you say that "moldable exceptions only provide alternative views and actions but not alternative ways to step through the execution". I think you are partly wrong (sorry :P) but I think I heard someone saying or writing that GT was Pharo10-based. In Pharo10, if GT did not removed parts of the original system, you have Sindarin, which is exactly what we use it for. From our debugger extensions we use the API to script the stepping to write new stepping operators. In latest Pharo (11+12) we have for example an extended command that can skip part of code execution. So provided you write Sindarin scripts, you have this capability for free (does not mean it is simple, the smacc debugger stepping logic does not seem trivial to implement but I never tried). Perhaps what you meant there is that you do not have a "built-in" way in the moldable exceptions to build new stepping logics. But since it requires controlling the execution, at some point, you need to touch something low level (the interpreter) or use an API.}
 Currently this is only possible by providing a completely separate debugger implementation.
 In \autoref{fig:smaccDebugger} we see such a dedicated debugger for SmaCC~\cite{Brant17a}, the Smalltalk compiler compiler framework that has been spawned on an invalid fragment of Java code.
 \begin{figure}[h]
@@ -483,9 +508,6 @@ In the case of a moldable debugger, this context is provided by the exception ra
 Custom debugger views and actions must then be provided by the specific exception raised.
 One way to provide such views and actions is through specially annotated methods, but other means could be used, such as naming conventions, or a registry of debugger extensions.
 The precise extension method will depend on the language technology available.
-\on{More to say here?}
-
-\on{Other future directions?}
 
 \ac{As a side note.
 Technically we have access to the raised exception just when initially opening the debugger.
@@ -501,7 +523,10 @@ Like that we could have step actions/view added by an exception that can be use 
 % ============================================================
 \section{Related work}\label{sec:related}
 
-\on{Are there other important references, and more recent ones, that we are missing?}
+\ab{I would add that a similar (albeit much less expressive) behavior could be achieved in other languages by simply overriding toString() to an exception. It is a common practice to have a detailed textual description of exceptions.\\
+This textual description is used by the classical Java debugger, but this is limited to a textual representation. Your approach goes much further by having a specific interface and specific actions. Maybe you could mention this in the related work, or in the introduction.}
+% [NamingException.java#L400](https://github.com/openjdk/jdk/blob/896107705615a3b9363b7a0a3e6703b20fedef70/src/java.naming/share/classes/javax/naming/NamingException.java#L400)
+% [NamingException.java#L424](https://github.com/openjdk/jdk/blob/896107705615a3b9363b7a0a3e6703b20fedef70/src/java.naming/share/classes/javax/naming/NamingException.java#L424)
 
 \steve{The Java Platform Debugger Architecture (JPDA) provides a 3-level architecture to build debuggers. The highest level is Java Debug Interface, basically you write a Java program that consumes VM stepping (and other) events. In the middle you have an interface to connect to the back end. Those two are to build new debuggers. With the lowest level, Java Virtual Machine Tools Interface (JVMTI), you can write agents that you attach to your debugger. In that sense, you can extend your debugger with new features. However with JVMTI you can only write in C or C++ (don't remember) so you have to write a debugger extension in another language than the one you debug and so you have to change worlds and manipulate very low-level concepts (cognitive cost) each time you observe something in your "home" language for which you want to extend your debugger. If you need a specific view, you need to build it from scratch and integrate it in your environment.}
 \nocite{JVMTI24}
@@ -569,9 +594,11 @@ All of these DSL debugger approaches focus on providing general debugging for a 
 % Sindarin: A versatile scripting API for the Pharo debugger
 Sindarin is an extensible Pharo-based debugger that offers a rich API for scripting debugger extensions~\cite{Dupr19a}.
 The use case for Sindarin is rather different from that of moldable exceptions, allowing developers to enter debugger scripts during a debugging session, rather than as a way to enable specialized debugger behavior in response to specific kinds of exceptions.
+\steve{Line 623, you say that "moldable exceptions only provide alternative views and actions but not alternative ways to step through the execution". I think you are partly wrong (sorry :P) but I think I heard someone saying or writing that GT was Pharo10-based. In Pharo10, if GT did not removed parts of the original system, you have Sindarin, which is exactly what we use it for. From our debugger extensions we use the API to script the stepping to write new stepping operators. In latest Pharo (11+12) we have for example an extended command that can skip part of code execution. So provided you write Sindarin scripts, you have this capability for free (does not mean it is simple, the smacc debugger stepping logic does not seem trivial to implement but I never tried). Perhaps what you meant there is that you do not have a "built-in" way in the moldable exceptions to build new stepping logics. But since it requires controlling the execution, at some point, you need to touch something low level (the interpreter) or use an API.}
 
 % Moldable tools
 The Moldable Debugger~\cite{Chis15c} is an example of a \emph{moldable tool}~\cite{Chis17a} that adapts its behavior to a specific run-time application context.
+\on{FIX redundancy with reference in \autoref{sec:inspectorViews}.}
 The original moldable debugger, however, still required some significant implementation effort to define an alternative debugger interface, much like the other approaches we have cited from literature.
 Similarly, the original moldable inspector~\cite{Chis15a} did not offer a very easy mechanism to provide custom inspector views depending on the object being inspected.
 The adoption of the extension mechanism of using annotated methods to define inspector customizations led, over time, to the development of a large number of custom inspector views in the current version of \GT (over 3000 at last count).
