@@ -23,7 +23,7 @@
 \newcommand\ac[1]{\nbc{AC}{#1}{teal}}
 \newcommand\steve[1]{\nbc{Steven}{#1}{red}} % Costiou
 \newcommand\ab[1]{\nbc{Alex}{#1}{violet}} % Bergel
-\newcommand\tk[1]{\nbc{Timo}{#1}{green}} % Kehrer
+\newcommand\tk[1]{\nbc{Timo}{#1}{brown}} % Kehrer
 \usepackage{caption}
 \captionsetup{aboveskip=5pt,belowskip=-10pt} % Adjust the space around figure captions
 %\usepackage{enumitem}
@@ -85,6 +85,8 @@ We present, through a series of examples, how moldable exceptions can enhance a 
 
 % ============================================================
 \section{Introduction}\label{sec:intro}
+
+\tk{Scope: never stated we mean *interactive debuggers* vs automated debugging etc.}
 
 \ab{I would add that a similar (albeit much less expressive) behavior could be achieved in other languages by simply overriding toString() to an exception. It is a common practice to have a detailed textual description of exceptions.\\
 This textual description is used by the classical Java debugger, but this is limited to a textual representation. Your approach goes much further by having a specific interface and specific actions. Maybe you could mention this in the related work, or in the introduction.}
@@ -170,6 +172,8 @@ We conclude in \autoref{sec:conclusion}.
 
 % ============================================================
 \section{The moldable inspector}\label{sec:inspectorViews}
+
+\tk{Background on moldable tools was missing.}
 
 Moldable exceptions build on and extend the notions of custom views and actions that can be used to extend a \emph{moldable object inspector}~\cite{Chis15a}.
 When a moldable object inspector is opened on an object it looks for any view methods defined in the class of that object, and uses those methods to create custom views.
@@ -441,6 +445,13 @@ As before, the custom debugger views and actions are mostly built from existing 
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
+
+\tk{Focus was on implementation effort, but not on impact.
+Does it really help in debugging?
+Is there some anecdotal evidence?}
+\on{Are there Lifeware anecdotes?}
+\tk{A study with students and the Ludo game could be interesting.
+One group with and another without the moldable debugger.}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The cost of creating these views and actions can be very low.
