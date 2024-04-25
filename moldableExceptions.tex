@@ -202,7 +202,7 @@ In \autoref{fig:ludoMovesSource} we see the source code defining the \emph{Moves
 This method uses just a few lines of code to create a browsable ``columned list'' of past moves with several columns for the details of each move.
 
 In addition to views, objects can also define \emph{actions} that encapsulate useful operations.
-For example, the game object in \autoref{fig:ludoBoardView} defines a \lst{Autoplay one move} action with the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn.
+For example, the game object in \autoref{fig:ludoBoardView} defines an \lst{Autoplay one move} action with the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn.
 %\ac{see later one how to get a less pixelated icon}
 
 %\begin{code}
@@ -230,12 +230,12 @@ These methods are annotated with a \lst{<gtExceptionView>} pragma.
 Let us consider that the Ludo game has been implemented with the help of \emph{Design by Contract}~\cite{Meye92b}.
 Rolling a die when a player should move, or vice versa, constitutes a precondition violation, which raises a \st{LudoMoveAssertionFailure}.
 Similarly, if an attempt is made to move the wrong player's token, this will trigger a precondition failure.
+Normally, this would fire up the classical debugger, as seen in \autoref{fig:ludoClassicDebugger}.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoClassicDebugger}
   \caption{A classical debugger for a precondition failure.}
   \label{fig:ludoClassicDebugger}
 \end{figure}
-Normally, this would fire up the classical debugger, as seen in \autoref{fig:ludoClassicDebugger}.
 Although the precondition violation is clearly reported, the debugger interface is not ideal for tracking down the actual reason for the violation.
 
 What we would perhaps like to see instead is the current state of the game, in addition to a history of the past moves.
@@ -493,6 +493,14 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailure} exc
   \label{fig:comparisonFailureVisualDiff}
 \end{figure*}
 
+
+\autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents.
+In this case the exception provides multiple diff views:
+one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
+a second one at the level of the text contained by the PDF documents (\autoref{fig:comparisonFailureTextualDiff}),
+and another at the level of the raw document format (\autoref{fig:comparisonFailureSourceDiff}).
+Apart from the diff views, the exception also provides an \emph{Accept} action that replaces the saved expected document with the new one, and continues the execution of the test.
+
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{comparisonFailureTextualDiff}
   \caption{A view showing textual differences between the text content of two PDF documents.}
@@ -505,13 +513,6 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailure} exc
   \label{fig:comparisonFailureSourceDiff}
 \end{figure}
 
-
-\autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents.
-In this case the exception provides multiple diff views:
-one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
-a second one at the level of the text contained by the PDF documents (\autoref{fig:comparisonFailureTextualDiff}),
-and another at the level of the raw document format (\autoref{fig:comparisonFailureSourceDiff}).
-Apart from the diff views, the exception also provides an \emph{Accept} action that replaces the saved expected document with the new one, and continues the execution of the test.
 
 The \emph{Image Diff} view and the \emph{Accept} action both reuse existing logic, and in a few lines of code integrate it into the debugger.
 This integration unifies the flow of comparing two documents and exploring why the failure happens using a debugger.
@@ -588,7 +589,7 @@ The default specification also provides several other properties, including:
 \item Debugging Targets: objects reachable from the exception where to look for actions and views.
 \item Debugging Actions: pragmas for debugging actions.
 \item Title, Icon: for displaying a debugger selector.
-\item Priority: a number used to determine the order in whichalternative debuggers are offered.
+\item Priority: a number used to determine the order in which alternative debuggers are offered.
 % debuggers are sorted by priority when shown; the lowest numbered one is selected first.
 \item Activation Predicate: a condition to decide whether to show the debugger or not based on the exception state; by default the debugger is shown if any debugging views are found.
 \item Available Automatically: if the debugger is active, indicates whether it can be shown by default.
