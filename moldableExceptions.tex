@@ -456,11 +456,18 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} ex
   \label{fig:comparisonFailureTextualDiff}
 \end{figure*}
 
+\begin{figure*}[h]
+  \includegraphics[width=\textwidth]{comparisonFailureSourceDiff}
+  \caption{A view showing textual differences between document at the level of the PDF format}
+  \label{fig:comparisonFailureSourceDiff}
+\end{figure*}
+
+
 \autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents. 
 In this case the exception provides multiple diff views:
 one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
 a second one at the level of the text contained by the PDF documents (\autoref{fig:comparisonFailureTextualDiff}),
-and another at the level of the raw document format (not shown).
+and another at the level of the raw document format (\autoref{fig:comparisonFailureSourceDiff}).
 Apart from the diff views, the exception also provides an \emph{Accept} action that replaces the saved expected document with the new one, and continues the execution of the test.
 
 Below we see respectively the source code of the \emph{Image Diff} view and the \emph{Accept} action. 
@@ -469,11 +476,39 @@ This integration unifies the flow of comparing two documents and exploring why t
 Developers can now simply run tests, and when a comparison fails choose how to proceed.
 
 \begin{code}
-add code for the Diff view
+TextOrVisualComparisonType>>gtImageDiffFor: aView
+	<gtView>
+	<lwComparisonView>
+	
+	self initialComparison = #visualComparison 
+		ifFalse: [ ^ aView empty  ].
+	
+	^(aView forward)
+		title: 'Image Diff';
+		priority: 8;
+		object: [ self createGtComparator ];
+		view: #gtViewImageDiffFor:
 \end{code}
 
 \begin{code}
-add code for the Accept actions
+TextOrVisualComparisonType>>gtDebugActionAcceptFor: anAction 
+		inContext: aPhlowActionContext
+	<lwComparisonAction>
+	
+	aPhlowActionContext currentDebuggingSession 
+		isInterruptedContextPostMortem
+			ifTrue: [ ^ anAction noAction ].
+	
+	^ anAction button
+		label: 'Accept';
+		icon: BrGlamorousVectorIcons accept ;
+		priority: 5;
+		id: #'lwComparisonAction-accept';
+		forViewDefinedIn: #gtImageDiffFor:;
+		action: [ 
+			aPhlowActionContext currentDebugger 
+				acceptCurrentTest;
+				resumeAndCloseDebugger ]
 \end{code}
 
 % ============================================================
