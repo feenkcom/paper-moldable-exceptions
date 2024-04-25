@@ -118,7 +118,7 @@ In \autoref{fig:stringComparisonSnippet} we see an assertion that compares two s
   \caption{A failing string comparison assertion.}
   \label{fig:stringComparisonSnippet}
 \end{figure}
-In a normal setting, this assertion will fail, yielding a standard debugger view, such the one as we see in \autoref{fig:genericDebugger}.
+In a normal setting, this assertion will fail, yielding a standard debugger view, such as the one we see in \autoref{fig:genericDebugger}.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{genericDebugger}
   \caption{A generic debugger view.}
@@ -150,7 +150,7 @@ This simple mechanism allows moldable exceptions to do three things:
 
 We will illustrate these three points with several examples.
 In \autoref{sec:inspectorViews} we introduce the \emph{moldable inspector}, which allows objects to define custom views and actions when they are inspected.
-In \autoref{sec:views} we show how custom debugger views can easily be defined in a similar way by adding simple annotated view and action methods to the class of a moldable exception.
+In \autoref{sec:views} we show how custom debugger views and actions can easily be defined in a similar way by adding simple annotated view and action methods to the class of a moldable exception.
 In \autoref{sec:interactions} we show how a richer debugger user interface can be provided in much the same way by leveraging existing GUI frameworks.
 We show an example of moldable exceptions enabling automated fixes in \autoref{sec:fixes}.
 In \autoref{sec:casestudy} we describe a case study in which we used moldable exceptions to improve a development workflow.
@@ -202,7 +202,7 @@ In \autoref{fig:ludoMovesSource} we see the source code defining the \emph{Moves
 This method uses just a few lines of code to create a browsable ``columned list'' of past moves with several columns for the details of each move.
 
 In addition to views, objects can also define \emph{actions} that encapsulate useful operations.
-For example, the game object in \autoref{fig:ludoBoardView} defines an \lst{Autoplay one move} action with the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn.
+For example, the game object in \autoref{fig:ludoBoardView} defines an \lst{Autoplay one move} action (with the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn.
 %\ac{see later one how to get a less pixelated icon}
 
 %\begin{code}
@@ -218,7 +218,7 @@ For example, the game object in \autoref{fig:ludoBoardView} defines an \lst{Auto
 %\end{code}
 
 View and action methods are recognized by the moldable inspector through dedicated annotations, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
-In this case the annotation is \st{<gtView>} for views and \st{<gtAction>} for actions, seen in the second line of the two defining methods.
+In this case the annotation is \st{<gtView>} for views (and \st{<gtAction>} for actions), seen in the second line of the method defining the view.
 
 % ============================================================
 \section{Adding custom debugger views}\label{sec:views}
@@ -261,7 +261,7 @@ Let us step through the code:
 	\item The method is annotated with \lst{<gtExceptionView>}, which tells the moldable debugger to enable the view whenever \lmaf is raised.
 	\item We return (\st{^}) the result of sending \st{forward} to \st{aView}.
 	\item We give the view a title and
-	\item a priority (order in which views ---  we set it to $10$ rather than $1$ to leave room for more important views later).
+	\item a priority (the order in which views are shown---  we set it to $10$ rather than $1$ to leave room for more important views later).
 	\item We specify the object to forward to (the move's \st{game}).
 	\item We name the already existing view method to forward to (\st{gtPositionsFor:}).
 \end{inparaenum}
@@ -355,8 +355,8 @@ Finally, the \emph{Textual Diff} view (\autoref{fig:scripterDiffInDebugger}) is 
 It just tells us that the check should verify that there are now two pages in the pager, not just one, as we can also see in the \emph{Scripter preview}.
 It is the check specification that is at fault, not the GUI Interaction we are testing.
 
-However this time we show the \lst{Textual Diff} view both in the new debugger interface created for this exception (\lst{Textual Diff} tab in \autoref{fig:scripterPreview}), as well as an additional view within the standard \GT debugger \GT debugger (\lst{Textual Diff} tab in \autoref{fig:scripterDiffInDebugger}).
-Hence, a moldable exception can also provide views and actions shown in the standard \GT debugger.
+However this time we show the \lst{Textual Diff} view both in the new debugger interface created for this exception (\lst{Textual Diff} tab in \autoref{fig:scripterPreview}), as well as an additional view within the standard \GT debugger (\lst{Textual Diff} tab in \autoref{fig:scripterDiffInDebugger}).
+Hence, a moldable exception can also provide views and actions for the standard \GT debugger.
 
 \paragraph{Why do we need these views?}
 The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} at the point where the exception is raised.
@@ -646,7 +646,7 @@ TGtMoldableExceptionSignalWithTransformation>>signal
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses.
-While both the moldable debugger and moldable inspector were available in Glamorous Toolkit at the same time, until now Glamorous Toolkit comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (such as the one in  \autoref{fig:smaccDebugger}).
+While both the moldable debugger and moldable inspector were available in \GT at the same time, until now \GT comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (such as the one in  \autoref{fig:smaccDebugger}).
 
 This indicates that the extension mechanism plays a significant role in developers extending the IDE, and that the cost of creating views and actions can be very low.
 Due to this, through moldable exceptions we aim to apply the same extension mechanism present in the moldable inspector for creating custom debuggers.
