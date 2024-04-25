@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{27}
+\begin{thebibliography}{28}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -175,12 +175,31 @@
 \newblock \showarticletitle{The {Moldable} {Inspector}}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 2015 ACM International Symposium
   on New Ideas, New Paradigms, and Reflections on Programming and Software}}
-  \emph{(\bibinfo{series}{Onward! 2015})}. \bibinfo{publisher}{ACM},
-  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{44--60}.
+  (Pittsburgh, PA, USA) \emph{(\bibinfo{series}{Onward! 2015})}.
+  \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{44--60}.
 \newblock
 \showISBNx{978-1-4503-3688-8}
 \urldef\tempurl%
 \url{https://doi.org/10.1145/2814228.2814234}
+\showDOI{\tempurl}
+
+
+\bibitem[\protect\citeauthoryear{Ducasse, Nierstrasz, Sch{\"a}rli, Wuyts, and
+  Black}{Ducasse et~al\mbox{.}}{2006}]%
+        {Duca06b}
+\bibfield{author}{\bibinfo{person}{St\'ephane Ducasse}, \bibinfo{person}{Oscar
+  Nierstrasz}, \bibinfo{person}{Nathanael Sch{\"a}rli}, \bibinfo{person}{Roel
+  Wuyts}, {and} \bibinfo{person}{Andrew~P. Black}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Traits: A Mechanism for fine-grained Reuse}.
+\newblock \bibinfo{journal}{\emph{TOPLAS: ACM Transactions on Programming
+  Languages and Systems}} \bibinfo{volume}{28}, \bibinfo{number}{2}
+  (\bibinfo{date}{March} \bibinfo{year}{2006}), \bibinfo{pages}{331--388}.
+\newblock
+\showISSN{0164-0925}
+\urldef\tempurl%
+\url{https://doi.org/10.1145/1119479.1119483}
 \showDOI{\tempurl}
 
 
@@ -400,7 +419,8 @@
   \bibinfo{year}{2012}\natexlab{}.
 \newblock \showarticletitle{Object-Centric Debugging}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 34rd international conference on
-  Software engineering}} \emph{(\bibinfo{series}{ICSE '12})}.
+  Software engineering}} (Zurich, Switzerland) \emph{(\bibinfo{series}{ICSE
+  '12})}.
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1109/ICSE.2012.6227167}

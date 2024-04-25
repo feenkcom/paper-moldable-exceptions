@@ -107,8 +107,8 @@ A \emph{moldable debugger}~\cite{Chis15c} is a special kind of extensible debugg
 
 We propose a new, lightweight mechanism, called \emph{moldable exceptions}, to dynamically adapt a moldable debugger using contextual information provided by the exception itself.
 In modern, object-oriented software, it is common practice to define dedicated classes of exceptions to signal individual run-time issues.
-Each exception therefore implicitly carries knowledge about the kind of issue being raised. 
-\ins{For example in a parsing framework an exception can indicate that a given input cannot be parsed.}
+Each exception therefore implicitly carries knowledge about the kind of issue being raised.
+For example in a parsing framework an exception can indicate that a given input cannot be parsed.
 Moldable exceptions leverage this knowledge by associating simple views and actions to be activated by a moldable debugger when that exception is raised.
 
 Consider the following example.
@@ -135,7 +135,7 @@ Suppose that instead of seeing the generic debugger, we are offered a view that 
 \end{figure}
 Such a view not only homes directly in on the specific problem, but also highlights the individual differences in a dedicated ``diff'' view.
 Furthermore, since the diff view already exists as a component used in other applications, the development effort is close to zero.
-\ins{While in this introductory example, the difference is easy to stop, in other cases like the ones presented in} \autoref{sec:casestudy}, \ins{a diff view is essential in finding differences.}
+While in this introductory example, the difference is easy to spot, in other cases such as those presented in \autoref{sec:casestudy}, a diff view is essential to quickly identifying differences.
 
 Moldable exceptions work as follows: when an exception is raised, the exception (an object) is caught and passed to the debugger.
 Every exception not only provides the debugger with the context it needs to generate the debugging UI, but it can also offer alternative views and actions.
@@ -145,12 +145,12 @@ This simple mechanism allows moldable exceptions to do three things:
 \begin{enumerate}[(i)]
 	\item provide domain-specific debugging views and actions,
 	\item offer new debugger GUI interactions, and
-	\item enable automated fixes (code \ins{and data} transformations) for common programming errors. 
+	\item enable automated fixes (code and data transformations) for common programming errors.
 \end{enumerate}
 
 We will illustrate these three points with several examples.
-In \autoref{sec:inspectorViews} we introduce the \emph{moldable inspector}, which allows objects to define custom views \ins{and actions} when they are inspected.
-In \autoref{sec:views} we show how custom debugger views can easily be defined in a similar way by adding simple annotated view \ins{and actions} methods to the class of a moldable exception.
+In \autoref{sec:inspectorViews} we introduce the \emph{moldable inspector}, which allows objects to define custom views and actions when they are inspected.
+In \autoref{sec:views} we show how custom debugger views can easily be defined in a similar way by adding simple annotated view and action methods to the class of a moldable exception.
 In \autoref{sec:interactions} we show how a richer debugger user interface can be provided in much the same way by leveraging existing GUI frameworks.
 Finally we show an example of moldable exceptions enabling automated fixes in \autoref{sec:fixes}.
 In \autoref{sec:casestudy} we describe a case study in which we used moldable exceptions to improve a development phlow.
@@ -164,7 +164,7 @@ We conclude in \autoref{sec:conclusion}.
 Understanding moldable exceptions can be easier if we first introduce another example of a similar approach.
 Moldable exceptions build on the idea of a \emph{moldable tool}~\cite{Chis17a}, an IDE tool that adapts its behavior to a specific run-time application context.
 An example of such a tool is a \emph{moldable object inspector}~\cite{Chis15a}.
-When a moldable object inspector is opened on an object it looks for any view \ins{and action} methods defined in the class of that object, and uses those methods to create custom views.
+When a moldable object inspector is opened on an object it looks for any view or action methods defined in the class of that object, and uses those methods to create custom views.
 
 Let us consider a typical example.
 Suppose we have an implementation of a Ludo\footnote{A simple game in which players move tokens around a board based on the roll of a die.
@@ -173,14 +173,14 @@ Players alternate in throwing a die and moving a token until one player reaches 
 In \autoref{fig:ludoRawView} we see a classical \emph{Raw} view supported by a typical object inspector.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoRawView}
-  \caption{A classical ``raw'' view of a Ludo game. }
+  \caption{A classical ``raw'' view of a Ludo game.}
   \label{fig:ludoRawView}
 \end{figure}
 It just shows the state of the object as a list of instance variables and their values.
 In \autoref{fig:ludoBoardView}, however, we see an alternative, graphical \emph{Board} view showing the current state of the game as a user would see it.
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{ludoBoardView}
-  \caption{An interactive GUI view of a Ludo game. }
+  \caption{An interactive GUI view of a Ludo game.}
   \label{fig:ludoBoardView}
 \end{figure}
 
@@ -201,10 +201,20 @@ In \autoref{fig:ludoMovesSource} we see the source code defining the \emph{Moves
 \end{figure}
 This method uses just a few lines of code to create a browsable ``columned list'' of past moves with several columns for the details of each move.
 
-Same as views, objects can define actions for performing relevant operations. For example, the game objects in \autoref{fig:ludoBoardView} defines a \lst{Autoplay one move} action (having the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn. \ac{see later one how to get a less pixelated icon}
+Same as views, objects can define actions for performing relevant operations.
+For example, the game objects in \autoref{fig:ludoBoardView} defines a \lst{Autoplay one move} action (having the icon \smallimg{ludoPlayActionIcon}) that can be used to simulate a player's turn.
+\ac{see later one how to get a less pixelated icon}
 
 \begin{code}
-gtAutoplayAction: anAction	<gtAction>	^ anAction button		tooltip: 'Autoplay one move';		priority: 20;		icon: BrGlamorousIcons go;		action: [ :aButton | 			self autoPlay: 1.			aButton phlow spawnObject: self moves last ]
+gtAutoplayAction: anAction
+	<gtAction>
+	^ anAction button
+		tooltip: 'Autoplay one move';
+		priority: 20;
+		icon: BrGlamorousIcons go;
+		action: [ :aButton |
+			self autoPlay: 1.
+			aButton phlow spawnObject: self moves last ]
 \end{code}
 
 View and action methods are recognized by the moldable inspector through dedicated annotations, in exactly the same way that a test runner tool in a classical IDE recognizes Java test case methods because they are tagged with a \st{@Test} annotation.
@@ -254,7 +264,7 @@ Let us step through the code:
 	\item a priority (order in which views ---  we set it to $10$ rather than $1$ to leave room for more important views later).
 	\item We specify the object to forward to (the move's \st{game}).
 	\item We name the already existing view method to forward to (\st{gtPositionsFor:}).
-\end{inparaenum}    
+\end{inparaenum}
 
 We similarly define a method for the history of past moves, and now the debugger, instead of showing us the classical debugger, will offer us the two views seen in \autoref{fig:ludoCustomViews}.
 \begin{figure}[h]
@@ -289,7 +299,7 @@ AssertionFailure>>gtComparableTypesTextualDiffFor: aView
 		title: 'Textual Diff';
 		priority: 0;
 		object: [ assertionContext ];
-		view: #gtComparableTypesTextualDiffFor: 
+		view: #gtComparableTypesTextualDiffFor:
 \end{code}
 The key difference is that not every \st{AssertionFailure} is raised as the result of a comparison.
 For this reason, in line $6$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
@@ -306,7 +316,7 @@ The scenario is the following:
 \begin{inparaenum}[(i)]
 	\item We create a notebook page called ``Page One''.
 	\item We add a text snippet with a link to the \st{Object} class.
-	\item We assert the existence of the page. 
+	\item We assert the existence of the page.
 	\item We click the link.
 	\item We check that a new page is created (\ie the \emph{Coder} for the \st{Object} class).
 \end{inparaenum}
@@ -344,7 +354,8 @@ Finally, the \emph{Textual Diff} view (\autoref{fig:scripterDiffInDebugger}) is 
 It just tells us that the check should verify that there are now two pages in the pager, not just one, as we can also see in the \emph{Scripter preview}.
 It is the check specification that is at fault, not the GUI Interaction we are testing.
 
-However this time we show the \lst{Textual Diff} view both in the new debugger interface created for this exception (\lst{Textual Diff} tab in \autoref{fig:scripterPreview}), as well as an additional view within the standard \GT debugger \GT debugger (\lst{Textual Diff} tab in \autoref{fig:scripterDiffInDebugger}). Hence, a moldable exception can also provide views and actions shown in the standard \GT debugger.
+However this time we show the \lst{Textual Diff} view both in the new debugger interface created for this exception (\lst{Textual Diff} tab in \autoref{fig:scripterPreview}), as well as an additional view within the standard \GT debugger \GT debugger (\lst{Textual Diff} tab in \autoref{fig:scripterDiffInDebugger}).
+Hence, a moldable exception can also provide views and actions shown in the standard \GT debugger.
 
 \paragraph{Why do we need these views?}
 The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} at the point where the exception is raised.
@@ -379,7 +390,7 @@ It takes as arguments
 \begin{inparaenum}[(i)]
 	\item an explanatory string, and
 	\item a source code transformation rule.
-\end{inparaenum}    
+\end{inparaenum}
 We see an example below, where the method \st{ClassDescription>>definition} has been deprecated, and should be replaced by \st{definitionString} in client code.
 \begin{code}
 ClassDescription>>definition
@@ -427,18 +438,33 @@ Since such preambles are a common idiom in defining \GT inspector views, and the
 \end{figure*}
 Clicking on the \emph{Apply refactoring and proceed} button will transform the source code, leave the debugger, and evaluate the rewritten code.
 
-A custom debugger action, such as \emph{Fix \& retry} or \emph{Retry} is defined in the same way as a custom debugger view: it is a method with a particular annotation, in this case being \st{<gtPhlowSameViewReturnDebugAction>} rather than \mbox{\st{<gtExceptionView>}}, but  the mechanism is essentially the same. We see the code of this action in the listing below. Since this is a debugging action we need to be able to control the run-time execution. To make this possible, methods creating debugging views and actions can take as a second parameter a context objects that gives them access to the current run-time execution.
+A custom debugger action, such as \emph{Fix \& retry} or \emph{Retry} is defined in the same way as a custom debugger view: it is a method with a particular annotation, in this case being \st{<gtPhlowSameViewReturnDebugAction>} rather than \mbox{\st{<gtExceptionView>}}, but  the mechanism is essentially the same.
+We see the code of this action in the listing below.
+Since this is a debugging action we need to be able to control the run-time execution.
+To make this possible, methods creating debugging views and actions can take as a second parameter a context objects that gives them access to the current run-time execution.
 
 \begin{code}
-gtDebugActionFixItFor: anAction inContext: aContext	<gtPhlowSameViewReturnDebugAction>		(self shouldApplyInContext: aContext ) 
+gtDebugActionFixItFor: anAction inContext: aContext
+	<gtPhlowSameViewReturnDebugAction>
+	
+	(self shouldApplyInContext: aContext )
 		ifFalse: [ ^ anAction noAction ].
-		^ anAction dropdown		label: 'Fix & retry';		icon: BrGlamorousVectorIcons play ;		priority: 50;		id: #'gtDebugAction-fixit';		preferredExtent: 650@350;		content: [ self refactoringElementWithAction: [			aContext debuggingSession restartTopContext.			aContext debugger resumeAndCloseDebugger ]]
+	
+	^ anAction dropdown
+		label: 'Fix & retry';
+		icon: BrGlamorousVectorIcons play ;
+		priority: 50;
+		id: #'gtDebugAction-fixit';
+		preferredExtent: 650@350;
+		content: [ self refactoringElementWithAction: [
+			aContext debuggingSession restartTopContext.
+			aContext debugger resumeAndCloseDebugger ]]
 \end{code}
 
 
 The default behavior of such fixits is to open a debugger with the possibility of applying a proposed code transformation.
 If, on the other hand, such code transformations should be applied automatically, this can be configured.
-In our proof-of-concept implementation of moldable exceptions, this is done by evaluation the following code, which sets a flag in a globally accessible Singleton. 
+In our proof-of-concept implementation of moldable exceptions, this is done by evaluation the following code, which sets a flag in a globally accessible Singleton.
 \begin{code}
 GtMoldableExceptionTransformationsSettings defaultInstance allowAutomaticTransformations.
 \end{code}
@@ -449,15 +475,15 @@ As before, the custom debugger views and actions are mostly built from existing 
 % ============================================================
 \section{A case study of Moldable Exceptions}\label{sec:casestudy}
 
-As a case study, we applied moldable exceptions in a company that develops applications for managing insurance policies, to improve the development process by integrating an external tool into the debugger. 
+As a case study, we applied moldable exceptions in a company that develops applications for managing insurance policies, to improve the development process by integrating an external tool into the debugger.
 
-One part of the application consists in generating various documents related to insurance contracts. 
+One part of the application consists in generating various documents related to insurance contracts.
 The creation of documents is verified using tests that check that a recreated document matches an expected version saved in the system.
 Whenever a comparison fails, a developer needs to assess the differences between the two documents, and then, in case those differences are justified, update the expected version with the recreated one, or in case they are not expected, track down and fix the root cause of the difference.
 
-In the established workflow, a developer uses a dedicated tool to compare the recreated and the expected versions, and in case the difference is acceptable, update the expected document with the new one. 
+In the established workflow, a developer uses a dedicated tool to compare the recreated and the expected versions, and in case the difference is acceptable, update the expected document with the new one.
 In case the difference indicates a bug, the developer has to run the test again using the debugger to explore the live execution.
-With this workflow, developers have to choose the tool \emph{before} they run the test, which means that they typically need to run a test twice. 
+With this workflow, developers have to choose the tool \emph{before} they run the test, which means that they typically need to run a test twice.
 This can be a problem as some tests take minutes to run.
 
 With moldable exceptions we integrated custom debugger views that show the differences between the recreated and the expected versions, and provide custom actions to update the expected document with the new one and resume executing the test, directly in the debugger.
@@ -482,24 +508,27 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailure} exc
 \end{figure*}
 
 
-\autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents. 
+\autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents.
 In this case the exception provides multiple diff views:
 one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
 a second one at the level of the text contained by the PDF documents (\autoref{fig:comparisonFailureTextualDiff}),
 and another at the level of the raw document format (\autoref{fig:comparisonFailureSourceDiff}).
 Apart from the diff views, the exception also provides an \emph{Accept} action that replaces the saved expected document with the new one, and continues the execution of the test.
 
-Below we see respectively the source code of the \emph{Image Diff} view and the \emph{Accept} action. 
-In both cases they reuse existing logic, and in a few lines of code integrate it in the debugger. 
-This integration unifies the flow of comparing two documents and exploring why the failure happens using a debugger. 
+Below we see respectively the source code of the \emph{Image Diff} view and the \emph{Accept} action.
+In both cases they reuse existing logic, and in a few lines of code integrate it in the debugger.
+This integration unifies the flow of comparing two documents and exploring why the failure happens using a debugger.
 Developers can now simply run tests, and when a comparison fails choose how to proceed.
+
+\on{lwComparisonAction and lwComparisonView aren't explained}
+
 
 \begin{code}
 TextOrVisualComparisonType>>gtImageDiffFor: aView
 	<gtView>
 	<lwComparisonView>
 	
-	self initialComparison = #visualComparison 
+	self initialComparison = #visualComparison
 		ifFalse: [ ^ aView empty  ].
 	
 	^(aView forward)
@@ -513,7 +542,7 @@ TextOrVisualComparisonType>>gtImageDiffFor: aView
 TextOrVisualComparisonType>>gtAcceptFor: anAction inContext: aContext
 	<lwComparisonAction>
 	
-	aContext debuggingSession 
+	aContext debuggingSession
 		isInterruptedContextPostMortem
 			ifTrue: [ ^ anAction noAction ].
 	
@@ -523,30 +552,32 @@ TextOrVisualComparisonType>>gtAcceptFor: anAction inContext: aContext
 		priority: 5;
 		id: #'lwComparisonAction-accept';
 		forViewDefinedIn: #gtImageDiffFor:;
-		action: [ 
-			aContext debugger 
+		action: [
+			aContext debugger
 				acceptCurrentTest;
 				resumeAndCloseDebugger ]
 \end{code}
 
 % ============================================================
 \section{Implementation details}\label{sec:implementation}
-We implemented the moldable exceptions idea in Glamorous Toolkit. This section discusses relevant aspects regarding its implementation.
+
+We implemented the moldable exceptions idea in Glamorous Toolkit.
+This section discusses relevant aspects regarding its implementation.
 
 At the core of implementing moldable exceptions is allowing the exception to indicate how to locate relevant actions and views.
-In our implementation every exception can provide one or more debugger specifications. 
-Exceptions define these specifications through methods annotated with \lst{<gtDebuggerSpecification>}. 
+In our implementation every exception can provide one or more debugger specifications.
+Exceptions define these specifications through methods annotated with \lst{<gtDebuggerSpecification>}.
 Below we see the method in the \lst{Exception} class that defines a custom debugger for every exception.
 
 \begin{code}
 Exception>>gtExceptionDebuggerSpecification
 	<gtDebuggerSpecification>
 	
-	^ GtMoldableExceptionSpecificDebuggerSpecification 
+	^ GtMoldableExceptionSpecificDebuggerSpecification
 		forException: self
 \end{code}
 
-A debugger specification contains all the information needed by a debugger to locate actions and views. 
+A debugger specification contains all the information needed by a debugger to locate actions and views.
 \autoref{fig:debuggerSpecificationsProperties} shows the default properties defined by a debugger specification.
 
 \begin{figure}[h]
@@ -556,26 +587,26 @@ A debugger specification contains all the information needed by a debugger to lo
 \end{figure}
 
 
-By default, as mentioned in \autoref{sec:views}, the debugger looks for methods  annotated with a \lst{<gtExceptionView>} pragma. 
-The exception can change the pragma if needed, or provide a list of pragmas. 
-Apart from from this the default specification also provides several other properties like:
+By default, as mentioned in \autoref{sec:views}, the debugger looks for methods  annotated with a \lst{<gtExceptionView>} pragma.
+The exception can change the pragma if needed, or provide a list of pragmas.
+Apart from from this the default specification also provides several other properties such as:
 
 \begin{itemize}
-\item Debugging Targets: objects reachable from the exception where to look for actions and views
-\item Debugging Actions: pragmas for debugging actions
-\item Title, Icon:  details for displaying a debugger selector
-\item Priority:  debuggers are sorted by priority when shown; the first one is selected
-\item Activation Predicate: a condition for deciding if to show the debugger or not based on the exception state; by default the debugger is shows if any debugging views are found
-\item Available Automatically: if the debugger is active, can it be shown by default
-\item Debugger Class: The class of the debugger that is created from this specification
+\item Debugging Targets: objects reachable from the exception where to look for actions and views.
+\item Debugging Actions: pragmas for debugging actions.
+\item Title, Icon:  details for displaying a debugger selector.
+\item Priority:  debuggers are sorted by priority when shown; the lowest numbered one is selected first.
+\item Activation Predicate: a condition to decide whether to show the debugger or not based on the exception state; by default the debugger is shown if any debugging views are found.
+\item Available Automatically: if the debugger is active, can it be shown by default.
+\item Debugger Class: The class of the debugger that is created from this specification.
 \end{itemize}
 
-By default the debugger created from a specification searches for debugging views and actions in the class of the exception. 
-However, through the \lst{Debugging Targets} property an exception can change that, and provide any other list of objects. 
-That make it possible for other objects in the system reachable from the exception objects to provide debugging actions and views.
+By default the debugger created from a specification searches for debugging views and actions in the class of the exception.
+However, through the \lst{Debugging Targets} property an exception can change that, and provide any other list of objects.
+That makes it possible for other objects in the system reachable from the exception objects to provide debugging actions and views.
 
-We can see this in \autoref{sec:casestudy} \ins{where the source of the diff view and accept action are defined in class \lst{TextOrVisualComparisonType}.
- The ComparisonFailure exception defines the following debugger specification that uses a different pragma to locate views and adds also another object as a target for locating actions and views.}
+We can see this in \autoref{sec:casestudy} where the sources of the diff view and accept action are defined in the class \lst{TextOrVisualComparisonType}.
+The \st{ComparisonFailure} exception defines the following debugger specification, which uses a different pragma to locate views and adds also another object as a target for locating actions and views.
 
 \begin{code}
 ComparisonFailure>>gtExceptionDebuggerSpecification
@@ -587,40 +618,55 @@ ComparisonFailure>>gtExceptionDebuggerSpecification
 		addDebuggingTargetFor: self comparisonType
 \end{code}
 
-To summarize, when an exception is raised the moldable debugger looks for debugger specifications in exception methods annotated with  \lst{<gtDebuggerSpecification>} and uses them to create custom debuggers. 
-These custom debuggers are shows when their activation predicate is true. For example, \autoref{fig:availableDebuggerSpecifications} shows the list of debugger specification located when the assertion failure from \autoref{fig:stringComparisonView} is raised. We see that in total 8 specifications are found, but just the one for the default debugger, and the one provided by the exception are active and result in a debugger being shown.
+To summarize, when an exception is raised, the moldable debugger looks for debugger specifications in exception methods annotated with  \lst{<gtDebuggerSpecification>} and uses them to create custom debuggers.
+These custom debuggers are then shown when their activation predicate is true.
+For example, \autoref{fig:availableDebuggerSpecifications} shows the list of debugger specification located when the assertion failure from \autoref{fig:stringComparisonView} is raised.
+We see that in total eight specifications are found, but just the one for the default debugger together with the one provided by the exception are active and result in a custom debugger view being shown.
 
 \begin{figure}[h]
   \includegraphics[width=\columnwidth]{availableDebuggerSpecifications}
-  \caption{A list of debugger specification found when an exception was raised.}
+  \caption{A list of debugger specifications found when an exception is raised.}
   \label{fig:availableDebuggerSpecifications}
 \end{figure}
 
-\ins{To enable moldable exceptions to perform automated transformations instead of opening the debugger, we provide a dedicated trait that exceptions can use. This trait provides an implementation for the signal method shown below. This method is executed when an exception is raised. By default in case an exception is not handled in the system a debugger is opened. This override checks if automatic transformations are allowed for the current exception, and it they are, asks the exception for its transformation and executes it case there is anything to transform. Here transformations can apply code changes, modify the state of objects, or change  other changes, like for example deleting files from disk.}
+To enable moldable exceptions to perform automated transformations instead of opening the debugger, we provide a dedicated trait~\cite{Duca06b} that exceptions can use.
+This trait provides an implementation for the signal method shown below.
+This method is executed whenever an exception is raised.
+By default in case an exception is not handled in the system a debugger is opened.
+This override checks if automatic transformations are allowed for the current exception, and if they are, asks the exception for its transformation and executes it case there is anything to transform.
+Here transformations can apply code changes, modify the state of objects, or change  other changes, such as for example deleting files from disk.
 
 \begin{code}
-TGtMoldableExceptionSignalWithTransformation>>signal	| transformation |	self canApplyAutomaticTransformation ifFalse: [ 		^ super signal ].		transformation := self gtMoldableExceptionTransformation.	transformation shouldTransform ifFalse: [ ^ self signal].	transformation performTransformation
+TGtMoldableExceptionSignalWithTransformation>>signal
+	| transformation |
+	self canApplyAutomaticTransformation ifFalse: [
+		^ super signal ].
+	
+	transformation := self gtMoldableExceptionTransformation.
+	transformation shouldTransform ifFalse: [ ^ self signal].
+	transformation performTransformation
 \end{code}
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
 
-Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger. 
-The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses. 
-While both the moldable debugger and moldable inspector were available in Glamorous Toolkit at the same time, until now Glamorous Toolkit comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (like the one in  \autoref{fig:smaccDebugger}). 
+Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
+The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses.
+While both the moldable debugger and moldable inspector were available in Glamorous Toolkit at the same time, until now Glamorous Toolkit comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (like the one in  \autoref{fig:smaccDebugger}).
 
-This indicates that the extension mechanism plays a significant role in developers extending the IDE, and that the cost of creating views and actions can be very low. Due to this, through moldable exceptions we aim to apply the same extension mechanism present in the moldable inspector for creating custom debuggers.
+This indicates that the extension mechanism plays a significant role in developers extending the IDE, and that the cost of creating views and actions can be very low.
+Due to this, through moldable exceptions we aim to apply the same extension mechanism present in the moldable inspector for creating custom debuggers.
 
 At the time of writing we have implemented some 26 custom debugger views, in an average of under 12 lines of code.
 Over half of these are forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
-Several more are simple text, list or tree views, and only three create custom graphical widgets. 
+Several more are simple text, list or tree views, and only three create custom graphical widgets.
 
-%\ac{We could also mention here that the moldable debugger and inspector were added in GT at around the same time and had two different extension mechanism: subclassing vs. adding extension methods. And until now we created just around 8 debuggers but 3000+ views. }
+%\ac{We could also mention here that the moldable debugger and inspector were added in GT at around the same time and had two different extension mechanism: subclassing vs.~adding extension methods.~And until now we created just around 8 debuggers but 3000+ views.}
 
-%\ac{We can add here a paragraph saying that until now using this extension mechanism in GT we created 3292 views with an average of 12 lines of code per views. And that is way we consider this extension mechanism as easy to use  }
+%\ac{We can add here a paragraph saying that until now using this extension mechanism in GT we created 3292 views with an average of 12 lines of code per views.~And that is way we consider this extension mechanism as easy to use  }
 
 
-\todo{HERE: Add some anecdotal evidence of the impact of moldable exceptions in the Lifeware diff tests. }
+\todo{HERE: Add some anecdotal evidence of the impact of moldable exceptions in the Lifeware diff tests.}
 
 The simplest debugging views are just like inspector views, and many of our examples just forward (delegate) to existing views, but more generally exceptions have access to the reified run-time stack at the time that they are raised, so debugger views can extract and present arbitrary run-time information.
 The \emph{Scripter steps} view we saw earlier in \autoref{fig:scripterStepsViewClicked} offers an example.
@@ -666,10 +712,12 @@ With the advent of GUI-based IDEs, debuggers were also updated to offer interact
 Studies of developer debugging behavior have shown that many developers have difficulty using debuggers and often shy away from them.
 % Debugging: a review of the literature from an educational perspective
 McCauley \etal report:
-``We note, however, that our experiences with debugging tools is that many of them use execution traces as a method of assisting students to understand the execution of a program. Tubaishat~\cite{Tuba01a} characterized the use of execution traces as an example of a shallow reasoning technique''~\cite{McCa08a}.
+``We note, however, that our experiences with debugging tools is that many of them use execution traces as a method of assisting students to understand the execution of a program.
+Tubaishat~\cite{Tuba01a} characterized the use of execution traces as an example of a shallow reasoning technique''~\cite{McCa08a}.
 % On the Dichotomy of Debugging Behavior Among Programmers
 And Beller \etal note that
-``Debuggers are difficult to use. Another reason given by interviewees, even though seasoned engineers, was that `the debugger is a complicated beast' (I2) and that `debuggers that are available now are certainly not friendly tools and they don't lend toward self-exploration'.''
+``Debuggers are difficult to use.
+Another reason given by interviewees, even though seasoned engineers, was that `the debugger is a complicated beast' (I2) and that `debuggers that are available now are certainly not friendly tools and they don't lend toward self-exploration'.''
 \cite{Bell18a}
 
 % Extensible debuggers
@@ -747,4 +795,4 @@ The mechanism is lightweight, and many useful extensions can be defined with min
 
 \begin{inparaenum}[(i)]
 	\item ...
-\end{inparaenum}    
+\end{inparaenum}
