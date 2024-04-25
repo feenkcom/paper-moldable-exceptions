@@ -429,18 +429,20 @@ As before, the custom debugger views and actions are mostly built from existing 
 
 % ============================================================
 \section{A case study of Moldable Exceptions}\label{sec:casestudy}
-As a case study, we applied moldable exceptions in a company developing applications for managing insurance policies to improve the developmnt process by integrating an external tool into the debugger. 
+
+As a case study, we applied moldable exceptions in a company that develops applications for managing insurance policies, to improve the development process by integrating an external tool into the debugger. 
 
 One part of the application consists in generating various documents related to insurance contracts. 
-The creation of documents is verified using tests checking that recreating a document matches an expected version saved in the system. 
-When a comparison fails a developer need to assess the differences between the two documents and then in case those differences are expected, update the expected document with the obtained one, or in case they are not expected, fix the route cause of the difference.
+The creation of documents is verified using tests that check that a recreated document matches an expected version saved in the system.
+Whenever a comparison fails, a developer needs to assess the differences between the two documents, and then, in case those differences are justified, update the expected version with the recreated one, or in case they are not expected, track down and fix the root cause of the difference.
 
-A developer can use a dedicated tool to see the diff between the obtain and the expected document, and in case the difference is ok update the expected document with the new one. 
-In case the difference indicates a bug, the developer has to run again the test using the debugger to explore the live execution. In this flow developers have to choose the tool before they run the test, which means that they typically ran a test twice. 
+In the established workflow, a developer uses a dedicated tool to compare the recreated and the expected versions, and in case the difference is acceptable, update the expected document with the new one. 
+In case the difference indicates a bug, the developer has to run the test again using the debugger to explore the live execution.
+With this workflow, developers have to choose the tool \emph{before} they run the test, which means that they typically need to run a test twice. 
 This can be a problem as some tests take minutes to run.
 
-With moldable exceptions we integrated views showing differences between the obtained and the expected documents, and actions to update the expected document with the new one and resume executing the test, directly in the debugger. 
-To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} exceptions when two documents to not match.
+With moldable exceptions we integrated custom debugger views that show the differences between the recreated and the expected versions, and provide custom actions to update the expected document with the new one and resume executing the test, directly in the debugger.
+To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} exceptions when two documents do not match.
 
 \begin{figure*}[h]
   \includegraphics[width=\textwidth]{comparisonFailureVisualDiff}
@@ -454,14 +456,17 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} ex
   \label{fig:comparisonFailureTextualDiff}
 \end{figure*}
 
-Figure \autoref{fig:comparisonFailureVisualDiff}  shows the debugger opened on a \lst{ComparisonFailures} raised as a result of a failed comparison two pdf documents. 
-In this case the exception provides several diff views: one at the image level highlighting visually the parts that are different between the two documents (Figure \autoref{fig:comparisonFailureVisualDiff}), one only at the level of the text contained by the PDF documents (Figure \autoref{fig:comparisonFailureTextualDiff}), and one at the level of the raw document format. 
-Apart from the diff views, the exception also provides an Accept action that updates the expected document with the new one and continues the execution of the test.
+\autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents. 
+In this case the exception provides multiple diff views:
+one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
+a second one at the level of the text contained by the PDF documents (\autoref{fig:comparisonFailureTextualDiff}),
+and another at the level of the raw document format (not shown).
+Apart from the diff views, the exception also provides an \emph{Accept} action that replaces the saved expected document with the new one, and continues the execution of the test.
 
-We see below the source code of the `Image Diff` and Listing Y the source for of the 'Accept' action. 
-In both cases they reuse existing logic and within a few lines of code integrate it in the debugger. 
-This integration unifies the flow of comparing two documents and exploring why the failure happen using a debugger. 
-Developer can now simply run tests and when a comparison fails choose how to proceed.
+Below we see respectively the source code of the \emph{Image Diff} view and the \emph{Accept} action. 
+In both cases they reuse existing logic, and in a few lines of code integrate it in the debugger. 
+This integration unifies the flow of comparing two documents and exploring why the failure happens using a debugger. 
+Developers can now simply run tests, and when a comparison fails choose how to proceed.
 
 \begin{code}
 add code for the Diff view
