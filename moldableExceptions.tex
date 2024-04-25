@@ -442,7 +442,7 @@ With this workflow, developers have to choose the tool \emph{before} they run th
 This can be a problem as some tests take minutes to run.
 
 With moldable exceptions we integrated custom debugger views that show the differences between the recreated and the expected versions, and provide custom actions to update the expected document with the new one and resume executing the test, directly in the debugger.
-To achieve this we rely on the fact that tests raise \lst{ComparisonFailures} exceptions when two documents do not match.
+To achieve this we rely on the fact that tests raise \lst{ComparisonFailure} exceptions when two documents do not match.
 
 \begin{figure*}[h]
   \includegraphics[width=\textwidth]{comparisonFailureVisualDiff}
@@ -491,8 +491,7 @@ TextOrVisualComparisonType>>gtImageDiffFor: aView
 \end{code}
 
 \begin{code}
-TextOrVisualComparisonType>>gtDebugActionAcceptFor: anAction 
-		inContext: aPhlowActionContext
+TextOrVisualComparisonType>>gtDebugActionAcceptFor: anAction inContext: aPhlowActionContext
 	<lwComparisonAction>
 	
 	aPhlowActionContext currentDebuggingSession 
@@ -521,7 +520,7 @@ Exceptions define these specifications through methods annotated with \lst{<gtDe
 Below we see the method in the \lst{Exception} class that defines a custom debugger for every exception.
 
 \begin{code}
-gtExceptionDebuggerSpecification
+Exception>>gtExceptionDebuggerSpecification
 	<gtDebuggerSpecification>
 	
 	^ GtMoldableExceptionSpecificDebuggerSpecification 
@@ -556,6 +555,19 @@ By default the debugger created from a specification searches for debugging view
 However, through the \lst{Debugging Targets} property an exception can change that, and provide any other list of objects. 
 That make it possible for other objects in the system reachable from the exception objects to provide debugging actions and views.
 
+We can see this in \autoref{sec:casestudy} \ins{where the source of the diff view and accept action are defined in class TextOrVisualComparisonType.
+ The ComparisonFailure exception defines the following debugger specification that uses a different pragma to locate views and adds also another object as a target for locating actions and views.}
+
+\begin{code}
+ComparisonFailure>>gtExceptionDebuggerSpecification
+	^ super gtExceptionDebuggerSpecification
+		title: 'Comparator';
+		priority: 100;
+		debuggingActionPragmas: #(lwComparisonAction);
+		debuggingViewPragmas: #(lwComparisonView);
+		addDebuggingTargetFor: self comparisonType
+\end{code}
+
 To summarize, when an exception is raised the moldable debugger looks for debugger specifications in exception methods annotated with  \lst{<gtDebuggerSpecification>} and uses them to create custom debuggers. 
 These custom debuggers are shows when their activation predicate is true. For example, \autoref{fig:availableDebuggerSpecifications} shows the list of debugger specification located when the assertion failure from \autoref{fig:stringComparisonView} is raised. We see that in total 8 specifications are found, but just the one for the default debugger, and the one provided by the exception are active and result in a debugger being shown.
 
@@ -564,6 +576,12 @@ These custom debuggers are shows when their activation predicate is true. For ex
   \caption{A list of debugger specification found when an exception was raised.}
   \label{fig:availableDebuggerSpecifications}
 \end{figure}
+
+\ins{To enable moldable exceptions to perform automated transformations instead of opening the debugger, we provide a dedicated trait that exceptions can use. This trait provides an implementation for the signal method shown below. This method is executed when an exception is raised. By default in case an exception is not handled in the system a debugger is opened. This override checks if automatic transformations are allowed for the current exception, and it they are, asks the exception for its transformation and executes it case there is anything to transform. Here transformations can apply code changes, modify the state of objects, or change  other changes, like for example deleting files from disk.}
+
+\begin{code}
+TGtMoldableExceptionSignalWithTransformation>>signal	| transformation |	self canApplyAutomaticTransformation ifFalse: [ 		^ super signal ].		transformation := self gtMoldableExceptionTransformation.	transformation shouldTransform ifFalse: [ ^ self signal].	transformation performTransformation
+\end{code}
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
