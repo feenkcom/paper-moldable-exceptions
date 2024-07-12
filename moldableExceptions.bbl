@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{28}
+\begin{thebibliography}{31}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -37,8 +37,7 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
-\bibitem[\protect\citeauthoryear{Araya, Bergel, Cassou, Ducasse, and
-  Laval}{Araya et~al\mbox{.}}{2013}]%
+\bibitem[Araya et~al\mbox{.}(2013)]%
         {Pena13b}
 \bibfield{author}{\bibinfo{person}{Vanessa~Pe{\~n}a Araya},
   \bibinfo{person}{Alexandre Bergel}, \bibinfo{person}{Damien Cassou},
@@ -55,8 +54,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Beller, Spruit, Spinellis, and Zaidman}{Beller
-  et~al\mbox{.}}{2018}]%
+\bibitem[Beller et~al\mbox{.}(2018)]%
         {Bell18a}
 \bibfield{author}{\bibinfo{person}{Moritz Beller}, \bibinfo{person}{Niels
   Spruit}, \bibinfo{person}{Diomidis Spinellis}, {and} \bibinfo{person}{Andy
@@ -71,8 +69,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Bousse, Leroy, Combemale, Wimmer, and
-  Baudry}{Bousse et~al\mbox{.}}{2018}]%
+\bibitem[Bousse et~al\mbox{.}(2018)]%
         {Bous18a}
 \bibfield{author}{\bibinfo{person}{Erwan Bousse}, \bibinfo{person}{Dorian
   Leroy}, \bibinfo{person}{Benoit Combemale}, \bibinfo{person}{Manuel Wimmer},
@@ -86,8 +83,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Brahmakshatriya and
-  Amarasinghe}{Brahmakshatriya and Amarasinghe}{2023}]%
+\bibitem[Brahmakshatriya and Amarasinghe(2023)]%
         {Brah23a}
 \bibfield{author}{\bibinfo{person}{Ajay Brahmakshatriya} {and}
   \bibinfo{person}{Saman Amarasinghe}.} \bibinfo{year}{2023}\natexlab{}.
@@ -102,8 +98,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Brant, Lecerf, Goubier, Ducasse, and
-  Black}{Brant et~al\mbox{.}}{2017}]%
+\bibitem[Brant et~al\mbox{.}(2017)]%
         {Brant17a}
 \bibfield{author}{\bibinfo{person}{John Brant}, \bibinfo{person}{Jason Lecerf},
   \bibinfo{person}{Thierry Goubier}, \bibinfo{person}{St{\'e}phane Ducasse},
@@ -117,7 +112,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Campagne}{Campagne}{2014}]%
+\bibitem[Campagne(2014)]%
         {Camp14a}
 \bibfield{author}{\bibinfo{person}{Fabien Campagne}.}
   \bibinfo{year}{2014}\natexlab{}.
@@ -127,8 +122,7 @@
 \newblock
 
 
-\bibitem[\protect\citeauthoryear{Chi\c{s}, Denker, G\^irba, and
-  Nierstrasz}{Chi\c{s} et~al\mbox{.}}{2015a}]%
+\bibitem[Chi\c{s} et~al\mbox{.}(2015a)]%
         {Chis15c}
 \bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Marcus
   Denker}, \bibinfo{person}{Tudor G\^irba}, {and} \bibinfo{person}{Oscar
@@ -145,11 +139,10 @@
 \showDOI{\tempurl}
 \newblock
 \shownote{Special issue on the 6th and 7th International Conference on Software
-  Language Engineering ({SLE} 2013 and {SLE} 2014).}
+  Language Engineering ({SLE} 2013 and {SLE} 2014)}.
 
 
-\bibitem[\protect\citeauthoryear{Chi\c{s}, G\^irba, Kubelka, Nierstrasz,
-  Reichhart, and Syrel}{Chi\c{s} et~al\mbox{.}}{2017}]%
+\bibitem[Chi\c{s} et~al\mbox{.}(2017)]%
         {Chis17a}
 \bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Tudor
   G\^irba}, \bibinfo{person}{Juraj Kubelka}, \bibinfo{person}{Oscar
@@ -166,8 +159,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Chi\c{s}, G\^irba, Nierstrasz, and
-  Syrel}{Chi\c{s} et~al\mbox{.}}{2015b}]%
+\bibitem[Chi\c{s} et~al\mbox{.}(2015b)]%
         {Chis15a}
 \bibfield{author}{\bibinfo{person}{Andrei Chi\c{s}}, \bibinfo{person}{Tudor
   G\^irba}, \bibinfo{person}{Oscar Nierstrasz}, {and} \bibinfo{person}{Aliaksei
@@ -185,8 +177,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Ducasse, Nierstrasz, Sch{\"a}rli, Wuyts, and
-  Black}{Ducasse et~al\mbox{.}}{2006}]%
+\bibitem[Ducasse et~al\mbox{.}(2006)]%
         {Duca06b}
 \bibfield{author}{\bibinfo{person}{St\'ephane Ducasse}, \bibinfo{person}{Oscar
   Nierstrasz}, \bibinfo{person}{Nathanael Sch{\"a}rli}, \bibinfo{person}{Roel
@@ -203,8 +194,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Ducasse, Polito, Zaitsev, Denker, and
-  Tesone}{Ducasse et~al\mbox{.}}{2022}]%
+\bibitem[Ducasse et~al\mbox{.}(2022)]%
         {Duca22a}
 \bibfield{author}{\bibinfo{person}{St{\'{e}}phane Ducasse},
   \bibinfo{person}{Guillermo Polito}, \bibinfo{person}{Oleksandr Zaitsev},
@@ -222,8 +212,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Dupriez, Polito, Costiou, Aranega, and
-  Ducasse}{Dupriez et~al\mbox{.}}{2019}]%
+\bibitem[Dupriez et~al\mbox{.}(2019)]%
         {Dupr19a}
 \bibfield{author}{\bibinfo{person}{Thomas Dupriez}, \bibinfo{person}{Guillermo
   Polito}, \bibinfo{person}{Steven Costiou}, \bibinfo{person}{Vincent Aranega},
@@ -239,8 +228,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Enet, Bousse, Tisi, and Suny{\'e}}{Enet
-  et~al\mbox{.}}{2023}]%
+\bibitem[Enet et~al\mbox{.}(2023)]%
         {Enet23a}
 \bibfield{author}{\bibinfo{person}{Josselin Enet}, \bibinfo{person}{Erwan
   Bousse}, \bibinfo{person}{Massimo Tisi}, {and} \bibinfo{person}{Gerson
@@ -255,7 +243,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Hanson and Korn}{Hanson and Korn}{1997}]%
+\bibitem[Hanson and Korn(1997)]%
         {Hans97a}
 \bibfield{author}{\bibinfo{person}{David~R. Hanson} {and}
   \bibinfo{person}{Jeffrey~L. Korn}.} \bibinfo{year}{1997}\natexlab{}.
@@ -269,7 +257,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Kats and Visser}{Kats and Visser}{2010}]%
+\bibitem[Kats and Visser(2010)]%
         {Kats10a}
 \bibfield{author}{\bibinfo{person}{Lennart C.~L. Kats} {and}
   \bibinfo{person}{Eelco Visser}.} \bibinfo{year}{2010}\natexlab{}.
@@ -285,8 +273,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Lindeman, Kats, and Visser}{Lindeman
-  et~al\mbox{.}}{2011}]%
+\bibitem[Lindeman et~al\mbox{.}(2011)]%
         {Lind11a}
 \bibfield{author}{\bibinfo{person}{Ricky~T. Lindeman},
   \bibinfo{person}{Lennart~C.L. Kats}, {and} \bibinfo{person}{Eelco Visser}.}
@@ -303,8 +290,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{McCauley, Fitzgerald, Lewandowski, Murphy,
-  Simon, Thomas, and Zander}{McCauley et~al\mbox{.}}{2008}]%
+\bibitem[McCauley et~al\mbox{.}(2008)]%
         {McCa08a}
 \bibfield{author}{\bibinfo{person}{Renee McCauley}, \bibinfo{person}{Sue
   Fitzgerald}, \bibinfo{person}{Gary Lewandowski}, \bibinfo{person}{Laurie
@@ -321,7 +307,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1988}]%
+\bibitem[Meyer(1988)]%
         {Meye88a}
 \bibfield{author}{\bibinfo{person}{Bertrand Meyer}.}
   \bibinfo{year}{1988}\natexlab{}.
@@ -335,7 +321,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Meyer}{Meyer}{1992}]%
+\bibitem[Meyer(1992)]%
         {Meye92b}
 \bibfield{author}{\bibinfo{person}{Bertrand Meyer}.}
   \bibinfo{year}{1992}\natexlab{}.
@@ -349,8 +335,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Meyer, G\^irba, and Lungu}{Meyer
-  et~al\mbox{.}}{2006}]%
+\bibitem[Meyer et~al\mbox{.}(2006)]%
         {Meye06a}
 \bibfield{author}{\bibinfo{person}{Michael Meyer}, \bibinfo{person}{Tudor
   G\^irba}, {and} \bibinfo{person}{Mircea Lungu}.}
@@ -365,7 +350,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Microsoft}{Microsoft}{2021}]%
+\bibitem[Microsoft(2021)]%
         {DAP21}
 \bibfield{author}{\bibinfo{person}{Microsoft}.}
   \bibinfo{year}{2021}\natexlab{}.
@@ -378,7 +363,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Oracle}{Oracle}{2024}]%
+\bibitem[Oracle(2024)]%
         {JVMTI24}
 \bibfield{author}{\bibinfo{person}{Oracle}.} \bibinfo{year}{2024}\natexlab{}.
 \newblock \bibinfo{title}{{JVM} {Tool} {Interface} version 22.0}.
@@ -390,8 +375,7 @@
 \tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Pavletic, Voelter, Raza, Kolb, and
-  Kehrer}{Pavletic et~al\mbox{.}}{2015}]%
+\bibitem[Pavletic et~al\mbox{.}(2015)]%
         {Pavl15a}
 \bibfield{author}{\bibinfo{person}{Domenik Pavletic}, \bibinfo{person}{Markus
   Voelter}, \bibinfo{person}{SyedAoun Raza}, \bibinfo{person}{Bernd Kolb},
@@ -411,8 +395,24 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Ressia, Bergel, and Nierstrasz}{Ressia
-  et~al\mbox{.}}{2012}]%
+\bibitem[Rein et~al\mbox{.}(2024)]%
+        {Rein24a}
+\bibfield{author}{\bibinfo{person}{Patrick Rein}, \bibinfo{person}{Christian
+  Flach}, \bibinfo{person}{Stefan Ramson}, \bibinfo{person}{Eva Krebs}, {and}
+  \bibinfo{person}{Robert Hirschfeld}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Broadening the View of Live Programmers:
+  Integrating a Cross-Cutting Perspective on Run-Time Behavior into a Live
+  Programming Environment}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2403.02428}}
+  (\bibinfo{year}{2024}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/pdf/2403.02428}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Ressia et~al\mbox{.}(2012)]%
         {Ress12a}
 \bibfield{author}{\bibinfo{person}{Jorge Ressia}, \bibinfo{person}{Alexandre
   Bergel}, {and} \bibinfo{person}{Oscar Nierstrasz}.}
@@ -427,7 +427,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Rosenberg}{Rosenberg}{1996}]%
+\bibitem[Rosenberg(1996)]%
         {Rose96a}
 \bibfield{author}{\bibinfo{person}{Jonathan~B Rosenberg}.}
   \bibinfo{year}{1996}\natexlab{}.
@@ -437,7 +437,35 @@
 \newblock
 
 
-\bibitem[\protect\citeauthoryear{Tubaishat}{Tubaishat}{2001}]%
+\bibitem[Teitelman(1966)]%
+        {Teit66a}
+\bibfield{author}{\bibinfo{person}{Warren Teitelman}.}
+  \bibinfo{year}{1966}\natexlab{}.
+\newblock \bibinfo{title}{{PILOT}: a step toward man-computer symbiosis}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://dspace.mit.edu/bitstream/handle/1721.1/6905/AITR-221.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Teitelman et~al\mbox{.}(1974)]%
+        {Teit74a}
+\bibfield{author}{\bibinfo{person}{Warren Teitelman}, \bibinfo{person}{A.K.
+  Hartley}, \bibinfo{person}{J.W. Goodwin}, \bibinfo{person}{D.G. Bobrow},
+  \bibinfo{person}{P.C. Jackson}, {and} \bibinfo{person}{L.M. Masinter}.}
+  \bibinfo{year}{1974}\natexlab{}.
+\newblock \showarticletitle{The Interlisp reference manual}.
+\newblock  (\bibinfo{year}{1974}).
+\newblock
+\urldef\tempurl%
+\url{http://bitsavers.informatik.uni-stuttgart.de/pdf/xerox/interlisp/Interlisp_Reference_Manual_1974.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Tubaishat(2001)]%
         {Tuba01a}
 \bibfield{author}{\bibinfo{person}{Abdallah Tubaishat}.}
   \bibinfo{year}{2001}\natexlab{}.
@@ -450,8 +478,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Voelter, Kolb, Szab{\'o}, Ratiu, and van
-  Deursen}{Voelter et~al\mbox{.}}{2017}]%
+\bibitem[Voelter et~al\mbox{.}(2017)]%
         {Voel17a}
 \bibfield{author}{\bibinfo{person}{Markus Voelter}, \bibinfo{person}{Bernd
   Kolb}, \bibinfo{person}{Tam{\'a}s Szab{\'o}}, \bibinfo{person}{Daniel Ratiu},
@@ -467,8 +494,7 @@
 \showDOI{\tempurl}
 
 
-\bibitem[\protect\citeauthoryear{Wu, Gray, and Mernik}{Wu
-  et~al\mbox{.}}{2008}]%
+\bibitem[Wu et~al\mbox{.}(2008)]%
         {HuiW08a}
 \bibfield{author}{\bibinfo{person}{Hui Wu}, \bibinfo{person}{Jeff Gray}, {and}
   \bibinfo{person}{Marjan Mernik}.} \bibinfo{year}{2008}\natexlab{}.
