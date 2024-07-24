@@ -258,10 +258,11 @@ In this case the annotation is \st{<gtView>} for views (and \st{<gtAction>} for 
 
 Moldable exceptions provide custom debugger views and actions in essentially the same way as the moldable inspector.
 Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each custom debugger view or action.
-\ins{These methods are annotated with a \lst{<gtExceptionView>} pragma to extend the moldable debugger
+\ins{These methods are annotated with a \lst{<gtExceptionView>} pragma for views and a \lst{<gtExceptionAction>} pragma for actions to extend the moldable debugger
 (\ie as opposed to \st{<gtView>} and  \st{<gtAction>} which extend the moldable inspector).}
 
 \rB{* (l. 284-285) Here, the authors talk about the \lst{<gtView>} and \lst{<gtAction>} annotations, but then change to presumably more specific variants like \lst{<gtExceptionView>} etc. Readers might be wondering about the relationship between those.}\on{fixed}
+\ac{added a small change to also mention gtExceptionAction}
 
 Let us consider that the Ludo game has been implemented with the help of \emph{Design by Contract}~\cite{Meye92b}.
 Rolling a die when a player should move, or vice versa, constitutes a precondition violation, which raises a \st{LudoMoveAssertionFailure}.
@@ -295,6 +296,7 @@ gtGameViewFor: aView
 
 \rB{* (l. 336) The need to explicitly provide / decide on priorities could be a source of many problems.  Why are they there, how can one take advantage of them, and what needs to be considered/ensured/avoided in a production-level debugger environment based on them?}
 \on{I suggest we ignore this point.}
+\ac{I do not fully understand that comment. We use priorities as a way to sort and it was never an issue}
 
 Let us step through the code:
 \begin{inparaenum}[(i)]
@@ -352,6 +354,7 @@ For this reason, in line $6$, the view will be suppressed (\st{^ aView empty}) i
 
 \rB{* (l. 416…) Section 4 built around “GT Scripter” felt a little out of place compared to the text until then and should be revised.}
 \on{Not sure what is needed.}
+\ac{I think it is ok like it is now}
 
 The examples we have seen so far have reused existing inspector views, but sometimes there is a need to develop a new kind of debugger view.
 This also need not necessarily imply a heavy implementation effort.
@@ -436,7 +439,8 @@ Obviously this does not prove that all domain-specific debugger interfaces will 
 \section{Enabling automated fixes}\label{sec:fixes}
 
 \rB{* (l. 561…) The first four paragraphs of Section 5 felt overly specific and, as presented, not contributing to the argument.}
-\on{Commented out the paragraphs discussing Pharo deprecated  methods -- perhaps we can mention them instead in related work.}
+\on{Commented out the paragraphs discussing Pharo deprecated  methods -- perhaps we can mention them instead in related work.} 
+\ac{yes, we can mention it in the related work}
 
 Many cases of common programming errors can be automatically repaired.
 %A good example is that of deprecated methods for which a well-defined alternative is available.
@@ -490,6 +494,7 @@ This custom debugger view decorates the source code with an explanation pointing
 
 \rA{* When discussing "Fix \& Retry" - can you clarify what part of code is rerun? It seems that figuring out how much to rerun is not obvious. I imagine this needs to walk over the call stack to find the first place where the fixed code would be executed - but how exactly does this work? Or is this a more manual process?}
 \on{AC -- can you answer this?}
+\ac{Added a paragraph}
 
 Since such preambles are a common idiom in defining \GT inspector views, and the error is also not uncommon, it becomes easy to fix with the help of a transformation.
 \autoref{fig:emptyViewErrorFix} shows the result of performing the \emph{Fix \& retry} action: a refactoring widget is generated that proposes a code transformation.
@@ -499,15 +504,17 @@ Since such preambles are a common idiom in defining \GT inspector views, and the
   \label{fig:emptyViewErrorFix}
 \end{figure*}
 Clicking on the \emph{Apply refactoring and proceed} button will transform the source code, leave the debugger, and evaluate the rewritten code.
+\ins{Given how GT inspector views are executed, in this particular case, after applying the transformation that fixes the code of the view, it is enough to restart the top call frame. In other cases it might be needed to walk over the call stack to find the right place from were to restart execution.}
 
-A custom debugger action, such as \emph{Fix \& retry} or \emph{Retry} is defined in the same way as a custom debugger view: it is a method with a particular annotation, in this case being \st{<gtPhlowSameViewReturnDebugAction>} rather than \mbox{\st{<gtExceptionView>}}, but  the mechanism is essentially the same.
-We see the code of this action in the listing below.
+A custom debugger action, such as \emph{Fix \& retry} or \emph{Retry} is defined in the same way as a custom debugger view: it is a method with a particular annotation, in this case being \chg{\st{<gtPhlowSameViewReturnDebugAction>}}{\st{<gtExceptionAction>}} rather than \mbox{\st{<gtExceptionView>}}, but  the mechanism is essentially the same. We see the code of this action in the listing below.
 Since this is a debugging action we need to be able to control the run-time execution.
 To make this possible, methods creating debugging views and actions can take as a second parameter a context object that gives them access to the current run-time execution.
 
+\ac{We now use <gtExceptionAction> as an annotation for actions. Initially the mechanism was a bit different}
+
 \begin{code}
 gtDebugActionFixItFor: anAction inContext: aContext
-	<gtPhlowSameViewReturnDebugAction>
+	<gtExceptionAction>
 	(self shouldApplyInContext: aContext )
 		ifFalse: [ ^ anAction noAction ].
 	^ anAction dropdown
@@ -527,7 +534,7 @@ In our proof-of-concept implementation of moldable exceptions, this is done by e
 \begin{code}
 GtMoldableExceptionTransformationsSettings defaultInstance allowAutomaticTransformations.
 \end{code}
-The \st{signal} method of exception classes can then optionally consult this flag to decide whether to spawn a debugger or apply the fix (\autoref{sec:implementation} gives more details).
+\chg{The \st{signal} method of exception classes}{The mechanism for managing unhandled exceptions} can then optionally consult this flag to decide whether to spawn a debugger or apply the fix (\autoref{sec:implementation} gives more details).
 
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
