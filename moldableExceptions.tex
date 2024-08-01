@@ -95,41 +95,19 @@ We present, through a series of examples, how moldable exceptions can enhance a 
 
 \todo{The deadline for the final version is September 1, and we will contact you later about how to submit it.}
 
-\on{
-Most positive comments have been removed.
-Only potentially actionable comments have been kept here.
-Full review comments are in the review subfolder.
-}
-
-\rA{... it would be nice if the screenshots were bigger.}
-\on{I will prepare a single-column version for arxiv.org}
+%\rA{... it would be nice if the screenshots were bigger.}
+%\on{I will prepare a single-column version for arxiv.org}
 
 
-\rA{* To what extent does this require more domain-specific exceptions than in typical code? It seems that most of the examples in the paper are fairly specific (often related to testing and assertion failures), but does the mechanism also help with more generic exceptions (indicating e.g., an invalid argument or an invalid index)? You mention debuggers for DSLs later and this seems like an area where moldable exceptions would also work well - but can they also help with debugging more general issues?}
-\on{This will work for any specific kind of exception,  that is we dispatch on the exception class. Where to say this?}
+%\rA{* To what extent does this require more domain-specific exceptions than in typical code? It seems that most of the examples in the paper are fairly specific (often related to testing and assertion failures), but does the mechanism also help with more generic exceptions (indicating e.g., an invalid argument or an invalid index)? You mention debuggers for DSLs later and this seems like an area where moldable exceptions would also work well - but can they also help with debugging more general issues?}
+%\on{This will work for any specific kind of exception,  that is we dispatch on the exception class. Where to say this?}
 
-\rA{* Related to the above, did getting the case studies to work require writing code differently than one might write it without using "moldable exceptions"? (LudoMoveAssertionException seems fairly specific!) Note that this may simply be a case of a tool that encourages better programming practice - but it would be good to know if this is the case or not.}
-\on{The only change is that a specific class of exception must be raised.}
+%\rC{- I love line 1122 ([``Debuggers are unloved beasts.'' in conclusion] and subsequent prose)! The very first paragraph of the intro didn’t quite land with me (I still use a terminal-based debugger and kinda like it… but I agree that we need reimagined debuggers), so maybe you could consider incorporating the perspective/prose from 1122 in the first paragraph of the intro?}
+%\todo{Update the intro accordingly.}
 
-\rA{* What exactly support from the runtime is needed for this kind of system to work? Can one imagine implementing this for JVM/.NET/JavaScript, or does it need some Smalltalk-specific capabilities? (One particular thing seems to be access to exception stack trace - e.g., for gtLocateAssertequalsContextWithComparableTypes - but are there other things the system needs?)}
-\on{AC -- can you answer this? I guess you only need to have a moldable debugger that can activate exception-specific views, right?}
-
-\rC{\# 1. What work exactly do moldable exceptions save developers from doing?\\
-I do not have a clear sense to what the alternative to moldable exceptions entails. A running line of argumentation throughout the paper is that “Custom debuggers offering contextual debugging views and actions can greatly improve our ability to reason about the current problem,” (which is unsubstantiated in this paper via evaluation or citation, but I think is compelling enough for Onward) [line 17], but that “Implementing such custom debuggers, however, is non-trivial.” [line 19].}
-\on{The alternative is to poke around the stack to find the information we are looking for.
-Hacking exception-specific behavior into the debugger is an ad hoc process, and requires the debugger to be extended for each new kind of exception.}
-
-\rC{The difficulty of implementing custom debuggers appears to me to be the primary motivation for moldable exceptions (e.g. the second paragraph of the introduction), yet I feel as though, after reading the paper, I do not actually have a clear understanding of what the difficulty of implementing custom debuggers are.\\
-My intuition would tell me that the hardest part about implementing a custom debugger would be the interface and interactions themselves, which, from my understanding, are  forwarded for many of the examples in the paper to existing, underlying implementations (paragraph on line 972). **If we already have these implementations, what is hard about using them to make a debugging interface given previous extensibility mechanisms of debuggers?** I think that a satisfying answer to that key question would make this paper even better!}
-\on{AC -- can you provide some anecdote about your experience building custom debuggers?}
-
-\rC{- I love line 1122 ([``Debuggers are unloved beasts.'' in conclusion] and subsequent prose)! The very first paragraph of the intro didn’t quite land with me (I still use a terminal-based debugger and kinda like it… but I agree that we need reimagined debuggers), so maybe you could consider incorporating the perspective/prose from 1122 in the first paragraph of the intro?}
-\todo{Update the intro accordingly.}
-
-In the bad old days, all interactive debuggers were the same.
-You had a command-line interface with commands to sample the current execution state, and you had commands to step through the running code.
-Nowadays we have graphical debuggers that show us the run-time stack, and offer buttons instead of commands to step through the code, but they are still all the same.
-The trouble with this is that every debugging problem is different, but debuggers all show us the same thing, and they offer the same kinds of actions to step through the code.
+Debuggers are unloved beasts.
+They provide a generic and low-level interface to explore and debug the run-time state of a running program.
+Many debugging problems can be better tackled by understanding the nature of the exception that was raised and caused the debugger to be activated.
 
 There have been numerous efforts to develop custom debuggers for various application domains and domain-specific languages.
 These custom debuggers provide dedicated views and actions that are tailored to a specific application context.
@@ -282,8 +260,8 @@ Furthermore, if we already have such views defined elsewhere (we do!), it is not
 We just need to define two new view methods in the class \lmaf.
 
 Here is the definition of the first view, which simply forwards (delegates) the view to another existing one.
-\rB{* (l. 328…) What is view forwarding / how does it work?}\on{fixed}
-\ins{Specifically, the moldable debugger game view for a \lmaf simply reuses the moldable inspector view called \st{gtPositionsFor:} that is already defined in the \st{game} object.}
+%\rB{* (l. 328…) What is view forwarding / how does it work?}\on{fixed}
+Specifically, the moldable debugger game view for a \lmaf simply reuses the moldable inspector view called \st{gtPositionsFor:} that is already defined in the \st{game} object.
 \begin{code}
 gtGameViewFor: aView
 	<gtExceptionView>
@@ -294,9 +272,9 @@ gtGameViewFor: aView
 		view: #gtPositionsFor:
 \end{code}
 
-\rB{* (l. 336) The need to explicitly provide / decide on priorities could be a source of many problems.  Why are they there, how can one take advantage of them, and what needs to be considered/ensured/avoided in a production-level debugger environment based on them?}
-\on{I suggest we ignore this point.}
-\ac{I do not fully understand that comment. We use priorities as a way to sort and it was never an issue}
+%\rB{* (l. 336) The need to explicitly provide / decide on priorities could be a source of many problems.  Why are they there, how can one take advantage of them, and what needs to be considered/ensured/avoided in a production-level debugger environment based on them?}
+%\on{I suggest we ignore this point.}
+%\ac{I do not fully understand that comment. We use priorities as a way to sort and it was never an issue}
 
 Let us step through the code:
 \begin{inparaenum}[(i)]
@@ -332,7 +310,7 @@ gtMovesViewFor: aView
 \end{code}
 
 The assertion diff debugger view we saw earlier in \autoref{fig:stringComparisonView} is similarly defined as a method of \st{AssertionFailure}.
-\rC{- The code snippets started getting hard to follow starting on line 397. Syntax highlighting might help, or spending a bit more time explaining the code (or just removing anything unnecessary).}\on{Just highlighted the test in bold}
+%\rC{- The code snippets started getting hard to follow starting on line 397. Syntax highlighting might help, or spending a bit more time explaining the code (or just removing anything unnecessary).}\on{Just highlighted the test in bold}
 \begin{code}
 AssertionFailure>>gtComparableTypesTextualDiffFor: aView
 	<gtExceptionView>
@@ -367,8 +345,7 @@ The scenario is the following:
 	\item We add a text snippet with a link to the \st{Object} class.
 	\item We assert the existence of the page.
 	\item We click the link.
-	\item We check that a new page is created \chg{(\ie the \emph{Coder} for the \st{Object} class).}{with a code browser for the \st{Object} class.}
-	\rC{- Line 428: What is the “Coder”?}\on{fixed}
+	\item We check that a new page is created with a code browser for the \st{Object} class.
 \end{inparaenum}
 In case something goes wrong, we would like the debugger to provide us with high-level views of the state of the Scripter.
 
@@ -407,16 +384,24 @@ It is the check specification that is at fault, not the GUI Interaction we are t
 However this time we show the \lst{Textual Diff} view both in the new debugger interface created for this exception (\lst{Textual Diff} tab in \autoref{fig:scripterPreview}), as well as an additional view within the standard \GT debugger (\lst{Textual Diff} tab in \autoref{fig:scripterDiffInDebugger}).
 Hence, a moldable exception can also provide views and actions for the standard \GT debugger.
 
-\rC{\# 2. What is the benefit of moldable exceptions specifically (vs. other moldable interfaces)?\\
-More broadly, I found it a bit challenging to identify what precisely the benefit of including these interfaces in the debugger (specifically) is. For example, in the Ludo example, what do we get by having the visualization being tied to an exception / debugger mechanism vs. simply just showing the state at all times as an output with navigable exploration interactions? I think I start to see an answer to this with the paragraph on line 504 (“Why do we need these views?”) and the argument on line 754 about choosing a tool ahead of time, but I still really don’t have a crisp answer to this question in my head.}
-\on{Not sure what to do.}
+%\rC{\# 2. What is the benefit of moldable exceptions specifically (vs. other moldable interfaces)?\\
+%More broadly, I found it a bit challenging to identify what precisely the benefit of including these interfaces in the debugger (specifically) is. For example, in the Ludo example, what do we get by having the visualization being tied to an exception / debugger mechanism vs. simply just showing the state at all times as an output with navigable exploration interactions? I think I start to see an answer to this with the paragraph on line 504 (“Why do we need these views?”) and the argument on line 754 about choosing a tool ahead of time, but I still really don’t have a crisp answer to this question in my head.}
+%\on{Not sure what to do.}
 
 \paragraph{Why do we need these views?}
 The problem with the standard debugger is that, due to the way the GUI Scripter schedules the steps, the offending method (\ie the \lst{page\-With\-Class\-Clicked} method we see in \autoref{fig:scripterStepsViewClicked}) is \emph{not on the stack} at the point where the exception is raised.
-Although it is possible to get at the information we seek, doing so is clumsy \ins{since we would have to navigate to the exception instance itself, and explore its  internal state}, and the classical stack view only confuses matters instead of helping us to debug the problem.
-\rC{- Line 508 regarding “doing so is clumsy”: Make that clumsiness tangible! If you really show the reader how clumsy it would be to do the alternative, that would be a great opportunity to highlight what works well about your approach. As of right now, I am basically just taking your word on it.}\on{Added a brief explanation}
+Although it is possible to get at the information we seek, doing so is clumsy since we would have to navigate to the exception instance itself, and explore its  internal state, and the classical stack view only confuses matters instead of helping us to debug the problem.
+%\rC{- Line 508 regarding “doing so is clumsy”: Make that clumsiness tangible! If you really show the reader how clumsy it would be to do the alternative, that would be a great opportunity to highlight what works well about your approach. As of right now, I am basically just taking your word on it.}\on{Added a brief explanation}
 This can be the case with many application domains, especially those that depend on event scheduling.
 The run-time stack does not do a good job of telling us how the events have been triggered, so another kind of view is needed.
+
+In general, custom debugger views exist to save you the trouble of rummaging around the stack to find the information you need, and they can offer dedicated custom actions to fix the problem.
+
+%\rC{\# 1. What work exactly do moldable exceptions save developers from doing?\\
+%I do not have a clear sense to what the alternative to moldable exceptions entails. A running line of argumentation throughout the paper is that “Custom debuggers offering contextual debugging views and actions can greatly improve our ability to reason about the current problem,” (which is unsubstantiated in this paper via evaluation or citation, but I think is compelling enough for Onward) [line 17], but that “Implementing such custom debuggers, however, is non-trivial.” [line 19].}
+%\on{The alternative is to poke around the stack to find the information we are looking for.
+%Hacking exception-specific behavior into the debugger is an ad hoc process, and requires the debugger to be extended for each new kind of exception.}
+%\on{Added a sentence to emphasize the point}
 
 \paragraph{How hard is it to implement a domain-specific debugger interface?}
 Extending a standard debugger with such views can be challenging.
@@ -438,9 +423,9 @@ Obviously this does not prove that all domain-specific debugger interfaces will 
 % ============================================================
 \section{Enabling automated fixes}\label{sec:fixes}
 
-\rB{* (l. 561…) The first four paragraphs of Section 5 felt overly specific and, as presented, not contributing to the argument.}
-\on{Commented out the paragraphs discussing Pharo deprecated  methods -- perhaps we can mention them instead in related work.} 
-\ac{yes, we can mention it in the related work}
+%\rB{* (l. 561…) The first four paragraphs of Section 5 felt overly specific and, as presented, not contributing to the argument.}
+%\on{Commented out the paragraphs discussing Pharo deprecated  methods -- perhaps we can mention them instead in related work.} 
+%\ac{yes, we can mention it in the related work}
 
 Many cases of common programming errors can be automatically repaired.
 %A good example is that of deprecated methods for which a well-defined alternative is available.
@@ -700,32 +685,46 @@ To enable moldable exceptions to perform automated transformations instead of op
 This trait provides an implementation for the signal method shown below.
 This method is executed whenever an exception is raised.
 By default in case an exception is not handled in the system a debugger is opened.
-This override checks if automatic transformations are allowed for the current exception, and if they are, asks the exception for its transformation and executes it if there is anything to transform.
+This override checks if automatic transformations are allowed for the current exception (line 4), and if they are, asks the exception for its transformation (lines 5) and executes it if there is anything to transform (lines 6-7).
 Transformations can apply code changes, modify the state of objects, or perform other operations, such as deleting no longer needed files.
 
 \begin{code}
 TGtMoldableExceptionSignalWithTransformation>>signal
-	| transformation |
-	self canApplyAutomaticTransformation
-		ifFalse: [ ^ super signal ].
-	transformation := self gtMoldableExceptionTransformation.
-	transformation shouldTransform
-		ifFalse: [ ^ self signal].
-	transformation performTransformation
+	<debuggerCompleteToSender>	| transformation |	self canApplyAutomaticTransformation ifFalse: [ ^ super signal ].	transformation := self gtMoldableExceptionTransformation.	transformation shouldTransform ifFalse: [ ^ super signal ].	transformation performTransformation
 \end{code}
 
-\rB{* (l. 950) “self signal” -> “super signal”?}
-\on{AC -- makes sense to me. Can you confirm?}
+%\rB{* (l. 950) “self signal” -> “super signal”?}
+%\on{AC -- makes sense to me. Can you confirm?}
 
 % ============================================================
 \section{Discussion and future directions}\label{sec:directions}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
-The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses.
-While both the moldable debugger and moldable inspector were available in \GT at the same time, until now \GT comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (such as the one in  \autoref{fig:smaccDebugger}).
+The only changes needed to an application are:
+\begin{inparaenum}[(i)]
+	\item if there is not already a dedicated exception class for the exception to be molded, introduce one, and
+	\item add dedicated exception view methods to that class to mold the debugger.
+\end{inparaenum}
+
+%\rA{* Related to the above, did getting the case studies to work require writing code differently than one might write it without using "moldable exceptions"? (LudoMoveAssertionException seems fairly specific!) Note that this may simply be a case of a tool that encourages better programming practice - but it would be good to know if this is the case or not.}
+%\on{The only change is that a specific class of exception must be raised.}
+
+
+The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses~\cite{Chis15c}.
+Although the old framework considerably reduced the cost of building a custom debugger, they still required a non-trivial implementation effort, consisting of several hundreds of lines of code (\cite{Chis15c}, table 7).
+While both the moldable inspector and the (old) moldable debugger were available in \GT up to now, currently \GT comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (such as the one in  \autoref{fig:smaccDebugger}).
+
+%\rC{The difficulty of implementing custom debuggers appears to me to be the primary motivation for moldable exceptions (e.g. the second paragraph of the introduction), yet I feel as though, after reading the paper, I do not actually have a clear understanding of what the difficulty of implementing custom debuggers are.\\
+%My intuition would tell me that the hardest part about implementing a custom debugger would be the interface and interactions themselves, which, from my understanding, are  forwarded for many of the examples in the paper to existing, underlying implementations (paragraph on line 972). **If we already have these implementations, what is hard about using them to make a debugging interface given previous extensibility mechanisms of debuggers?** I think that a satisfying answer to that key question would make this paper even better!}
+%\on{AC -- can you provide some anecdote about your experience building custom debuggers?}
 
 This indicates that the extension mechanism plays a significant role in developers extending the IDE, and that the cost of creating views and actions can be very low.
 Due to this, through moldable exceptions we aim to apply the same extension mechanism present in the moldable inspector for creating custom debuggers.
+In the new approach, a moldable debugger simply needs to recognize whether a raised exception has custom views defined (in our case by detected annotated methods of its class), and then activate those views in its user interface.
+
+%\rA{* What exactly support from the runtime is needed for this kind of system to work? Can one imagine implementing this for JVM/.NET/JavaScript, or does it need some Smalltalk-specific capabilities? (One particular thing seems to be access to exception stack trace - e.g., for gtLocateAssertequalsContextWithComparableTypes - but are there other things the system needs?)}
+%\on{AC -- can you answer this? I guess you only need to have a moldable debugger that can activate exception-specific views, right?}
+%\on{Added a brief explanation}
 
 At the time of writing we have implemented some 26 custom debugger views, in an average of under 12 lines of code.
 Over half of these are forwarding views that reuse (delegate to) existing views previously defined as object inspector views.
@@ -745,8 +744,8 @@ In \autoref{fig:smaccDebugger} we see such a dedicated debugger for SmaCC~\cite{
 \end{figure}
 The SmaCC debugger offers the possibility to step through the grammar rules of a parser and explore its execution state.
 
-\rC{- The SmaCC reference was a bit confusing and not very fleshed out - I would recommend either spending some more space explaining it or simply removing it.}
-\on{AC -- is there more to say?}
+%\rC{- The SmaCC reference was a bit confusing and not very fleshed out - I would recommend either spending some more space explaining it or simply removing it.}
+%\on{AC -- is there more to say?}
 
 Our proof-of-concept implementation of moldable exceptions presented here heavily leverages the existing infrastructure for moldable inspector views in \GT, but in principle there is nothing to prevent its application to other programming languages and IDEs.
 The basic idea is simple: any moldable tool must be prepared, whenever it is created, to examine the execution context of the objects it is initialized with, and use that context to adapt its behavior.
@@ -867,12 +866,19 @@ No previous approach to extensible debuggers, including the original moldable de
 % ============================================================
 \section{Conclusion}\label{sec:conclusion}
 
-\rC{- I love line 1122 (``Debuggers are unloved beasts.'' and subsequent prose)! The very first paragraph of the intro didn’t quite land with me (I still use a terminal-based debugger and kinda like it… but I agree that we need reimagined debuggers), so maybe you could consider incorporating the perspective/prose from 1122 in the first paragraph of the intro?}
-\todo{I can move this text to the intro and paraphrase it here.}
+%\rC{- I love line 1122 (``Debuggers are unloved beasts.'' and subsequent prose)! The very first paragraph of the intro didn’t quite land with me (I still use a terminal-based debugger and kinda like it… but I agree that we need reimagined debuggers), so maybe you could consider incorporating the perspective/prose from 1122 in the first paragraph of the intro?}
+%\todo{I can move this text to the intro and paraphrase it here.}
 
-Debuggers are unloved beasts.
-They provide a generic and low-level interface to explore and debug the run-time state of a running program.
-Many debugging problems can be better tackled by understanding the nature of the exception that was raised and caused the debugger to be activated.
+%\meh{Debuggers are unloved beasts.
+%They provide a generic and low-level interface to explore and debug the run-time state of a running program.
+%Many debugging problems can be better tackled by understanding the nature of the exception that was raised and caused the debugger to be activated.}
+%\on{Moved this to the intro -- need to paraphrase this}
+
+Interactive debuggers are all basically the same.
+Command-line debuggers offer commands to sample the current execution state and step through the running code.
+Graphical debuggers that show us the run-time stack, and offer buttons instead of commands to step through the code, but they are still all the same.
+The trouble with this is that every debugging problem is different, but debuggers all show us the same thing, and they offer the same kinds of actions to step through the code.
+
 Our key contribution is to show how a debugger can be dynamically molded with custom views and actions that depend on the specific exception raised.
 The mechanism is lightweight, and many useful extensions can be defined with minimal implementation effort.
 
