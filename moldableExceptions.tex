@@ -93,11 +93,11 @@ We present, through a series of examples, how moldable exceptions can enhance a 
 % ============================================================
 \section{Introduction}\label{sec:intro}
 
-\todo{The deadline for the final version is September 1, and we will contact you later about how to submit it.}
+%\todo{The deadline for the final version is September 1, and we will contact you later about how to submit it.
+%NB: ``If the paper is accepted, the final submission will be limited to 17 pages. (The 13-page limit for the main body of the paper no longer applies.)''}
 
 %\rA{... it would be nice if the screenshots were bigger.}
 %\on{I will prepare a single-column version for arxiv.org}
-
 
 %\rA{* To what extent does this require more domain-specific exceptions than in typical code? It seems that most of the examples in the paper are fairly specific (often related to testing and assertion failures), but does the mechanism also help with more generic exceptions (indicating e.g., an invalid argument or an invalid index)? You mention debuggers for DSLs later and this seems like an area where moldable exceptions would also work well - but can they also help with debugging more general issues?}
 %\on{This will work for any specific kind of exception,  that is we dispatch on the exception class. Where to say this?}
@@ -477,7 +477,6 @@ In \autoref{fig:emptyViewError} we see the source code for a custom inspector vi
 \end{figure}
 This custom debugger view decorates the source code with an explanation pointing out the likely errors, and links (in yellow) to the offending source code.
 
-
 Since such preambles are a common idiom in defining \GT inspector views, and the error is also not uncommon, it becomes easy to fix with the help of a transformation.
 \autoref{fig:emptyViewErrorFix} shows the result of performing the \emph{Fix \& retry} action: a refactoring widget is generated that proposes a code transformation.
 \begin{figure*}[h]
@@ -547,7 +546,6 @@ To achieve this we rely on the fact that tests raise \lst{ComparisonFailure} exc
   \label{fig:comparisonFailureVisualDiff}
 \end{figure*}
 
-
 \autoref{fig:comparisonFailureVisualDiff} shows the debugger opened as a result of a failed comparison of two PDF documents.
 In this case the exception provides multiple diff views:
 one at the image level that visually highlights the parts that differ between the two documents (\autoref{fig:comparisonFailureVisualDiff}),
@@ -566,7 +564,6 @@ Apart from the diff views, the exception also provides an \emph{Accept} action t
   \caption{A view showing textual differences between document at the level of the PDF format.}
   \label{fig:comparisonFailureSourceDiff}
 \end{figure}
-
 
 The \emph{Image Diff} view and the \emph{Accept} action both reuse existing logic, and in a few lines of code integrate it into the debugger.
 This integration unifies the flow of comparing two documents and exploring why the failure happens using a debugger.
@@ -614,9 +611,9 @@ Developers can now simply run tests, and when a comparison fails choose how to p
 %We implemented the moldable exceptions idea in Glamorous Toolkit.
 %This section discusses relevant aspects regarding its implementation.
 
-\rA{* It would be nice to know a bit more about how the implementation works (the current "Implementation" section gives some hints, but seems more about the specific API of the system). More specifically, I wonder what all the information of the last 5 lines in the code snippet (gtDebugActionFixItFor) on line 685-697 mean - and what other options are there. 
-Another case is "Debugging Targets" (line 884) which also seems a very important technical aspect - but you do not say how this is used/set in specific case studies in the paper.}
-\on{AC -- do you want to add something?}
+%\rA{* It would be nice to know a bit more about how the implementation works (the current "Implementation" section gives some hints, but seems more about the specific API of the system). More specifically, I wonder what all the information of the last 5 lines in the code snippet (gtDebugActionFixItFor) on line 685-697 mean - and what other options are there. 
+%Another case is "Debugging Targets" (line 884) which also seems a very important technical aspect - but you do not say how this is used/set in specific case studies in the paper.}
+%\on{AC -- do you want to add something?}
 
 The key to implementing moldable exceptions is the mechanism used to inform a moldable debugger of the relevant views and actions it provides.
 % At the core of implementing moldable exceptions is allowing the exception to indicate how to locate relevant actions and views.
@@ -709,7 +706,6 @@ The only changes needed to an application are:
 %\rA{* Related to the above, did getting the case studies to work require writing code differently than one might write it without using "moldable exceptions"? (LudoMoveAssertionException seems fairly specific!) Note that this may simply be a case of a tool that encourages better programming practice - but it would be good to know if this is the case or not.}
 %\on{The only change is that a specific class of exception must be raised.}
 
-
 The previous extension mechanism for the moldable debugger required developers to extend the debugger by creating subclasses~\cite{Chis15c}.
 Although the old framework considerably reduced the cost of building a custom debugger, they still required a non-trivial implementation effort, consisting of several hundreds of lines of code (\cite{Chis15c}, table 7).
 While both the moldable inspector and the (old) moldable debugger were available in \GT up to now, currently \GT comes with 3200 views and 280 actions with an average of 12 lines of code, but only 8 custom debuggers (such as the one in  \autoref{fig:smaccDebugger}).
@@ -768,33 +764,28 @@ The precise extension method will depend on the language technology available.
 % ============================================================
 \section{Related work}\label{sec:related}
 
-\rA{* Some aspects of this work seem to be closely related to probes as implemented in [1]. Although this is not about moldability as such, it is also a lightweight way of extending the debugger (and may help in similar situations, e.g., when run-time stack does not give useful information). Relatedly, could moldable exceptions be used to generate more accurate call stack information in asynchronous code? (This seems to be a common issue in JavaScript or C\# that explicitly collect "async call stack" to improve this aspect of debugging.)}
+%\rA{* Some aspects of this work seem to be closely related to probes as implemented in [1]. Although this is not about moldability as such, it is also a lightweight way of extending the debugger (and may help in similar situations, e.g., when run-time stack does not give useful information). Relatedly, could moldable exceptions be used to generate more accurate call stack information in asynchronous code? (This seems to be a common issue in JavaScript or C\# that explicitly collect "async call stack" to improve this aspect of debugging.)}
 
-\rA{* It may be nice to add a bit more context for some of the ideas - although features like automatic code correction are not common in present-day debuggers, this is something that has a long history and there were various systems implementing some of these features since PILOT [2] and DWIM [3]. I believe mentioning those may inspire the reader to think about other capabilities of these ancient tools that current debuggers are lacking!\\
-References\\
-1. Rein, Patrick, et al. "Broadening the View of Live Programmers." The Art, Science, and Engineering of Programming 8.3 (2024): 13-1.\\
-2. Teitelman, Warren. "PILOT: a step toward man-computer symbiosis." (1966).\\
-3. Teitelman, Warren. "Interlisp Reference Manual. Xerox Corporation (1974).}
+%\rA{* It may be nice to add a bit more context for some of the ideas - although features like automatic code correction are not common in present-day debuggers, this is something that has a long history and there were various systems implementing some of these features since PILOT [2] and DWIM [3]. I believe mentioning those may inspire the reader to think about other capabilities of these ancient tools that current debuggers are lacking!\\
+%References\\
+%1. Rein, Patrick, et al. "Broadening the View of Live Programmers." The Art, Science, and Engineering of Programming 8.3 (2024): 13-1.\\
+%2. Teitelman, Warren. "PILOT: a step toward man-computer symbiosis." (1966).\\
+%3. Teitelman, Warren. "Interlisp Reference Manual. Xerox Corporation (1974).}
 % Available at:  http://bitsavers.informatik.uni-stuttgart.de/pdf/xerox/interlisp
 % Interlisp_Reference_Manual_1974.pdf (see Section 17)
 
-\on{AC -- which of these do you feel are worth citing?}
+%\todo{To cite?:
+%\cite{Rein24a}
+%\cite{Teit66a}
+%\cite{Teit74a} \\
+%NB: PDFs at \url{https://www.dropbox.com/home/feenk/feenk-docs/MoldableExceptions}
+%}
 
-\todo{To cite?:
-\cite{Rein24a}
-\cite{Teit66a}
-\cite{Teit74a} \\
-NB: PDFs at \url{https://www.dropbox.com/home/feenk/feenk-docs/MoldableExceptions}
-}
+%\rC{- The related work feels a bit like a potpourri of other points in the space. Would it be possible to impose some sort of hierarchy or other structure into the review, perhaps by setting up axes in which these tools vary or are the same? I feel like I would come away with a better understanding of where moldable exceptions fits into the broader landscape of debugging tools.}
+%\on{Reviewer C is not wrong, but I'm not sure what to do.}
 
-\rB{I would like to suggest revisiting related work wrt. to projectional editors, Babylonian programming, and live and exploratory programming in general.}
-
-\todo{Search for suitable references ... ?}
-
-\rC{- The related work feels a bit like a potpourri of other points in the space. Would it be possible to impose some sort of hierarchy or other structure into the review, perhaps by setting up axes in which these tools vary or are the same? I feel like I would come away with a better understanding of where moldable exceptions fits into the broader landscape of debugging tools.}
-\on{Reviewer C is not wrong, but I'm not sure what to do.}
-
-\rC{- Also regarding the related work: Are “expect tests” (a.k.a. “snapshot tests” or “golden tests”) relevant to discuss? They are also often based on exceptions and diffs. https://blog.janestreet.com/the-joy-of-expect-tests/}
+%\rC{- Also regarding the related work: Are “expect tests” (a.k.a. “snapshot tests” or “golden tests”) relevant to discuss? They are also often based on exceptions and diffs. https://blog.janestreet.com/the-joy-of-expect-tests/}
+%\on{Doesn't seem too relevant}
 
 Early debuggers provided a command-line interface to inspect and step through the execution of a running program or a \emph{post mortem} ``core dump.''
 With the advent of GUI-based IDEs, debuggers were also updated to offer interactive views to explore the execution state of a program and to step through its execution~\cite{Rose96a}.
@@ -825,7 +816,7 @@ The VSCode Debugger Adapter Protocol (DAP)~\cite{DAP21} makes it possible to imp
 
 % Extensible Debugger Framework for Extensible Languages
 mbeddr~\cite{Voel17a} is a collection of languages and language extensions, mainly focusing on C, built with the JetBrains MPS language workbench~\cite{Camp14a}.
-mbeddr includes an extensible debugger framework~\cite{Pavl15a} that focuses on providing support for the individual language extension, not application specific customizations.
+mbeddr includes an extensible debugger framework~\cite{Pavl15a} that focuses on providing support for the individual language extensions, not application specific customizations.
 
 % [1] Omniscient Debugging for Executable DSLs
 % https://inria.hal.science/hal-01662336/file/jss17-debugging.pdf
@@ -844,6 +835,13 @@ Lindeman \etal leverage the Spoofax language workbench~\cite{Kats10a} to declara
 % D2X: An eXtensible conteXtual Debugger for Modern DSLs
 D2X~\cite{Brah23a} provides an API for DSLs to define debugger extensions.
 All of these DSL debugger approaches focus on providing general debugging for a given DSL, not for more finely-grained application debugging issues.
+
+% Babylonian programming -- Broadening the View of Live Programmers
+%\rB{I would like to suggest revisiting related work wrt. to projectional editors, Babylonian programming, and live and exploratory programming in general.}
+%\cite{Rein24a}
+Babylonian programming~\cite{Rau19a} is an approach in which live examples are integrated into the code editor, and offers various specialized  views~\cite{Rein24a} of the run-time behavior of the examples.
+The current implementation of Babylonian/S does not offer a means to define application-specific views for examples.
+%\footnote{\url{https://github.com/hpi-swa-lab/babylonian-programming-smalltalk}}
 
 % Sindarin: A versatile scripting API for the Pharo debugger
 Sindarin is an extensible Pharo-based debugger that offers a rich API for scripting debugger extensions~\cite{Dupr19a}.
@@ -889,10 +887,8 @@ The mechanism is lightweight, and many useful extensions can be defined with min
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{moldableExceptions}
 
-
 \end{document}
 \endinput
-
 
 \begin{inparaenum}[(i)]
 	\item ...
