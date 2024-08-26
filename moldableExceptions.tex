@@ -1,6 +1,6 @@
 % Modeled after sample-sigplan.tex
 %\documentclass[sigplan,anonymous,review,10pt]{acmart}
-\documentclass[sigplan,10pt]{acmart}
+\documentclass[sigplan,screen]{acmart}
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -12,6 +12,9 @@
 %% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[Onward!]{Onward!}{Oct.\ 20-25, 2024}{Pasadena, CA}
 \acmISBN{978-1-4503-XXXX-X/18/06}
+% ============================================================
+% uses the microtype package using \usepackage{microtype} for improved typesetting
+\usepackage{microtype}
 % ============================================================
 \input{macros}
 \input{st80.tex}
@@ -68,7 +71,7 @@
   \country{Switzerland}}
 \email{oscar.nierstrasz@feenk.com}
 
-\renewcommand{\shortauthors}{Chi\c{s} et al.}
+%\renewcommand{\shortauthors}{Chi\c{s} et al.}
 
 \begin{abstract}
 Debugging is hard.
@@ -81,6 +84,18 @@ Implementing such custom debuggers, however, is non-trivial, and poses a barrier
 In this paper we introduce \emph{moldable exceptions}, a lightweight mechanism to adapt a debugger's interface based on contextual information provided by a raised exception.
 We present, through a series of examples, how moldable exceptions can enhance a live programming environment.
 \end{abstract}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10011007.10011006.10011073</concept_id>
+       <concept_desc>Software and its engineering~Software maintenance tools</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~Software maintenance tools}
 
 \keywords{Exceptions, debuggers, customization.}
 
@@ -170,7 +185,7 @@ We summarize our contributions and discuss some possible future work in \autoref
 We conclude in \autoref{sec:conclusion}.
 
 % ============================================================
-\section{The moldable inspector}\label{sec:inspectorViews}
+\section{The Moldable Inspector}\label{sec:inspectorViews}
 
 Understanding moldable exceptions can be easier if we first introduce another example of a similar approach.
 Moldable exceptions build on the idea of a \emph{moldable tool}~\cite{Chis17a}, an IDE tool that adapts its behavior to a specific run-time application context.
@@ -232,7 +247,7 @@ View and action methods are recognized by the moldable inspector through dedicat
 In this case the annotation is \st{<gtView>} for views (and \st{<gtAction>} for actions), seen in the second line of the method defining the view.
 
 % ============================================================
-\section{Adding custom debugger views}\label{sec:views}
+\section{Adding Custom Debugger Views}\label{sec:views}
 
 Moldable exceptions provide custom debugger views and actions in essentially the same way as the moldable inspector.
 Moldable exceptions are instances of an \emph{Exception} class that has been extended with a dedicated method for each custom debugger view or action.
@@ -328,7 +343,7 @@ The key difference is that not every \st{AssertionFailure} is raised as the resu
 For this reason, in line $6$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
 
 % ============================================================
-\section{Building domain-specific debugger views}\label{sec:interactions}
+\section{Building Domain-specific Debugger Views}\label{sec:interactions}
 
 %\rB{* (l. 416…) Section 4 built around “GT Scripter” felt a little out of place compared to the text until then and should be revised.}
 %\on{Not sure what is needed.}
@@ -421,7 +436,7 @@ Finally, this method embeds a Mondrian visualization implemented in 12 lines of 
 Obviously this does not prove that all domain-specific debugger interfaces will be so tiny, but it does demonstrate that a useful custom debugger view can be implemented in an almost trivial amount of code.
 
 % ============================================================
-\section{Enabling automated fixes}\label{sec:fixes}
+\section{Enabling Automated Fixes}\label{sec:fixes}
 
 %\rB{* (l. 561…) The first four paragraphs of Section 5 felt overly specific and, as presented, not contributing to the argument.}
 %\on{Commented out the paragraphs discussing Pharo deprecated  methods -- perhaps we can mention them instead in related work.} 
@@ -524,7 +539,7 @@ The mechanism for managing unhandled exceptions can then optionally consult this
 As before, the custom debugger views and actions are mostly built from existing components, so the implementation effort is low.
 
 % ============================================================
-\section{A case study of Moldable Exceptions}\label{sec:casestudy}
+\section{A Case Study of Moldable Exceptions}\label{sec:casestudy}
 
 As a case study, we applied moldable exceptions within a company that develops applications for managing insurance policies, to improve the development process by integrating custom comparison views into the debugger.
 
@@ -606,7 +621,7 @@ Developers can now simply run tests, and when a comparison fails choose how to p
 %\end{code}
 
 % ============================================================
-\section{Implementation details}\label{sec:implementation}
+\section{Implementation Details}\label{sec:implementation}
 
 %We implemented the moldable exceptions idea in Glamorous Toolkit.
 %This section discusses relevant aspects regarding its implementation.
@@ -687,14 +702,19 @@ Transformations can apply code changes, modify the state of objects, or perform 
 
 \begin{code}
 TGtMoldableExceptionSignalWithTransformation>>signal
-	<debuggerCompleteToSender>	| transformation |	self canApplyAutomaticTransformation ifFalse: [ ^ super signal ].	transformation := self gtMoldableExceptionTransformation.	transformation shouldTransform ifFalse: [ ^ super signal ].	transformation performTransformation
+	<debuggerCompleteToSender>
+	| transformation |
+	self canApplyAutomaticTransformation ifFalse: [ ^ super signal ].
+	transformation := self gtMoldableExceptionTransformation.
+	transformation shouldTransform ifFalse: [ ^ super signal ].
+	transformation performTransformation
 \end{code}
 
 %\rB{* (l. 950) “self signal” -> “super signal”?}
 %\on{AC -- makes sense to me. Can you confirm?}
 
 % ============================================================
-\section{Discussion and future directions}\label{sec:directions}
+\section{Discussion and Future Directions}\label{sec:directions}
 
 Moldable exceptions are just objects augmented with annotated methods that create alternative views and actions when they are used to spawn a moldable debugger.
 The only changes needed to an application are:
@@ -762,7 +782,7 @@ The precise extension method will depend on the language technology available.
 %\on{Can you write a paragraph explaining this?}
 
 % ============================================================
-\section{Related work}\label{sec:related}
+\section{Related Work}\label{sec:related}
 
 %\rA{* Some aspects of this work seem to be closely related to probes as implemented in [1]. Although this is not about moldability as such, it is also a lightweight way of extending the debugger (and may help in similar situations, e.g., when run-time stack does not give useful information). Relatedly, could moldable exceptions be used to generate more accurate call stack information in asynchronous code? (This seems to be a common issue in JavaScript or C\# that explicitly collect "async call stack" to improve this aspect of debugging.)}
 
@@ -880,9 +900,9 @@ The trouble with this is that every debugging problem is different, but debugger
 Our key contribution is to show how a debugger can be dynamically molded with custom views and actions that depend on the specific exception raised.
 The mechanism is lightweight, and many useful extensions can be defined with minimal implementation effort.
 
-%\begin{acks}
-%Many thanks to Alexandre Bergel, Steven Costiou, and Timo Kehrer for their reviews of a draft of this paper.
-%\end{acks}
+\begin{acks}
+Many thanks to Alexandre Bergel, Steven Costiou, and Timo Kehrer for their reviews of a draft of this paper.
+\end{acks}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{moldableExceptions}
