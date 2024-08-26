@@ -1,6 +1,34 @@
+%
 % Modeled after sample-sigplan.tex
-%\documentclass[sigplan,anonymous,review,10pt]{acmart}
-\documentclass[sigplan,screen]{acmart}
+%
+\documentclass[sigplan,screen]{acmart} % CAMERA-READY
+%
+%\documentclass[sigplan,anonymous,review,10pt]{acmart} % REVIEW version
+%
+% PREPRINT version -- see https://www.micahsmith.com/blog/2021/02/sharing-a-preprint-using-acmart/
+% \documentclass[acmsmall,screen,authorversion,nonacm]{acmart} % PREPRINT
+%
+% ============================================================
+% uses the microtype package using \usepackage{microtype} for improved typesetting
+\usepackage{microtype}
+% ============================================================
+\input{macros}
+\input{st80.tex}
+% ============================================================
+\newboolean{preprint}
+%\setboolean{preprint}{true}
+\setboolean{preprint}{false}
+\ifthenelse{\boolean{preprint}}{
+% FOR PREPRINT
+\usepackage{fancyhdr}
+\AtBeginDocument{%
+    \addtolength{\footskip}{2.0\baselineskip}%
+    \fancyfoot[L]{\textit{\textbf{Preprint version.}}}%
+}
+}{
+% FOR CAMERA-READY
+}
+% ============================================================
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
   \providecommand\BibTeX{{%
@@ -12,12 +40,6 @@
 %% These commands are for a PROCEEDINGS abstract or paper.
 \acmConference[Onward!]{Onward!}{Oct.\ 20-25, 2024}{Pasadena, CA}
 \acmISBN{978-1-4503-XXXX-X/18/06}
-% ============================================================
-% uses the microtype package using \usepackage{microtype} for improved typesetting
-\usepackage{microtype}
-% ============================================================
-\input{macros}
-\input{st80.tex}
 % ============================================================
 % Macros for this paper
 \newcommand*{\smallimg}[1]{%
