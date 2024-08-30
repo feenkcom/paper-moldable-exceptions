@@ -6,7 +6,7 @@
 %\documentclass[sigplan,anonymous,review,10pt]{acmart} % REVIEW version
 %
 % PREPRINT version -- see https://www.micahsmith.com/blog/2021/02/sharing-a-preprint-using-acmart/
-% \documentclass[acmsmall,screen,authorversion,nonacm]{acmart} % PREPRINT
+%\documentclass[acmsmall,screen,authorversion,nonacm]{acmart} % PREPRINT
 %
 % ============================================================
 % uses the microtype package using \usepackage{microtype} for improved typesetting
@@ -18,15 +18,13 @@
 \newboolean{preprint}
 %\setboolean{preprint}{true}
 \setboolean{preprint}{false}
-\ifthenelse{\boolean{preprint}}{
-% FOR PREPRINT
-\usepackage{fancyhdr}
-\AtBeginDocument{%
-    \addtolength{\footskip}{2.0\baselineskip}%
-    \fancyfoot[L]{\textit{\textbf{Preprint version.}}}%
-}
-}{
-% FOR CAMERA-READY
+\ifthenelse{\boolean{preprint}}{% FOR PREPRINT
+%\usepackage{fancyhdr}
+%\AtBeginDocument{%
+%    \addtolength{\footskip}{2.0\baselineskip}%
+%    \fancyfoot[L]{\textit{\textbf{Preprint version.}}}%
+%}
+}{% FOR CAMERA-READY
 }
 % ============================================================
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -73,7 +71,12 @@
 \newcommand\deet{{\tt deet}\xspace}
 % ============================================================
 \begin{document}
+\ifthenelse{\boolean{preprint}}{% FOR PREPRINT
+\title[Moldable Exceptions --- preprint]{Moldable Exceptions}\thanks{Preprint of paper presented at Onward!, Pasadena, CA, Oct.\ 20-25, 2024.}
+}{% FOR CAMERA-READY
 \title{Moldable Exceptions}
+}
+
 \author{Andrei Chi\c{s}}
 \affiliation{%
   \institution{feenk gmbh}
