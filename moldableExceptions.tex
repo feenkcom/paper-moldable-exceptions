@@ -36,8 +36,11 @@
 %%% 'Moldable Exceptions'
 %%% by Andrei Chiş, Tudor Gîrba, and Oscar Nierstrasz.
 %%%
-\setcopyright{ACMUNKNOWN} % Required by author instructions
-%\setcopyright{acmlicensed}
+\ifthenelse{\boolean{preprint}}{% FOR PREPRINT
+\setcopyright{acmlicensed}
+}{% FOR CAMERA-READY
+\setcopyright{ACMUNKNOWN} % Required by author instructions; ignore error and proceed.
+}
 \acmDOI{10.1145/3689492.3690044}
 \acmYear{2024}
 \copyrightyear{2024}
