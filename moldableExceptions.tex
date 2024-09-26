@@ -36,11 +36,7 @@
 %%% 'Moldable Exceptions'
 %%% by Andrei Chiş, Tudor Gîrba, and Oscar Nierstrasz.
 %%%
-\ifthenelse{\boolean{preprint}}{% FOR PREPRINT
 \setcopyright{acmlicensed}
-}{% FOR CAMERA-READY
-\setcopyright{ACMUNKNOWN} % Required by author instructions; ignore error and proceed.
-}
 \acmDOI{10.1145/3689492.3690044}
 \acmYear{2024}
 \copyrightyear{2024}
@@ -388,7 +384,7 @@ The key difference is that not every \st{AssertionFailure} is raised as the resu
 For this reason, in line $6$, the view will be suppressed (\st{^ aView empty}) in case the assertion did \emph{not} fail in the context of an \st{assert:equals:} check.
 
 % ============================================================
-\section{Building Domain-specific Debugger Views}\label{sec:interactions}
+\section{Building Domain-Specific Debugger Views}\label{sec:interactions}
 
 %\rB{* (l. 416…) Section 4 built around “GT Scripter” felt a little out of place compared to the text until then and should be revised.}
 %\on{Not sure what is needed.}
@@ -749,9 +745,9 @@ Transformations can apply code changes, modify the state of objects, or perform 
 TGtMoldableExceptionSignalWithTransformation>>signal
 	<debuggerCompleteToSender>
 	| transformation |
-	self canApplyAutomaticTransformation ifFalse: [ ^ super signal ].
+	self canApplyAutomaticTransformation ifFalse: [^super signal].
 	transformation := self gtMoldableExceptionTransformation.
-	transformation shouldTransform ifFalse: [ ^ super signal ].
+	transformation shouldTransform ifFalse: [^super signal].
 	transformation performTransformation
 \end{code}
 
