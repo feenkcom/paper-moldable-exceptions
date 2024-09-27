@@ -1,7 +1,15 @@
-This is the repo for a draft paper on *Moldable Exceptions* to be submitted to [Onward! 2024](https://2024.splashcon.org/track/splash-2024-Onward-papers#Call-for-Papers).
+# README
+
+This is the repo for a paper on *Moldable Exceptions* accepted to [Onward! 2024](https://2024.splashcon.org/track/splash-2024-Onward-papers#Call-for-Papers).
 The repo contains not only the LaTeX source code, but also GT examples and Lepiter pages of notes.
 
-## Installation
+Preprint available on [arXiv (PDF)](https://arxiv.org/pdf/2409.00465).
+
+ArXiv DOI: [10.48550/arXiv.2409.00465](https://doi.org/10.48550/arXiv.2409.00465)
+
+ACM DOI: [10.1145/3689492.3690044](https://doi.org/10.1145/3689492.3690044)
+
+## GT Installation
 
 ```
 Metacello new
@@ -10,12 +18,6 @@ Metacello new
 	load.
 #BaselineOfPaperMoldableExceptions asClass loadLepiter.
 ```
-
-Preprint available on [arXiv (PDF)](https://arxiv.org/pdf/2409.00465).
-
-ArXiv DOI: [10.48550/arXiv.2409.00465](https://doi.org/10.48550/arXiv.2409.00465)
-
-ACM DOI: [10.1145/3689492.3690044](https://doi.org/10.1145/3689492.3690044)
 
 # Title
 
